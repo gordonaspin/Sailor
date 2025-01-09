@@ -59,14 +59,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("locationManager: location updated")
+        //print("locationManager: location updated")
         if let location = locations.last {
             self.speed = location.speed > 0 ? location.speed : 0.0
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("localManager: heading updated")
+        //print("localManager: heading updated")
         self.heading = Int(newHeading.magneticHeading)
     }
 }

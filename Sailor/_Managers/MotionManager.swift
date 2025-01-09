@@ -26,7 +26,7 @@ class MotionManager: NSObject, ObservableObject {
             motionManager.deviceMotionUpdateInterval = 0.2
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
                 guard let self = self, let motion = motion else { return }
-                print("motionManager: motion update")
+                //print("motionManager: motion update")
                 let gravity = motion.gravity
                 let xTiltAngle = atan2(sqrt(gravity.y * gravity.y + gravity.z * gravity.z), gravity.x) * (180 / .pi)
                 let yTiltAngle = atan2(sqrt(gravity.x * gravity.x + gravity.z * gravity.z), gravity.y) * (180 / .pi)

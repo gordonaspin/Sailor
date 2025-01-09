@@ -23,10 +23,12 @@ class ViewSettings {
     }
 }
 
-class SpeedViewSettings: ViewSettings {
+class SpeedViewSettings: ViewSettings, ObservableObject {
     static var shared = SpeedViewSettings()
     var unitIndex: Int = 0
-    private let _units = ["kts", "mph", "m/s"]
+    let _units = ["kts", "mph", "m/s"]
+    let _conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
+
 
     override init() {
         super.init()
@@ -40,6 +42,17 @@ class SpeedViewSettings: ViewSettings {
     }
     func prevUnits() {
         unitIndex = (unitIndex - 1 + _units.count) % _units.count
+    }
+    func setIndex(units: String) {
+        switch(units) {
+            case "kts": unitIndex = 0
+            case "mph": unitIndex = 1
+            case "m/s": unitIndex = 2
+            default:     unitIndex = 0
+        }
+    }
+    func convertSpeed(speed: Double) -> Double {
+        return speed * _conversionFactors[unitIndex]
     }
 }
 

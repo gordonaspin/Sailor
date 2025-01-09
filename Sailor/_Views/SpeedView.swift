@@ -9,18 +9,27 @@ import SwiftUI
 
 struct SpeedView: View {
     @StateObject private var manager = LocationManager.shared
-    var settings = SpeedViewSettings.shared
-    
+    @StateObject private var settings = SpeedViewSettings.shared
+    @State private var isPickerPresented: Bool = false
+    @State private var selectedUnits: String = ""
+
     var body: some View {
             VStack() {
                 Text(settings.units)
                     .font(.title)
                     .foregroundColor(settings.color)
+                    .onChange(of: selectedUnits) {
+                        oldValue, newValue in
+                            settings.setIndex(units: newValue)
+                        }
                 
                 Text(convertedSpeed)
                     .font(.system(size: settings.fontSize).monospacedDigit())
                     .bold()
                     .foregroundColor(settings.color)
+                    .onTapGesture {
+                        isPickerPresented = true
+                    }
                     .swipe( up: {
                                 settings.nextUnits()
                             },
@@ -34,12 +43,14 @@ struct SpeedView: View {
                                 settings.nextColor()
                             })
             }
+            .sheet(isPresented: $isPickerPresented) {
+                SpeedUnitsPickerView(selectedUnits: $selectedUnits, items: settings._units)
+            }
     }
     
     private var convertedSpeed: String {
         print("updating speed")
-        let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
-        let convertedValue = manager.speed * conversionFactors[settings.unitIndex]
+        let convertedValue = settings.convertSpeed(speed: manager.speed)
         return String(format: "%.1f", convertedValue)
     }
 }
