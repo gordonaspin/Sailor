@@ -42,6 +42,4 @@ struct SpeedUnitsPickerView: View {
         }
     }
     return Preview()
-    
-    ()
 }
