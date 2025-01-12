@@ -16,17 +16,6 @@ struct PitchAngleView: View {
             Text("pitch")
                 .font(.title)
                 .foregroundColor(settings.color)
-                .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                    let orientation = UIDevice.current.orientation.rawValue
-                    let orientationName = getOrientation(orientation: orientation)
-                    if UIDevice.current.orientation.isValidInterfaceOrientation
-                    {
-                        print("PitchAngleView: \(orientation) \(orientationName)")
-                    }
-                    else {
-                        print("PitchAngleView: invalid orientation \(orientation) \(orientationName)")
-                    }
-                }
             
             Text("\(convertedPitch, specifier: "%02d")º")  //°
                 .font(.system(size: settings.fontSize).monospacedDigit())
@@ -42,13 +31,12 @@ struct PitchAngleView: View {
     }
 
     private var convertedPitch: Int {
-        print("updating pitch angle")
-        switch UIDevice.current.orientation.rawValue {
-        case 1: return manager.pitchAngle        // portrait
-        case 2: return manager.pitchAngle        // upside down
-        case 3: return manager.pitchAngle        // landscape right
-        case 4: return manager.pitchAngle        // landscape left
-        default: return manager.pitchAngle
+        switch UIDevice.current.orientation {
+            case .portrait:              return manager.pitchAngle
+            case .portraitUpsideDown:    return manager.pitchAngle
+            case .landscapeRight:        return manager.pitchAngle
+            case .landscapeLeft:         return manager.pitchAngle
+            default:                     return manager.pitchAngle
         }
     }
 }

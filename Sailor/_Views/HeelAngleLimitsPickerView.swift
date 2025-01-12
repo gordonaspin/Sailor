@@ -42,7 +42,6 @@ struct HeelAngleLimitsPickerView: View {
                     }
                 }
             }
-            //.navigationTitle(Text("Heel Angle"))
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
@@ -53,10 +52,6 @@ struct HeelAngleLimitsPickerView: View {
 #Preview {
     struct Preview: View {
         @StateObject private var settings = HeelAngleViewSettings()
-        //@State private var optimumHeelAngle: Int = 0
-        //@State private var underHeelText: String = ""
-        //@State private var overHeelText: String = ""
-
         var body: some View {
             HeelAngleLimitsPickerView(  optimumHeelAngle: $settings.optimumHeelAngle,
                                         underHeelAlarm: $settings.underHeelAlarm,

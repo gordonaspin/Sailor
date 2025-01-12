@@ -47,22 +47,16 @@ struct HeadingView: View {
         .sheet(isPresented: $isPickerPresented) {
             TrueOrMagneticHeadingPickerView(trueNorth: $settings.trueNorth)
         }
-        //.onChange(of: trueNorth) {
-        //    settings.trueNorth = trueNorth
-        //}
-        //.onAppear() {
-        //    trueNorth = settings.trueNorth
-        //}
     }
     
     private var convertedHeading: Int {
-        //print("update \(trueNorth ? "true" : "magnetic") heading")
         let heading: Int = settings.trueNorth ? manager.trueHeading : manager.magneticHeading
-        switch UIDevice.current.orientation.rawValue {
-            case 1: return heading
-            case 2: return abs(heading - 90) % 360
-            case 3: return (heading + 90) % 360
-            case 4: return (heading + 180) % 360
+
+        switch UIDevice.current.orientation {
+            case .portrait: return heading
+            case .portraitUpsideDown: return abs(heading - 90) % 360
+            case .landscapeRight: return (heading + 90) % 360
+            case .landscapeLeft: return (heading + 180) % 360
             default: return heading
         }
     }

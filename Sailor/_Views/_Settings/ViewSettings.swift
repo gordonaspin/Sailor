@@ -24,20 +24,14 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
     static var shared = SpeedViewSettings()
     let _units = ["knots", "mph", "m/s"]
     let _conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
-    @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int // Accessing the setting from UserDefaults
-    @AppStorage(wrappedValue: "knots", "preference_speedUnits") var speedUnits: String // Accessing the setting from UserDefaults
+    @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int
+    @AppStorage(wrappedValue: "knots", "preference_speedUnits") var speedUnits: String
 
-    //var speedUnits: String = ""
     override init() {
         super.init()
-        //unitIndex = 0
         print("SpeedViewSetting color: \(colorIndex) \(color)")
         print("SpeedViewSetting units: \(speedUnits)")
-        //speedUnits = _units[unitIndex]
     }
-    //var speedUnits: String {
-    //    return _units[unitIndex]
-    //}
     func nextUnits() {
         var unitIndex: Int = _units.firstIndex(of: speedUnits)!
         unitIndex = (unitIndex + 1) % _units.count
@@ -50,15 +44,14 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
     }
     func setUnits(units: String) {
         speedUnits = units
-        /*switch(units) {
-            case "kts": unitIndex = 0
-            case "mph": unitIndex = 1
-            case "m/s": unitIndex = 2
-            default:     unitIndex = 0
-        }*/
     }
     func convertSpeed(speed: Double) -> Double {
-        return speed * _conversionFactors[_units.firstIndex(of: speedUnits)!]
+        if let i = _units.firstIndex(of: speedUnits) {
+            return speed * _conversionFactors[i]
+        }
+        else {
+            return 0.0
+        }
     }
     var color: Color {
         return colors[colorIndex]
@@ -73,10 +66,9 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
 
 class HeadingViewSettings: ViewSettings, ColorProtocol {
     static var shared = HeadingViewSettings()
-    @AppStorage(wrappedValue: 3, "preference_headingColor") var colorIndex: Int // Accessing the setting from UserDefaults
+    @AppStorage(wrappedValue: 3, "preference_headingColor") var colorIndex: Int
     @AppStorage(wrappedValue: false, "preference_trueNorth") var trueNorth: Bool
     
-    //var trueNorth: Bool = false
     override init() {
         super.init()
         print("HeadingViewSetting color: \(colorIndex) \(color)")
@@ -95,13 +87,11 @@ class HeadingViewSettings: ViewSettings, ColorProtocol {
 
 class HeelAngleViewSettings: ViewSettings, ColorProtocol {
     static var shared = HeelAngleViewSettings()
-    @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int // Accessing the setting from UserDefaults
-    @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int // Accessing the setting from UserDefaults
-    @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String // Accessing the setting from UserDefaults
-    @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String // Accessing the setting from UserDefaults
-    @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int // Accessing the setting from UserDefaults
-
-    //var colorIndex: Int = 1
+    @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
+    @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int
+    @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String
+    @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String
+    @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int
     var currentColorIndex: Int = 1
     
     override init() {
@@ -136,14 +126,11 @@ class HeelAngleViewSettings: ViewSettings, ColorProtocol {
     var color: Color {
         return colors[currentColorIndex]
     }
-    //var optimumHeelAngle: Int {
-    //    return optimumHeelAngle
-    //}
 }
 
 class PitchAngleViewSettings: ViewSettings, ColorProtocol {
     static var shared = PitchAngleViewSettings()
-    @AppStorage(wrappedValue: 4, "preference_pitchColor") var colorIndex: Int // Accessing the setting from UserDefaults
+    @AppStorage(wrappedValue: 4, "preference_pitchColor") var colorIndex: Int
 
     override init() {
         super.init()

@@ -9,8 +9,8 @@ import SwiftUI
 
 
 struct TrueOrMagneticHeadingPickerView: View {
-    @Binding var trueNorth: Bool
     @Environment(\.presentationMode) var presentationMode
+    @Binding var trueNorth: Bool
 
     var body: some View {
         NavigationView {
