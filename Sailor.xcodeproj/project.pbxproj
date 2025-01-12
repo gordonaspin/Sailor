@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F87ED4E12D3181B50015A07A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F87ED4E02D3181B50015A07A /* Settings.bundle */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F8E680BF2D2F345F00859E1D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F87ED4E02D3181B50015A07A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F8E680AE2D2F345E00859E1D /* Sailor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sailor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E680BE2D2F345F00859E1D /* SailorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E680C82D2F345F00859E1D /* SailorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		F8E680A52D2F345E00859E1D = {
 			isa = PBXGroup;
 			children = (
+				F87ED4E02D3181B50015A07A /* Settings.bundle */,
 				F8E680B02D2F345E00859E1D /* Sailor */,
 				F8E680C12D2F345F00859E1D /* SailorTests */,
 				F8E680CB2D2F345F00859E1D /* SailorUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87ED4E12D3181B50015A07A /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

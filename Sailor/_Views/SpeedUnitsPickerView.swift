@@ -9,14 +9,14 @@ import SwiftUI
 
 
 struct SpeedUnitsPickerView: View {
-    @Binding var selectedUnits: String
+    @Binding var speedUnits: String
     let items: [String]
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
             Form {
-                Picker("Units", selection: $selectedUnits) {
+                Picker("Speed", selection: $speedUnits) {
                     ForEach(items, id: \.self) { item in
                         Text(item).tag(item)
                     }
@@ -26,20 +26,21 @@ struct SpeedUnitsPickerView: View {
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
-            .navigationTitle("Choose units")
+            //.navigationTitle("Choose units")
         }
     }
 }
 
 #Preview {
     struct Preview: View {
-        @State private var selectedUnits: String = ""
-
-        private var settings = SpeedViewSettings.shared
+        @StateObject private var settings = SpeedViewSettings.shared
+        @State private var speedUnits: String = "knots"
         var body: some View {
-            SpeedUnitsPickerView(selectedUnits: $selectedUnits, items: settings._units)
+            //SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings._units)
+            SpeedUnitsPickerView(speedUnits: $speedUnits, items: settings._units)
                 .preferredColorScheme(.dark)
         }
     }
     return Preview()
+
 }

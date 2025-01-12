@@ -9,33 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var manager = LocationManager.shared
-    @State private var fontSize: CGFloat = 128
     
     var body: some View {
         GeometryReader { geometry in
             if geometry.size.height > geometry.size.width {
                 VStack(alignment: .center, spacing: 0) {
                     SpeedView()
-                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(width: geometry.size.width, height: geometry.size.height/3.75)
-                    //Spacer()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     HeadingView()
-                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(width: geometry.size.width, height: geometry.size.height/3.75)
-
-                    //Spacer()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     HeelAngleView()
-                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(width: geometry.size.width, height: geometry.size.height/3.75)
-
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     PitchAngleView()
-                        //.frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(width: geometry.size.width, height: geometry.size.height/3.75)
-
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .background(Color.black)
-                .foregroundColor(.white)
-                .frame(width: geometry.size.width, height: geometry.size.height)
             }
             else {
                 VStack(alignment: .center, spacing: 0) {
@@ -70,6 +58,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        //.edgesIgnoringSafeArea(.all)
-
 }

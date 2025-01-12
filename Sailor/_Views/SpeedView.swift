@@ -11,17 +11,16 @@ struct SpeedView: View {
     @StateObject private var manager = LocationManager.shared
     @StateObject private var settings = SpeedViewSettings.shared
     @State private var isPickerPresented: Bool = false
-    @State private var selectedUnits: String = ""
+    //@State private var speedUnits: String = ""
 
     var body: some View {
             VStack() {
-                Text(settings.units)
+                Text(settings.speedUnits)
                     .font(.title)
                     .foregroundColor(settings.color)
-                    .onChange(of: selectedUnits) {
-                        oldValue, newValue in
-                            settings.setIndex(units: newValue)
-                        }
+                    //.onChange(of: speedUnits) {
+                    //    settings.setIndex(units: speedUnits)
+                    //    }
                 
                 Text(convertedSpeed)
                     .font(.system(size: settings.fontSize).monospacedDigit())
@@ -44,8 +43,11 @@ struct SpeedView: View {
                             })
             }
             .sheet(isPresented: $isPickerPresented) {
-                SpeedUnitsPickerView(selectedUnits: $selectedUnits, items: settings._units)
+                SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings._units)
             }
+            //.onAppear {
+            //    speedUnits = settings.units
+            //}
     }
     
     private var convertedSpeed: String {
@@ -57,7 +59,7 @@ struct SpeedView: View {
 
 #Preview {
     struct Preview: View {
-        private var settings = SpeedViewSettings.shared
+        @StateObject private var settings = SpeedViewSettings.shared
         var body: some View {
             SpeedView()
                 .preferredColorScheme(.dark)

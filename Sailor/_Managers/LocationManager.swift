@@ -12,14 +12,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
     
     @Published var speed: Double = 0.0
-    @Published var heading: Int = 0
+    @Published var trueHeading: Int = 0
+    @Published var magneticHeading: Int = 0
 
     private var locationManager = CLLocationManager()
 
     private override init() {
-        print("MotionalAndLocationManager init calling super")
+        print("LocationManager init calling super")
         super.init()
-        print("MotionalAndLocationManager calling setupLocationManager")
+        print("LocationManager calling setupLocationManager")
         setupLocationManager()
     }
 
@@ -67,6 +68,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         //print("localManager: heading updated")
-        self.heading = Int(newHeading.magneticHeading)
+        self.magneticHeading = Int(newHeading.magneticHeading)
+        self.trueHeading = Int(newHeading.trueHeading)
     }
 }
