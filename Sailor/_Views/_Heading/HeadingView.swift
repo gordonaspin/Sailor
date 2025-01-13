@@ -45,7 +45,7 @@ struct HeadingView: View {
                         })
         }
         .sheet(isPresented: $isPickerPresented) {
-            TrueOrMagneticHeadingPickerView(trueNorth: $settings.trueNorth)
+            TrueOrMagneticHeadingPickerView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex)
         }
     }
     

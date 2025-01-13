@@ -13,8 +13,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $manager.mapRegion, showsUserLocation: true)
-                .edgesIgnoringSafeArea(.all)
+            Map(position: $manager.userPosition, bounds: manager.mapBounds) {
+            }
+            .edgesIgnoringSafeArea(.all)
             GeometryReader { geometry in
                 if geometry.size.height > geometry.size.width {
                     VStack(alignment: .center, spacing: 0) {

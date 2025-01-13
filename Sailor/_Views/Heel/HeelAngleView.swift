@@ -38,7 +38,9 @@ struct HeelAngleView: View {
         .sheet(isPresented: $isPickerPresented) {
             HeelAngleLimitsPickerView(  optimumHeelAngle: $settings.optimumHeelAngle,
                                         underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm)
+                                        overHeelAlarm: $settings.overHeelAlarm,
+                                        colorIndex: $settings.colorIndex,
+                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex)
         }
         .onReceive(timer) {
             _ in

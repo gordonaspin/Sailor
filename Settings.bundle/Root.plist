@@ -213,6 +213,8 @@
 			<string>Under heel alarm:</string>
 			<key>Key</key>
 			<string>preference_underHeelAlarm</string>
+			<key>DefaultValue</key>
+			<string>The boat is too flat</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -221,6 +223,8 @@
 			<string>Over heel alarm:</string>
 			<key>Key</key>
 			<string>preferences_overHeelAlarm</string>
+			<key>DefaultValue</key>
+			<string>Too much heel</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -7,11 +7,13 @@
 
 import CoreLocation
 import MapKit
+import _MapKit_SwiftUI
 
-struct IdentifiableLocation: Identifiable {
-    let id: UUID
-    let coordinate: CLLocationCoordinate2D
-}
+//struct IdentifiableLocation: Identifiable {
+//    let id: UUID
+//    let coordinate: CLLocationCoordinate2D/
+//}
+
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
@@ -19,11 +21,18 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var speed: Double = 0.0
     @Published var trueHeading: Int = 0
     @Published var magneticHeading: Int = 0
-    @Published var mapRegion = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-    )
-    @Published var userLocation: IdentifiableLocation?
+    //@Published var mapRegion = MKCoordinateRegion(
+    //    center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
+    //    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    //)
+    //@Published var mapBounds = MapCameraBounds(centerCoordinateBounds: MKCoordinateRegion(
+    //    center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
+    //    span: MKCoordinateSpan(latitudeDelta: 1000, longitudeDelta: 1000)
+    //))
+    @Published var mapBounds: MapCameraBounds?
+
+    //@Published var userLocation: IdentifiableLocation?
+    @Published var userPosition: MapCameraPosition = .automatic
 
     private var locationManager = CLLocationManager()
 
@@ -74,10 +83,27 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         if let location = locations.last {
             self.speed = location.speed > 0 ? location.speed : 0.0
             DispatchQueue.main.async {
-                self.userLocation = IdentifiableLocation(id: UUID(), coordinate: location.coordinate)
-                self.mapRegion = MKCoordinateRegion(
-                    center: location.coordinate,
-                    span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                //self.userLocation = IdentifiableLocation(id: UUID(), coordinate: location.coordinate)
+                self.userPosition = .userLocation(fallback: .automatic)
+                //self.mapRegion = MKCoordinateRegion(
+                //    center: location.coordinate,
+                //    span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+                //self.mapBounds = MapCameraBounds(centerCoordinateBounds: MKCoordinateRegion(
+                //    center: location.coordinate,
+                //    span: MKCoordinateSpan(latitudeDelta: 1000, longitudeDelta: 1000)), minimumDistance: 5000, maximumDistance: 5000)
+                let center = location.coordinate
+                let regionRadius: CLLocationDistance = 16093.4 // 10 miles in meters
+
+                let region = MKCoordinateRegion(
+                 center: center,
+                 latitudinalMeters: regionRadius * 2,
+                 longitudinalMeters: regionRadius * 2
+                )
+
+                self.mapBounds = MapCameraBounds(
+                 centerCoordinateBounds: region,
+                 minimumDistance: nil,
+                 maximumDistance: nil
                 )
             }
         }

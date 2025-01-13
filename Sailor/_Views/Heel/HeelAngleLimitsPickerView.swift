@@ -12,6 +12,8 @@ struct HeelAngleLimitsPickerView: View {
     @Binding var optimumHeelAngle: Int
     @Binding var underHeelAlarm: String
     @Binding var overHeelAlarm: String
+    @Binding var colorIndex: Int
+    @Binding var optimumHeelColorIndex: Int
 
     private let selectionOptions = [10, 15, 20]
     var body: some View {
@@ -41,7 +43,10 @@ struct HeelAngleLimitsPickerView: View {
                         Text("Over heel alarm:")
                     }
                 }
+                ColorPickerView(title: "Heel Color", selectedColor: $colorIndex)
+                ColorPickerView(title: "Optimum Heel Color", selectedColor: $optimumHeelColorIndex)
             }
+            .navigationTitle("Heel")
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
@@ -55,7 +60,9 @@ struct HeelAngleLimitsPickerView: View {
         var body: some View {
             HeelAngleLimitsPickerView(  optimumHeelAngle: $settings.optimumHeelAngle,
                                         underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm)
+                                        overHeelAlarm: $settings.overHeelAlarm,
+                                        colorIndex: $settings.colorIndex,
+                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex)
 
             }
         }

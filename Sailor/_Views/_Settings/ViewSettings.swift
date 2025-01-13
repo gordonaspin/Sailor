@@ -15,7 +15,17 @@ protocol ColorProtocol {
 
 // ViewSettings Base Class
 class ViewSettings: ObservableObject {
-    let colors = [Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.purple, Color.gray]
+    //let colors = [Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.purple, Color.gray]
+    let colors: [(name: String, color: Color)] = [
+        ("White", Color.white),
+        ("Red", Color.red),
+        ("Green", Color.green),
+        ("Blue", Color.blue),
+        ("Yellow", Color.yellow),
+        ("Cyan", Color.cyan),
+        ("Purple", Color.purple),
+        ("Grey", Color.gray)
+    ]
     var fontSize: CGFloat = 128
 
 }
@@ -54,7 +64,7 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
         }
     }
     var color: Color {
-        return colors[colorIndex]
+        return colors[colorIndex].color
     }
     public func nextColor() {
         colorIndex = (colorIndex + 1) % colors.count
@@ -75,7 +85,7 @@ class HeadingViewSettings: ViewSettings, ColorProtocol {
         print("HeadingViewSetting trueNorth: \(trueNorth)")
     }
     var color: Color {
-        return colors[colorIndex]
+        return colors[colorIndex].color
     }
     public func nextColor() {
         colorIndex = (colorIndex + 1) % colors.count
@@ -121,10 +131,10 @@ class HeelAngleViewSettings: ViewSettings, ColorProtocol {
         currentColorIndex = colorIndex
     }
     var titleColor: Color {
-        return colors[colorIndex]
+        return colors[colorIndex].color
     }
     var color: Color {
-        return colors[currentColorIndex]
+        return colors[currentColorIndex].color
     }
 }
 
@@ -137,7 +147,7 @@ class PitchAngleViewSettings: ViewSettings, ColorProtocol {
         print("PitchAngleViewSetting color: \(colorIndex) \(color)")
     }
     var color: Color {
-        return colors[colorIndex]
+        return colors[colorIndex].color
     }
     public func nextColor() {
         colorIndex = (colorIndex + 1) % colors.count

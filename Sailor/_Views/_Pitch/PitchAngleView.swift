@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PitchAngleView: View {
     @StateObject private var manager = MotionManager.shared
-    private var settings = PitchAngleViewSettings.shared
+    @StateObject private var settings = PitchAngleViewSettings.shared
+    @State private var isPickerPresented: Bool = false
 
     var body: some View {
         VStack() {
@@ -21,12 +22,18 @@ struct PitchAngleView: View {
                 .font(.system(size: settings.fontSize).monospacedDigit())
                 .bold()
                 .foregroundColor(settings.color)
+                .onTapGesture {
+                    isPickerPresented = true
+                }
                 .swipe( left: {
                             settings.prevColor()
                         },
                         right: {
                             settings.nextColor()
                         })
+        }
+        .sheet(isPresented: $isPickerPresented) {
+            PitchAnglePickerView(colorIndex: settings.$colorIndex)
         }
     }
 
