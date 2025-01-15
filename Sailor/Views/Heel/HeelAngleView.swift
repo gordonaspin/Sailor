@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct HeelAngleView: View {
-    @StateObject private var manager = MotionManager.shared
+    @Environment(MotionManager.self) var motionManager
     @StateObject private var settings = HeelAngleViewSettings.shared
     @State private var isPickerPresented: Bool = false
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
@@ -40,7 +40,9 @@ struct HeelAngleView: View {
                                         underHeelAlarm: $settings.underHeelAlarm,
                                         overHeelAlarm: $settings.overHeelAlarm,
                                         colorIndex: $settings.colorIndex,
-                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex)
+                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                                        optimumHeelAngles: settings.optimumHeelAngles
+                                    )
         }
         .onReceive(timer) {
             _ in
@@ -56,11 +58,11 @@ struct HeelAngleView: View {
     private var convertedHeel: Int {
         var tilt: Int = 0
         switch UIDevice.current.orientation {
-            case .portrait:              tilt = manager.rollAngle
-            case .portraitUpsideDown:    tilt = manager.rollAngle
-            case .landscapeRight:        tilt = manager.yawAngle - 90
-            case .landscapeLeft:         tilt = 90 - manager.yawAngle
-            default: tilt = manager.rollAngle
+            case .portrait:              tilt = Int(motionManager.rollAngle)
+            case .portraitUpsideDown:    tilt = Int(motionManager.rollAngle)
+            case .landscapeRight:        tilt = Int(motionManager.yawAngle - 90)
+            case .landscapeLeft:         tilt = Int(90 - motionManager.yawAngle)
+            default: tilt = Int(motionManager.rollAngle)
         }
         if (abs(tilt) >= (settings.optimumHeelAngle - 5) && abs(tilt) <= (settings.optimumHeelAngle + 5)) {
             settings.setOptimumHeelColor()
@@ -74,10 +76,10 @@ struct HeelAngleView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeelAngleViewSettings.shared
         var body: some View {
             HeelAngleView()
-                .preferredColorScheme(.dark)
+                .environment(MotionManager())
+
         }
     }
     return Preview()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpeedView: View {
-    @StateObject private var manager = LocationManager.shared
+    @Environment(LocationManager.self) var locationManager
     @StateObject private var settings = SpeedViewSettings.shared
     @State private var isPickerPresented: Bool = false
 
@@ -39,7 +39,7 @@ struct SpeedView: View {
                             })
             }
             .sheet(isPresented: $isPickerPresented) {
-                SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings._units, colorIndex: settings.$colorIndex)
+                SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: settings.$colorIndex)
             }
             .onChange(of: settings.colorIndex) {
                 print("SpeedView: Color changed \(settings.color)")
@@ -47,17 +47,17 @@ struct SpeedView: View {
     }
     
     private var convertedSpeed: String {
-        let convertedValue = settings.convertSpeed(speed: manager.speed)
+        let convertedValue = settings.convertSpeed(speed: locationManager.speed)
         return String(format: "%.1f", convertedValue)
     }
 }
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = SpeedViewSettings.shared
         var body: some View {
             SpeedView()
-                .preferredColorScheme(.dark)
+                .environment(LocationManager())
+                .background(Color.black)
         }
     }
     return Preview()

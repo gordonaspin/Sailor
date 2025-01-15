@@ -27,10 +27,10 @@ import SwiftUI
 
 extension View {
     func swipe(
-        up: @escaping (() -> Void) = {},
-        down: @escaping (() -> Void) = {},
-        left: @escaping (() -> Void) = {},
-        right: @escaping (() -> Void) = {}
+        up:     @escaping (() -> Void) = {},
+        down:   @escaping (() -> Void) = {},
+        left:   @escaping (() -> Void) = {},
+        right:  @escaping (() -> Void) = {}
     ) -> some View {
         return self.gesture(DragGesture(minimumDistance: 10, coordinateSpace: .local)
             .onEnded({

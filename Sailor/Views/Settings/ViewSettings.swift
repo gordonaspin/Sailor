@@ -32,8 +32,8 @@ class ViewSettings: ObservableObject {
 
 class SpeedViewSettings: ViewSettings, ColorProtocol {
     static var shared = SpeedViewSettings()
-    let _units = ["knots", "mph", "m/s"]
-    let _conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
+    let units = ["knots", "mph", "m/s"]
+    let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
     @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int
     @AppStorage(wrappedValue: "knots", "preference_speedUnits") var speedUnits: String
 
@@ -43,21 +43,21 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
         print("SpeedViewSetting units: \(speedUnits)")
     }
     func nextUnits() {
-        var unitIndex: Int = _units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex + 1) % _units.count
-        speedUnits = _units[unitIndex]
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex + 1) % units.count
+        speedUnits = units[unitIndex]
     }
     func prevUnits() {
-        var unitIndex: Int = _units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex - 1 + _units.count) % _units.count
-        speedUnits = _units[unitIndex]
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex - 1 + units.count) % units.count
+        speedUnits = units[unitIndex]
     }
     func setUnits(units: String) {
         speedUnits = units
     }
     func convertSpeed(speed: Double) -> Double {
-        if let i = _units.firstIndex(of: speedUnits) {
-            return speed * _conversionFactors[i]
+        if let i = units.firstIndex(of: speedUnits) {
+            return speed * conversionFactors[i]
         }
         else {
             return 0.0
@@ -96,6 +96,8 @@ class HeadingViewSettings: ViewSettings, ColorProtocol {
 }
 
 class HeelAngleViewSettings: ViewSettings, ColorProtocol {
+    let optimumHeelAngles = [10, 15, 20]
+    
     static var shared = HeelAngleViewSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
     @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int

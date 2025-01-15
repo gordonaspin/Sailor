@@ -9,14 +9,26 @@ import SwiftUI
 
 @main
 struct SailorApp: App {
+    @State private var locationManager = LocationManager()
+    @State private var motionManager = MotionManager()
+
     init() {
         print("SaliorApp init")
-        // Force dark mode for the app
-        UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
     }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SailorView()
+                .onAppear() {
+                    print("SaliorApp ContentView onAppear")
+                    UIApplication.shared.isIdleTimerDisabled = true
+                }
+                .onDisappear() {
+                    UIApplication.shared.isIdleTimerDisabled = false
+                    locationManager.stopTracking()
+                }
+                .background(Color.black)
         }
+        .environment(locationManager)
+        .environment(motionManager)
     }
 }

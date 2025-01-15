@@ -8,36 +8,37 @@
 import SwiftUI
 
 
-struct TrueOrMagneticHeadingPickerView: View {
+struct SpeedUnitsPickerView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var trueNorth: Bool
+    @Binding var speedUnits: String
+    let items: [String]
     @Binding var colorIndex: Int
 
     var body: some View {
         NavigationView {
             Form {
-                Picker("Heading", selection: $trueNorth) {
-                    Text("True ").tag(true)
-                    Text(.init("Magnetic ")).tag(false)
+                Picker("Units", selection: $speedUnits) {
+                    ForEach(items, id: \.self) { item in
+                        Text(item).tag(item)
+                    }
                 }
                 .pickerStyle(InlinePickerStyle())
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
-
             }
-            .navigationTitle("Heading")
+            .navigationTitle("Speed")
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
             })
         }
     }
+
 }
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingViewSettings.shared
+        @StateObject private var settings = SpeedViewSettings.shared
         var body: some View {
-            TrueOrMagneticHeadingPickerView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex)
-                .preferredColorScheme(.dark)
+            SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: $settings.colorIndex)
         }
     }
     return Preview()

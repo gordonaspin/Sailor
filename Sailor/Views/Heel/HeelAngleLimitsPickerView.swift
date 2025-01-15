@@ -14,15 +14,15 @@ struct HeelAngleLimitsPickerView: View {
     @Binding var overHeelAlarm: String
     @Binding var colorIndex: Int
     @Binding var optimumHeelColorIndex: Int
-
-    private let selectionOptions = [10, 15, 20]
+    var optimumHeelAngles: [Int]
+    
     var body: some View {
         NavigationStack {
             List {
                 Picker("Optimum Heel Angle",
                        selection: $optimumHeelAngle,
                        content: {
-                    ForEach(selectionOptions, id: \.self) { number in
+                    ForEach(optimumHeelAngles, id: \.self) { number in
                         Text("\(number) degrees").tag(number)
                     }
                 })
@@ -62,7 +62,9 @@ struct HeelAngleLimitsPickerView: View {
                                         underHeelAlarm: $settings.underHeelAlarm,
                                         overHeelAlarm: $settings.overHeelAlarm,
                                         colorIndex: $settings.colorIndex,
-                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex)
+                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                                        optimumHeelAngles: settings.optimumHeelAngles
+                                        )
 
             }
         }

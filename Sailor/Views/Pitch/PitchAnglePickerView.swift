@@ -29,7 +29,6 @@ struct PitchAnglePickerView: View {
         @StateObject private var settings = PitchAngleViewSettings.shared
         var body: some View {
             PitchAnglePickerView( colorIndex: $settings.colorIndex)
-                .preferredColorScheme(.dark)
         }
     }
     return Preview()

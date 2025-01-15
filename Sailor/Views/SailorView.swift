@@ -8,14 +8,25 @@
 import SwiftUI
 import MapKit
 
-struct ContentView: View {
-    @StateObject private var manager = LocationManager.shared
-    
+struct SailorView: View {
+    @Environment(LocationManager.self) var locationManager
+    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+
     var body: some View {
         ZStack {
-            Map(position: $manager.userPosition, bounds: manager.mapBounds) {
+            Map(position: $cameraPosition) {
+                UserAnnotation()
             }
-            .edgesIgnoringSafeArea(.all)
+            .mapControls( {
+                MapCompass()
+                    .mapControlVisibility(.automatic)
+                MapScaleView()
+                    .mapControlVisibility(.visible)
+
+            })
+            .onChange(of: locationManager.trueHeading) {
+                cameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
+            }
             GeometryReader { geometry in
                 if geometry.size.height > geometry.size.width {
                     VStack(alignment: .center, spacing: 0) {
@@ -28,7 +39,6 @@ struct ContentView: View {
                         PitchAngleView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .background(Color.black.opacity(0.2))
                 }
                 else {
                     VStack(alignment: .center, spacing: 0) {
@@ -45,18 +55,7 @@ struct ContentView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
-                    .foregroundColor(.white)
-                    .background(Color.black.opacity(0.2))
                 }
-            }
-            .onAppear() {
-                print("SaliorApp ContentView onAppear")
-                UIApplication.shared.isIdleTimerDisabled = true
-                manager.requestAuthorization()
-            }
-            .onDisappear() {
-                UIApplication.shared.isIdleTimerDisabled = false
-                manager.stopTracking()
             }
         }
     }
@@ -64,12 +63,11 @@ struct ContentView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject var manager = LocationManager.shared
         var body: some View {
-            ContentView()
-                .preferredColorScheme(.dark)
+            SailorView()
+                .environment(LocationManager())
+                .environment(MotionManager())
         }
     }
     return Preview()
-
 }

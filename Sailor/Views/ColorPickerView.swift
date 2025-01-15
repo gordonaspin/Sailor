@@ -33,17 +33,13 @@ struct ColorPickerView: View {
 }
 
 #Preview {
-    
     struct Preview: View {
-        //let settings = ViewSettings()
         @State var selectedColor: Int = 0
         var body: some View {
             Form {
                 ColorPickerView(title: "Color", selectedColor: $selectedColor)
-                    .preferredColorScheme(.dark)
             }
         }
     }
     return Preview()
-
 }

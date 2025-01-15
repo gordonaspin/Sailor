@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeadingView: View {
-    @StateObject private var manager = LocationManager.shared
+    @Environment(LocationManager.self) var locationManager
     @StateObject private var settings = HeadingViewSettings.shared
     @State private var isPickerPresented: Bool = false
 
@@ -17,18 +17,6 @@ struct HeadingView: View {
             Text("\(settings.trueNorth ? "true" : "magnetic") heading")
                 .font(.title)
                 .foregroundColor(settings.color)
-                .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) {
-                    _ in
-                    let orientation = UIDevice.current.orientation.rawValue
-                    let orientationName = getOrientation(orientation: orientation)
-                    if UIDevice.current.orientation.isValidInterfaceOrientation
-                    {
-                        print("HeadingView: \(orientation) \(orientationName)")
-                    }
-                    else {
-                        print("HeadingView: invalid orientation \(orientation) \(orientationName)")
-                    }
-                }
             
             Text("\(convertedHeading, specifier: "%03d")º")
                 .font(.system(size: settings.fontSize).monospacedDigit())
@@ -50,13 +38,16 @@ struct HeadingView: View {
     }
     
     private var convertedHeading: Int {
-        let heading: Int = settings.trueNorth ? manager.trueHeading : manager.magneticHeading
-
+        let heading: Int = Int(settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         switch UIDevice.current.orientation {
-            case .portrait: return heading
-            case .portraitUpsideDown: return abs(heading - 90) % 360
-            case .landscapeRight: return (heading + 90) % 360
-            case .landscapeLeft: return (heading + 180) % 360
+            case .portrait:
+                return heading
+            case .portraitUpsideDown:
+                return abs(heading + 180) % 360
+            case .landscapeRight:
+                return (heading + 270) % 360
+            case .landscapeLeft:
+                return (heading + 90) % 360
             default: return heading
         }
     }
@@ -67,7 +58,7 @@ struct HeadingView: View {
         @StateObject private var settings = HeadingViewSettings.shared
         var body: some View {
             HeadingView()
-                .preferredColorScheme(.dark)
+                .environment(LocationManager())
         }
     }
     return Preview()

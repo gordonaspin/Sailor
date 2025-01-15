@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PitchAngleView: View {
-    @StateObject private var manager = MotionManager.shared
+    @Environment(MotionManager.self) var motionManager
     @StateObject private var settings = PitchAngleViewSettings.shared
     @State private var isPickerPresented: Bool = false
 
@@ -39,21 +39,20 @@ struct PitchAngleView: View {
 
     private var convertedPitch: Int {
         switch UIDevice.current.orientation {
-            case .portrait:              return manager.pitchAngle
-            case .portraitUpsideDown:    return manager.pitchAngle
-            case .landscapeRight:        return manager.pitchAngle
-            case .landscapeLeft:         return manager.pitchAngle
-            default:                     return manager.pitchAngle
+            case .portrait:              return Int(motionManager.pitchAngle)
+            case .portraitUpsideDown:    return Int(motionManager.pitchAngle)
+            case .landscapeRight:        return Int(motionManager.pitchAngle)
+            case .landscapeLeft:         return Int(motionManager.pitchAngle)
+            default:                     return Int(motionManager.pitchAngle)
         }
     }
 }
 
 #Preview {
     struct Preview: View {
-        private var settings = PitchAngleViewSettings.shared
         var body: some View {
             PitchAngleView()
-                .preferredColorScheme(.dark)
+                .environment(MotionManager())
         }
     }
     return Preview()
