@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeadingView: View {
     @Environment(LocationManager.self) var locationManager
-    @StateObject private var settings = HeadingViewSettings.shared
+    @StateObject private var settings = HeadingSettings.shared
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
@@ -33,7 +33,7 @@ struct HeadingView: View {
                         })
         }
         .sheet(isPresented: $isPickerPresented) {
-            TrueOrMagneticHeadingPickerView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex)
+            HeadingSettingsView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex, mapFollowsHeading: $settings.mapFollowsHeading)
         }
     }
     
@@ -55,7 +55,7 @@ struct HeadingView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingViewSettings.shared
+        @StateObject private var settings = HeadingSettings.shared
         var body: some View {
             HeadingView()
                 .environment(LocationManager())

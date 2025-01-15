@@ -1,5 +1,5 @@
 //
-//  SpeedUnitsPickerView.swift
+//  SpeedSettingsView.swift
 //  Sailor
 //
 //  Created by Gordon Aspin on 1/9/25.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct SpeedUnitsPickerView: View {
+struct SpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
     let items: [String]
@@ -36,9 +36,9 @@ struct SpeedUnitsPickerView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = SpeedViewSettings.shared
+        @StateObject private var settings = SpeedSetttings.shared
         var body: some View {
-            SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: $settings.colorIndex)
+            SpeedSettingsView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: $settings.colorIndex)
         }
     }
     return Preview()

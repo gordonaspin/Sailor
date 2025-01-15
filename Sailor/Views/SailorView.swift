@@ -10,6 +10,8 @@ import MapKit
 
 struct SailorView: View {
     @Environment(LocationManager.self) var locationManager
+    @StateObject private var settings = HeadingSettings.shared
+
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     var body: some View {
@@ -25,7 +27,7 @@ struct SailorView: View {
 
             })
             .onChange(of: locationManager.trueHeading) {
-                cameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
+                cameraPosition = .userLocation(followsHeading: settings.mapFollowsHeading, fallback: .automatic)
             }
             GeometryReader { geometry in
                 if geometry.size.height > geometry.size.width {
@@ -63,6 +65,7 @@ struct SailorView: View {
 
 #Preview {
     struct Preview: View {
+        @StateObject private var settings = HeadingSettings.shared
         var body: some View {
             SailorView()
                 .environment(LocationManager())

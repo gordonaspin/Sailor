@@ -1,5 +1,5 @@
 //
-//  SpeedUnitsPickerView.swift
+//  HeelAngleSettingsView.swift
 //  Sailor
 //
 //  Created by Gordon Aspin on 1/9/25.
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct HeelAngleLimitsPickerView: View {
+struct HeelAngleSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var optimumHeelAngle: Int
-    @Binding var underHeelAlarm: String
-    @Binding var overHeelAlarm: String
     @Binding var colorIndex: Int
     @Binding var optimumHeelColorIndex: Int
+    @Binding var optimumHeelAngle: Int
+    @Binding var speakHeelAlarms: Bool
+    @Binding var underHeelAlarm: String
+    @Binding var overHeelAlarm: String
     var optimumHeelAngles: [Int]
     
     var body: some View {
@@ -29,6 +30,7 @@ struct HeelAngleLimitsPickerView: View {
                 .pickerStyle(.inline)
                 
                 Section(header: Text("Heel Angle Alarms")) {
+                    Toggle("Speak Heel Alarms", isOn: $speakHeelAlarms)
                     LabeledContent {
                         TextField("Under Heel", text: $underHeelAlarm)
                             .lineLimit(2)
@@ -56,13 +58,15 @@ struct HeelAngleLimitsPickerView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeelAngleViewSettings()
+        @StateObject private var settings = HeelAngleSettings()
         var body: some View {
-            HeelAngleLimitsPickerView(  optimumHeelAngle: $settings.optimumHeelAngle,
-                                        underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm,
+            HeelAngleSettingsView(
                                         colorIndex: $settings.colorIndex,
                                         optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                                        optimumHeelAngle: $settings.optimumHeelAngle,
+                                        speakHeelAlarms: $settings.speakHeelAlarms,
+                                        underHeelAlarm: $settings.underHeelAlarm,
+                                        overHeelAlarm: $settings.overHeelAlarm,
                                         optimumHeelAngles: settings.optimumHeelAngles
                                         )
 

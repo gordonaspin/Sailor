@@ -13,8 +13,8 @@ protocol ColorProtocol {
     func prevColor()
 }
 
-// ViewSettings Base Class
-class ViewSettings: ObservableObject {
+// Settings Base Class
+class Settings: ObservableObject {
     //let colors = [Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.purple, Color.gray]
     let colors: [(name: String, color: Color)] = [
         ("White", Color.white),
@@ -31,8 +31,8 @@ class ViewSettings: ObservableObject {
 
 }
 
-class SpeedViewSettings: ViewSettings, ColorProtocol {
-    static var shared = SpeedViewSettings()
+class SpeedSetttings: Settings, ColorProtocol {
+    static var shared = SpeedSetttings()
     let units = ["knots", "mph", "m/s"]
     let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
     @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int
@@ -75,15 +75,17 @@ class SpeedViewSettings: ViewSettings, ColorProtocol {
     }
 }
 
-class HeadingViewSettings: ViewSettings, ColorProtocol {
-    static var shared = HeadingViewSettings()
+class HeadingSettings: Settings, ColorProtocol {
+    static var shared = HeadingSettings()
     @AppStorage(wrappedValue: 3, "preference_headingColor") var colorIndex: Int
     @AppStorage(wrappedValue: false, "preference_trueNorth") var trueNorth: Bool
-    
+    @AppStorage(wrappedValue: true, "preference_mapFollowsHeading") var mapFollowsHeading: Bool
+
     override init() {
         super.init()
         print("HeadingViewSetting color: \(colorIndex) \(color)")
         print("HeadingViewSetting trueNorth: \(trueNorth)")
+        print("HeadingViewSetting mapFollowsHeading: \(mapFollowsHeading)")
     }
     var color: Color {
         return colors[colorIndex].color
@@ -96,12 +98,13 @@ class HeadingViewSettings: ViewSettings, ColorProtocol {
     }
 }
 
-class HeelAngleViewSettings: ViewSettings, ColorProtocol {
+class HeelAngleSettings: Settings, ColorProtocol {
     let optimumHeelAngles = [10, 15, 20]
     
-    static var shared = HeelAngleViewSettings()
+    static var shared = HeelAngleSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
     @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int
+    @AppStorage(wrappedValue: true, "preference_speakHeelAlarms") var speakHeelAlarms: Bool
     @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String
     @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String
     @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int
@@ -112,9 +115,10 @@ class HeelAngleViewSettings: ViewSettings, ColorProtocol {
         currentColorIndex = colorIndex
         print("HeelAngleViewSetting colorIndex: \(colorIndex) \(color)")
         print("HeelAngleViewSetting optimumHeelColorIndex: \(optimumHeelColorIndex)")
+        print("HeelAngleViewSetting optimumHeelAngle: \(optimumHeelAngle)")
+        print("HeelAngleViewSetting speakHeelAlarms: \(speakHeelAlarms)")
         print("HeelAngleViewSetting underHeelAlarm: \(underHeelAlarm)")
         print("HeelAngleViewSetting overHeelAlarm: \(overHeelAlarm)")
-        print("HeelAngleViewSetting optimumHeelAngle: \(optimumHeelAngle)")
 
     }
     func setOptimumHeelColor() {
@@ -141,8 +145,8 @@ class HeelAngleViewSettings: ViewSettings, ColorProtocol {
     }
 }
 
-class PitchAngleViewSettings: ViewSettings, ColorProtocol {
-    static var shared = PitchAngleViewSettings()
+class PitchAngleSettings: Settings, ColorProtocol {
+    static var shared = PitchAngleSettings()
     @AppStorage(wrappedValue: 4, "preference_pitchColor") var colorIndex: Int
 
     override init() {

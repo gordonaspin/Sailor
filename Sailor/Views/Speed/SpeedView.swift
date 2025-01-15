@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SpeedView: View {
     @Environment(LocationManager.self) var locationManager
-    @StateObject private var settings = SpeedViewSettings.shared
+    @StateObject private var settings = SpeedSetttings.shared
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
@@ -39,7 +39,7 @@ struct SpeedView: View {
                             })
             }
             .sheet(isPresented: $isPickerPresented) {
-                SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: settings.$colorIndex)
+                SpeedSettingsView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: settings.$colorIndex)
             }
     }
     

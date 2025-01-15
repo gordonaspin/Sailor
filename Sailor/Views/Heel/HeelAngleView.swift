@@ -10,7 +10,7 @@ import AVFoundation
 
 struct HeelAngleView: View {
     @Environment(MotionManager.self) var motionManager
-    @StateObject private var settings = HeelAngleViewSettings.shared
+    @StateObject private var settings = HeelAngleSettings.shared
     @State private var isPickerPresented: Bool = false
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     let synthesizer = AVSpeechSynthesizer()
@@ -36,21 +36,25 @@ struct HeelAngleView: View {
                         })
         }
         .sheet(isPresented: $isPickerPresented) {
-            HeelAngleLimitsPickerView(  optimumHeelAngle: $settings.optimumHeelAngle,
-                                        underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm,
+            HeelAngleSettingsView(
                                         colorIndex: $settings.colorIndex,
                                         optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                                        optimumHeelAngle: $settings.optimumHeelAngle,
+                                        speakHeelAlarms: $settings.speakHeelAlarms,
+                                        underHeelAlarm: $settings.underHeelAlarm,
+                                        overHeelAlarm: $settings.overHeelAlarm,
                                         optimumHeelAngles: settings.optimumHeelAngles
                                     )
         }
         .onReceive(timer) {
             _ in
-            if (abs(convertedHeel) < settings.optimumHeelAngle - 5) {
-                synthesizer.speak(AVSpeechUtterance(string: settings.underHeelAlarm))
-            }
-            else if (abs(convertedHeel) > settings.optimumHeelAngle + 5) {
-                synthesizer.speak(AVSpeechUtterance(string: settings.overHeelAlarm))
+            if (settings.speakHeelAlarms) {
+                if (abs(convertedHeel) < settings.optimumHeelAngle - 5) {
+                    synthesizer.speak(AVSpeechUtterance(string: settings.underHeelAlarm))
+                }
+                else if (abs(convertedHeel) > settings.optimumHeelAngle + 5) {
+                    synthesizer.speak(AVSpeechUtterance(string: settings.overHeelAlarm))
+                }
             }
         }
     }

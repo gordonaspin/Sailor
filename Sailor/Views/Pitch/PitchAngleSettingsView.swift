@@ -1,5 +1,5 @@
 //
-//  PitchAnglePickerView.swift
+//  PitchAngleSettingsView.swift
 //  Sailor
 //
 //  Created by Gordon Aspin on 1/13/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PitchAnglePickerView: View {
+struct PitchAngleSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var colorIndex: Int
 
@@ -26,9 +26,9 @@ struct PitchAnglePickerView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = PitchAngleViewSettings.shared
+        @StateObject private var settings = PitchAngleSettings.shared
         var body: some View {
-            PitchAnglePickerView( colorIndex: $settings.colorIndex)
+            PitchAngleSettingsView( colorIndex: $settings.colorIndex)
         }
     }
     return Preview()

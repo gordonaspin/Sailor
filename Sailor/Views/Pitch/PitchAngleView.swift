@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PitchAngleView: View {
     @Environment(MotionManager.self) var motionManager
-    @StateObject private var settings = PitchAngleViewSettings.shared
+    @StateObject private var settings = PitchAngleSettings.shared
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
@@ -33,7 +33,7 @@ struct PitchAngleView: View {
                         })
         }
         .sheet(isPresented: $isPickerPresented) {
-            PitchAnglePickerView(colorIndex: settings.$colorIndex)
+            PitchAngleSettingsView(colorIndex: settings.$colorIndex)
         }
     }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct ColorPickerView: View {
     var title: String
     @Binding var selectedColor: Int
-    let settings = ViewSettings()
+    let settings = Settings()
     
     var body: some View {
         Picker(title, selection: $selectedColor) {
