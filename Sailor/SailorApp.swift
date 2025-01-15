@@ -19,7 +19,6 @@ struct SailorApp: App {
         WindowGroup {
             SailorView()
                 .onAppear() {
-                    print("SaliorApp ContentView onAppear")
                     UIApplication.shared.isIdleTimerDisabled = true
                 }
                 .onDisappear() {

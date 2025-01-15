@@ -24,7 +24,8 @@ class ViewSettings: ObservableObject {
         ("Yellow", Color.yellow),
         ("Cyan", Color.cyan),
         ("Purple", Color.purple),
-        ("Grey", Color.gray)
+        ("Grey", Color.gray),
+        ("Black", Color.black)
     ]
     var fontSize: CGFloat = 128
 

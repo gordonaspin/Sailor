@@ -41,9 +41,6 @@ struct SpeedView: View {
             .sheet(isPresented: $isPickerPresented) {
                 SpeedUnitsPickerView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: settings.$colorIndex)
             }
-            .onChange(of: settings.colorIndex) {
-                print("SpeedView: Color changed \(settings.color)")
-            }
     }
     
     private var convertedSpeed: String {
