@@ -17,17 +17,35 @@ struct SailorApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            SailorView()
-                .onAppear() {
-                    UIApplication.shared.isIdleTimerDisabled = true
-                }
-                .onDisappear() {
-                    UIApplication.shared.isIdleTimerDisabled = false
-                    locationManager.stopTracking()
-                }
-                .background(Color.black)
+            if (locationManager.isAuthorized) {
+                SailorView()
+                    .onAppear() {
+                        UIApplication.shared.isIdleTimerDisabled = true
+                    }
+                    .onDisappear() {
+                        UIApplication.shared.isIdleTimerDisabled = false
+                        locationManager.stopTracking()
+                    }
+                    .background(Color.black)
+            }
+            else {
+                LocationDeniedView()
+            }
         }
         .environment(locationManager)
         .environment(motionManager)
     }
 }
+
+#Preview {
+    struct Preview: View {
+        var body: some View {
+            LocationDeniedView()
+                .environment(LocationManager())
+                .environment(MotionManager())
+
+        }
+    }
+    return Preview()
+}
+

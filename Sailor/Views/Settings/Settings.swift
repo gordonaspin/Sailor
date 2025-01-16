@@ -15,7 +15,6 @@ protocol ColorProtocol {
 
 // Settings Base Class
 class Settings: ObservableObject {
-    //let colors = [Color.white, Color.red, Color.green, Color.blue, Color.yellow, Color.cyan, Color.purple, Color.gray]
     let colors: [(name: String, color: Color)] = [
         ("White", Color.white),
         ("Red", Color.red),
@@ -28,7 +27,6 @@ class Settings: ObservableObject {
         ("Black", Color.black)
     ]
     var fontSize: CGFloat = 128
-
 }
 
 class SpeedSetttings: Settings, ColorProtocol {
@@ -104,7 +102,7 @@ class HeelAngleSettings: Settings, ColorProtocol {
     static var shared = HeelAngleSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
     @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int
-    @AppStorage(wrappedValue: true, "preference_speakHeelAlarms") var speakHeelAlarms: Bool
+    @AppStorage(wrappedValue: false, "preference_speakHeelAlarms") var speakHeelAlarms: Bool
     @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String
     @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String
     @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int

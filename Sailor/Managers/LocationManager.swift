@@ -20,7 +20,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     override init() {
         super.init()
+        print("location manager initialized")
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         startLocationServices()
     }
     
@@ -67,6 +69,24 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         magneticHeading = newHeading.magneticHeading
         trueHeading = newHeading.trueHeading
         heading = newHeading
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print("location manager authorization changed \(manager.authorizationStatus)")
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            isAuthorized = true
+            startLocationServices()
+        case .notDetermined:
+            isAuthorized = false
+            manager.requestWhenInUseAuthorization()
+        case .denied:
+            isAuthorized = false
+            print("access denied")
+        default:
+            isAuthorized = true
+            startLocationServices()
+        }
     }
 }
 
