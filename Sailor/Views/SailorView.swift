@@ -27,7 +27,7 @@ struct SailorView: View {
 
             })
             .onChange(of: locationManager.heading) {
-                print("\(Date().toTimestamp) - onChange of heading \(locationManager.heading)")
+                print("\(Date().toTimestamp) - onChange of heading \(String(describing: locationManager.heading))")
                 cameraPosition = .userLocation(followsHeading: settings.mapFollowsHeading, fallback: .automatic)
             }
             GeometryReader { geometry in
