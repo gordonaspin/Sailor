@@ -23,6 +23,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         print("location manager initialized")
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
         startLocationServices()
     }
     
@@ -61,7 +62,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = locations.last
         if let location = locations.last {
-            speed = location.speed > 0 ? location.speed : 0.0
+            var newSpeed = location.speed > 0 ? location.speed : 0.0
+            newSpeed = round(newSpeed * 10) / 10
+            if (newSpeed != speed) {
+                speed = newSpeed
+            }
         }
     }
 
@@ -69,6 +74,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         magneticHeading = newHeading.magneticHeading
         trueHeading = newHeading.trueHeading
         heading = newHeading
+        print("\(Date().toTimestamp) location updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

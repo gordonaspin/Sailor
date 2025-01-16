@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+extension Date {
+
+    var toTimestamp: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd H:mm:ss.SSS"
+        return formatter.string(from: self)
+    }
+    
+    init(milliseconds:Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+}
+
 // swipe() extension on any view. Example:
 //    var body: some View {
 //    Text("Hello, World!")

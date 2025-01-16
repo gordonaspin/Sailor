@@ -60,6 +60,7 @@ struct HeelAngleView: View {
     }
     
     private var convertedHeel: Int {
+        print("\(Date().toTimestamp) - \(#function) motionManager.rollAngle: \(motionManager.rollAngle) motionManager.yawAngle: \(motionManager.yawAngle)")
         var tilt: Int = 0
         switch UIDevice.current.orientation {
             case .portrait:              tilt = Int(motionManager.rollAngle)

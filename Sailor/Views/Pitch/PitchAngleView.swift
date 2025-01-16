@@ -38,6 +38,7 @@ struct PitchAngleView: View {
     }
 
     private var convertedPitch: Int {
+        print("\(Date().toTimestamp) - \(#function) motionManager.pitchAngle: \(motionManager.pitchAngle)")
         switch UIDevice.current.orientation {
             case .portrait:              return Int(motionManager.pitchAngle)
             case .portraitUpsideDown:    return Int(motionManager.pitchAngle)

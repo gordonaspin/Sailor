@@ -18,7 +18,7 @@ struct SpeedView: View {
                     .font(.title)
                     .foregroundColor(settings.color)
                 
-                Text(convertedSpeed)
+                Text("\(convertedSpeed, specifier: "%.1f")")
                     .font(.system(size: settings.fontSize).monospacedDigit())
                     .bold()
                     .foregroundColor(settings.color)
@@ -43,9 +43,9 @@ struct SpeedView: View {
             }
     }
     
-    private var convertedSpeed: String {
-        let convertedValue = settings.convertSpeed(speed: locationManager.speed)
-        return String(format: "%.1f", convertedValue)
+    private var convertedSpeed: Double {
+        print("\(Date().toTimestamp) - \(#function) - \(locationManager.speed)")
+        return settings.convertSpeed(speed: locationManager.speed)
     }
 }
 

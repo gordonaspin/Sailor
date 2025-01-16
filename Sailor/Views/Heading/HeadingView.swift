@@ -38,6 +38,7 @@ struct HeadingView: View {
     }
     
     private var convertedHeading: Int {
+        print("\(Date().toTimestamp) - \(#function)")
         let heading: Int = Int(settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         switch UIDevice.current.orientation {
             case .portrait:
