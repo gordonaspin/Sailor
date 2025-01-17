@@ -66,15 +66,25 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             newSpeed = round(newSpeed * 10) / 10
             if (newSpeed != speed) {
                 speed = newSpeed
+                print("\(Date().toTimestamp) - \(#function) speed updated \(speed)")
             }
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        magneticHeading = newHeading.magneticHeading
-        trueHeading = newHeading.trueHeading
+        var newMagneticHeading = newHeading.magneticHeading
+        newMagneticHeading = round(newMagneticHeading)
+        if (newMagneticHeading != magneticHeading) {
+            magneticHeading = newMagneticHeading
+        }
+        
+        var newTrueHeading = newHeading.trueHeading
+        newTrueHeading = round(newTrueHeading)
+        if (newTrueHeading != trueHeading) {
+            trueHeading = newTrueHeading
+        }
         heading = newHeading
-        print("\(Date().toTimestamp) location updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
+        print("\(Date().toTimestamp) - \(#function) heading updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

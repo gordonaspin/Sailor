@@ -40,6 +40,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     var heading: CLHeading?
     var userLocation: CLLocation?
     var isAuthorized = false
+    ...
 }
 ```
 The properties of LocationManager are calculated within the LocationManager implementation and they are subscribed to by various Views within the application. This is achieved via injecting the LocationManager into the application environment by the SailorApp.
@@ -48,7 +49,7 @@ struct SailorApp: App {
     @State private var locationManager = LocationManager()
     ...
     var body: Some Scene {
-        WindGroup {
+        WindowGroup {
             ...
         }
         .environment(locationManager)
@@ -64,9 +65,9 @@ struct SpeedView: View {
         Text("\(convertedSpeed, specifier: "%.1f")")
         ...
     }
-}
-private var convertedSpeed: Double {
-    return settings.convertSpeed(speed: locationManager.speed)
+    private var convertedSpeed: Double {
+        return settings.convertSpeed(speed: locationManager.speed)
+    }
 }
 ```
 #### MotionManager
@@ -89,7 +90,7 @@ struct SailorApp: App {
         WindGroup {
             ...
         }
-        .environment(locationManager)
+        .environment(motionManager)
     }
 }
 ```
@@ -102,14 +103,15 @@ struct HeelAngleView: View {
         Text("\(convertedHeel, specifier: "%02d")º")
         ...
     }
-}
-private var convertedHeel: Int {
-    var tilt: Int = 0
-    switch UIDevice.current.orientation {
-        // calculate tilt based on orientation of device on 3 axes
-        ...
+
+    private var convertedHeel: Int {
+        var tilt: Int = 0
+        switch UIDevice.current.orientation {
+            // calculate tilt based on orientation of device on 3 axes
+            ...
+        }
+        return tilt
     }
-    return tilt
 }
 ```
 ### State
@@ -143,4 +145,53 @@ class HeelAngleSettings: Settings, ColorProtocol {
     @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int
     ...
 }
+```
+## Tweaks and Adjustments
+Both CoreLocation and CoreMotion deliver updates to location and movement frequently and to the Nth decimal place. While you can request for less accuracy and less frequest updates, I found it easier and more predictable to control when updates are published from locationManager and motionManager. I have no need for accuracy for heading, heel and pitch better than unit degrees, and no better than 1 decimal place for speed. Thus you see in locationManager rounding of speed and publishing only if the value has changed from the prior:
+```swift
+func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    userLocation = locations.last
+    if let location = locations.last {
+        var newSpeed = location.speed > 0 ? location.speed : 0.0
+        newSpeed = round(newSpeed * 10) / 10
+        if (newSpeed != speed) {
+            speed = newSpeed
+        }
+    }
+}
+```
+Similarly in MotionManager, only publish new Roll, Yaw and Pitch angles if they have changed:
+```swift
+    private func setupMotionManager() {
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.5
+            motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+                guard let self = self, let motion = motion else { return }
+                let gravity = motion.gravity
+                let xSquared = gravity.x * gravity.x
+                let ySquared = gravity.y * gravity.y
+                let zSquared = gravity.z * gravity.z
+                
+                let xTiltAngle: Double = atan2(sqrt(ySquared + zSquared), gravity.x) * (180 / .pi)
+                let yTiltAngle: Double = atan2(sqrt(xSquared + zSquared), gravity.y) * (180 / .pi)
+                let zTiltAngle: Double = atan2(sqrt(xSquared + ySquared), gravity.z) * (180 / .pi)
+                
+                // Reduce accuracy to 1 degree
+                let newRollAngle = 90.0 - round(xTiltAngle)
+                let newYawAngle = round(yTiltAngle)
+                let newPitchAngle = round(zTiltAngle) - 90.0
+                
+                // Don't publish new values if they have not changed
+                if (newRollAngle != self.rollAngle) {
+                    self.rollAngle = newRollAngle
+                }
+                if (newYawAngle != self.yawAngle) {
+                    self.yawAngle = newYawAngle
+                }
+                if (newPitchAngle != self.pitchAngle) {
+                    self.pitchAngle = newPitchAngle
+                }
+            }
+        }
+    }
 ```
