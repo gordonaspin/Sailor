@@ -81,7 +81,7 @@ class MotionManager {
     ...
 }
 ```
-The properties of MotionManager are calculated within the LocationManager implementation and they are subscribed to by various Views within the application. This is achieved via injecting the MotionManager into the application environment by the SailorApp.
+The properties of MotionManager are calculated within the MotionManager implementation and they are subscribed to by various Views within the application. This is achieved via injecting the MotionManager into the application environment by the SailorApp.
 ```swift
 struct SailorApp: App {
     @State private var MotionManager = MotionManager()
@@ -147,7 +147,7 @@ class HeelAngleSettings: Settings, ColorProtocol {
 }
 ```
 ## Tweaks and Adjustments
-Both CoreLocation and CoreMotion deliver updates to location and movement frequently and to the Nth decimal place. While you can request for less accuracy and less frequest updates, I found it easier and more predictable to control when updates are published from locationManager and motionManager. I have no need for accuracy for heading, heel and pitch better than unit degrees, and no better than 1 decimal place for speed. Thus you see in locationManager rounding of speed and publishing only if the value has changed from the prior:
+Both CoreLocation and CoreMotion deliver updates to location and movement frequently and to the Nth decimal place. While you can request for less accuracy and less frequent updates, I found it easier and more predictable to control when updates are published from locationManager and motionManager. I have no need for accuracy for heading, heel and pitch better than unit degrees, and no better than 1 decimal place for speed. Thus you see in locationManager rounding of speed and publishing only if the value has changed from the prior:
 ```swift
 func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     userLocation = locations.last
