@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SailorView: View {
-
     var body: some View {
         ZStack {
             MapView()

@@ -43,7 +43,6 @@ struct SailorApp: App {
             LocationDeniedView()
                 .environment(LocationManager())
                 .environment(MotionManager())
-
         }
     }
     return Preview()

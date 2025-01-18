@@ -84,7 +84,6 @@ struct HeelAngleView: View {
         var body: some View {
             HeelAngleView()
                 .environment(MotionManager())
-
         }
     }
     return Preview()
