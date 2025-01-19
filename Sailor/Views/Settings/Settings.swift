@@ -26,7 +26,7 @@ class Settings: ObservableObject {
         ("Grey", Color.gray),
         ("Black", Color.black)
     ]
-    var fontSize: CGFloat = 128.0+128.0-32.0
+    var fontSize: CGFloat = 128.0+64.0
 }
 
 class SpeedSetttings: Settings, ColorProtocol {
