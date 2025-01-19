@@ -13,34 +13,30 @@ struct SpeedView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-            VStack() {
-                Text(settings.speedUnits)
-                    .font(.title)
-                    .foregroundColor(settings.color)
-                
-                Text("\(convertedSpeed, specifier: "%.1f")")
-                    .font(.system(size: settings.fontSize).monospacedDigit())
-                    .bold()
-                    .foregroundColor(settings.color)
-                    .onTapGesture {
-                        isPickerPresented = true
-                    }
-                    .swipe( up: {
-                                settings.nextUnits()
-                            },
-                            down: {
-                                settings.prevUnits()
-                            },
-                            left: {
-                                settings.prevColor()
-                            },
-                            right: {
-                                settings.nextColor()
-                            })
+        InstrumentView(
+            widgetText: String(format: "%.1f", locationManager.speed), color: settings.color,
+            unitsText: settings.speedUnits,
+            unitsColor: settings.color,
+            fontSize: settings.fontSize
+        )
+        .onTapGesture {
+            isPickerPresented = true
+        }
+        .swipe(
+            left: {
+                settings.prevColor()
+            },
+            right: {
+                settings.nextColor()
             }
-            .sheet(isPresented: $isPickerPresented) {
-                SpeedSettingsView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: settings.$colorIndex)
-            }
+        )
+        .sheet(isPresented: $isPickerPresented) {
+            SpeedSettingsView(
+                speedUnits: settings.$speedUnits,
+                items: settings.units,
+                colorIndex: settings.$colorIndex
+            )
+        }
     }
     
     private var convertedSpeed: Double {

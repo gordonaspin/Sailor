@@ -26,15 +26,15 @@ class Settings: ObservableObject {
         ("Grey", Color.gray),
         ("Black", Color.black)
     ]
-    var fontSize: CGFloat = 128
+    var fontSize: CGFloat = 128.0+128.0-32.0
 }
 
 class SpeedSetttings: Settings, ColorProtocol {
     static var shared = SpeedSetttings()
-    let units = ["knots", "mph", "m/s"]
+    let units = ["KTS", "MPH", "M/S"]
     let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
     @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int
-    @AppStorage(wrappedValue: "knots", "preference_speedUnits") var speedUnits: String
+    @AppStorage(wrappedValue: "KTS", "preference_speedUnits") var speedUnits: String
 
     override init() {
         super.init()
@@ -75,7 +75,7 @@ class SpeedSetttings: Settings, ColorProtocol {
 
 class HeadingSettings: Settings, ColorProtocol {
     static var shared = HeadingSettings()
-    @AppStorage(wrappedValue: 3, "preference_headingColor") var colorIndex: Int
+    @AppStorage(wrappedValue: 5, "preference_headingColor") var colorIndex: Int
     @AppStorage(wrappedValue: false, "preference_trueNorth") var trueNorth: Bool
     @AppStorage(wrappedValue: true, "preference_mapFollowsHeading") var mapFollowsHeading: Bool
 

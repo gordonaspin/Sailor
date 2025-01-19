@@ -13,27 +13,28 @@ struct HeadingView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-        VStack() {
-            Text("\(settings.trueNorth ? "true" : "magnetic") heading")
-                .font(.title)
-                .foregroundColor(settings.color)
-            
-            Text("\(convertedHeading, specifier: "%03d")º")
-                .font(.system(size: settings.fontSize).monospacedDigit())
-                .bold()
-                .foregroundColor(settings.color)
-                .onTapGesture {
-                    isPickerPresented = true
-                }
-                .swipe( left: {
-                            settings.prevColor()
-                        },
-                        right: {
-                            settings.nextColor()
-                        })
+        InstrumentView(
+            widgetText: String(format: "%03d", convertedHeading),
+            color: settings.color,
+            unitsText: settings.trueNorth ? "TRU" : "MAG",
+            unitsColor: settings.color,
+            fontSize: settings.fontSize)
+        .onTapGesture {
+            isPickerPresented = true
         }
+        .swipe(
+            left: {
+                settings.prevColor()
+            },
+            right: {
+                settings.nextColor()
+            })
         .sheet(isPresented: $isPickerPresented) {
-            HeadingSettingsView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex, mapFollowsHeading: $settings.mapFollowsHeading)
+            HeadingSettingsView(
+                trueNorth: $settings.trueNorth,
+                colorIndex: $settings.colorIndex,
+                mapFollowsHeading: $settings.mapFollowsHeading
+            )
         }
     }
     

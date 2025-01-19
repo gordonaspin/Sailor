@@ -54,12 +54,12 @@
 			<key>Key</key>
 			<string>preference_speedUnits</string>
 			<key>DefaultValue</key>
-			<string>knots</string>
+			<string>KTS</string>
 			<key>Titles</key>
 			<array>
-				<string>knots</string>
-				<string>mph</string>
-				<string>m/s</string>
+				<string>KTS</string>
+				<string>MPH</string>
+				<string>M/S</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -82,7 +82,7 @@
 			<key>Key</key>
 			<string>preference_headingColor</string>
 			<key>DefaultValue</key>
-			<integer>3</integer>
+			<integer>5</integer>
 			<key>Titles</key>
 			<array>
 				<string>White</string>

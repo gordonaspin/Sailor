@@ -16,38 +16,34 @@ struct HeelAngleView: View {
     let synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
-        VStack() {
-            Text("heel")
-                .font(.title)
-                .foregroundColor(settings.titleColor)
-            
-            Text("\(convertedHeel, specifier: "%02d")º")
-                .font(.system(size: settings.fontSize).monospacedDigit())
-                .bold()
-                .foregroundColor(settings.color)
-                .onTapGesture {
-                    isPickerPresented = true
-                }
-                .swipe( left: {
-                            settings.prevColor()
-                        },
-                        right: {
-                            settings.nextColor()
-                        })
+        InstrumentView(
+            widgetText: convertedHeel > 0 ? String(format: "\u{25B8}%02d", convertedHeel) : String(format: "\u{25C2}%02d", abs(convertedHeel)),
+            color: settings.color,
+            unitsText: "HEEL",
+            unitsColor: settings.titleColor,
+            fontSize: settings.fontSize)
+        .onTapGesture {
+            isPickerPresented = true
         }
+        .swipe(
+            left: {
+                settings.prevColor()
+            },
+            right: {
+                settings.nextColor()
+            })
         .sheet(isPresented: $isPickerPresented) {
             HeelAngleSettingsView(
-                                        colorIndex: $settings.colorIndex,
-                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex,
-                                        optimumHeelAngle: $settings.optimumHeelAngle,
-                                        speakHeelAlarms: $settings.speakHeelAlarms,
-                                        underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm,
-                                        optimumHeelAngles: settings.optimumHeelAngles
-                                    )
+                colorIndex: $settings.colorIndex,
+                optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                optimumHeelAngle: $settings.optimumHeelAngle,
+                speakHeelAlarms: $settings.speakHeelAlarms,
+                underHeelAlarm: $settings.underHeelAlarm,
+                overHeelAlarm: $settings.overHeelAlarm,
+                optimumHeelAngles: settings.optimumHeelAngles
+            )
         }
-        .onReceive(timer) {
-            _ in
+        .onReceive(timer) { _ in
             if (settings.speakHeelAlarms) {
                 if (abs(convertedHeel) < settings.optimumHeelAngle - 5) {
                     synthesizer.speak(AVSpeechUtterance(string: settings.underHeelAlarm))

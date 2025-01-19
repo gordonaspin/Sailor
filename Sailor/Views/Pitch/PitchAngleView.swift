@@ -13,25 +13,23 @@ struct PitchAngleView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-        VStack() {
-            Text("pitch")
-                .font(.title)
-                .foregroundColor(settings.color)
-            
-            Text("\(convertedPitch, specifier: "%02d")º")  //°
-                .font(.system(size: settings.fontSize).monospacedDigit())
-                .bold()
-                .foregroundColor(settings.color)
-                .onTapGesture {
-                    isPickerPresented = true
-                }
-                .swipe( left: {
-                            settings.prevColor()
-                        },
-                        right: {
-                            settings.nextColor()
-                        })
+        InstrumentView(
+            widgetText: convertedPitch > 0 ? String(format: "\u{25BE}%02d", convertedPitch) : String(format: "\u{25B4}%02d", abs(convertedPitch)),
+            color: settings.color,
+            unitsText: "TRIM",
+            unitsColor: settings.color,
+            fontSize: settings.fontSize
+        )
+        .onTapGesture {
+                isPickerPresented = true
         }
+        .swipe(
+            left: {
+                settings.prevColor()
+            },
+            right: {
+                settings.nextColor()
+            })
         .sheet(isPresented: $isPickerPresented) {
             PitchAngleSettingsView(colorIndex: settings.$colorIndex)
         }

@@ -72,16 +72,14 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        var newMagneticHeading = newHeading.magneticHeading
-        newMagneticHeading = round(newMagneticHeading)
-        if (newMagneticHeading != magneticHeading) {
-            magneticHeading = newMagneticHeading
+        let newMagneticHeading: Int = Int(round(newHeading.magneticHeading)) % 360
+        if (Double(newMagneticHeading) != magneticHeading) {
+            magneticHeading = Double(newMagneticHeading)
         }
         
-        var newTrueHeading = newHeading.trueHeading
-        newTrueHeading = round(newTrueHeading)
-        if (newTrueHeading != trueHeading) {
-            trueHeading = newTrueHeading
+        let newTrueHeading: Int = Int(round(newHeading.trueHeading)) % 360
+        if (Double(newTrueHeading) != trueHeading) {
+            trueHeading = Double(newTrueHeading)
         }
         heading = newHeading
         print("\(Date().toTimestamp) - \(#function) heading updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
