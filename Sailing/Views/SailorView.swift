@@ -23,6 +23,7 @@ struct SailorView: View {
             SailorView()
                 .environment(LocationManager())
                 .environment(MotionManager())
+                .environment(WeatherManager())
         }
     }
     return Preview()
