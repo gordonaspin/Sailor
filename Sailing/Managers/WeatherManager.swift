@@ -23,9 +23,6 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
-
-        //locationManager.requestWhenInUseAuthorization()
-        //locationManager.startUpdatingLocation()
     }
     
     func startLocationServices() {
@@ -48,7 +45,6 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     func stopTracking() {
         print("\(Date().toTimestamp) -  \(#file) \(#function) stopping tracking")
         locationManager.stopUpdatingLocation()
-        locationManager.stopUpdatingHeading()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -62,7 +58,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         case .denied:
             isAuthorized = false
-            print("\(Date().toTimestamp) -  \(#file) access denied")
+            print("\(Date().toTimestamp) -  \(#file) \(#function) access denied")
         default:
             isAuthorized = true
             startLocationServices()
