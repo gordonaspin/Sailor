@@ -14,8 +14,10 @@ struct WindSpeedView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText: String(format: "%.1f", weatherManager.windSpeed), color: settings.color,
-            unitsText: settings.speedUnits,
+            instrumentName: "W.SPD",
+            instrumentValue: String(format: "%.1f", convertedSpeed),
+            color: settings.color,
+            instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )
@@ -50,6 +52,8 @@ struct WindSpeedView: View {
         var body: some View {
             WindSpeedView()
                 .environment(WeatherManager())
+                .background(Color.black)
+
         }
     }
     return Preview()

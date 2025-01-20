@@ -14,9 +14,10 @@ struct PitchAngleView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText: convertedPitch > 0 ? String(format: "\u{25BE}%02d", convertedPitch) : String(format: "\u{25B4}%02d", abs(convertedPitch)),
+            instrumentName: "TRIM",
+            instrumentValue: convertedPitch > 0 ? String(format: "\u{25BE}%02d", convertedPitch) : String(format: "\u{25B4}%02d", abs(convertedPitch)),
             color: settings.color,
-            unitsText: "TRIM",
+            instrumentUnits: "DEG",
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )

@@ -14,9 +14,10 @@ struct WindDirectionView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText:  String(format: "%03d", convertedWindDirection),
+            instrumentName: "W.DIR",
+            instrumentValue: String(format: "%03d", convertedWindDirection),
             color: settings.color,
-            unitsText: "",
+            instrumentUnits: "DEG",
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )

@@ -182,7 +182,7 @@ class WindDirectionSettings: Settings, ColorProtocol {
 }
 
 class WindSpeedSetttings: Settings, ColorProtocol {
-    static var shared = SpeedSetttings()
+    static var shared = WindSpeedSetttings()
     let units = ["KTS", "MPH", "KM/H"]
     let conversionFactors = [0.539957, 0.621371, 1.0] // from km/h
     @AppStorage(wrappedValue: 7, "preference_windSpeedColor") var colorIndex: Int

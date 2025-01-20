@@ -14,8 +14,10 @@ struct SpeedView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText: String(format: "%.1f", locationManager.speed), color: settings.color,
-            unitsText: settings.speedUnits,
+            instrumentName: "SPD",
+            instrumentValue: String(format: "%.1f", locationManager.speed),
+            color: settings.color,
+            instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )

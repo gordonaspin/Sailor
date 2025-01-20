@@ -8,28 +8,34 @@
 import SwiftUI
 
 struct InstrumentView: View {
-    var widgetText: String
+    var instrumentName: String
+    var instrumentValue: String
     var color: Color
-    var unitsText: String
+    var instrumentUnits: String
     var unitsColor: Color
     var fontSize: CGFloat
     
     var body: some View {
-        HStack(alignment: .firstTextBaseline) {
-            Text(widgetText)
+        HStack() {
+            Text(instrumentName)
+                .font(.body)
+                .bold()
+                .rotationEffect(Angle(degrees: -90))
+                .foregroundColor(unitsColor)
+            Spacer()
+            Text(instrumentValue)
                 .font(.system(size: fontSize).monospacedDigit())
                 .fontWidth(.compressed)
                 .bold()
                 .padding(.top, -40)
                 .padding(.bottom, -40)
                 .foregroundColor(color)
-            if !unitsText.isEmpty {
-                Text(unitsText)
-                    .font(.body)
-                    .foregroundColor(unitsColor)
-                    .bold()
-                    .padding(-16)
-            }
+            Spacer()
+            Text(instrumentUnits)
+                .rotationEffect(Angle(degrees: -90))
+                .font(.body)
+                .bold()
+                .foregroundColor(unitsColor)
         }
     }
 }
@@ -37,7 +43,7 @@ struct InstrumentView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            InstrumentView(widgetText: "122", color: Color.blue, unitsText: "KTS", unitsColor: Color.blue, fontSize: 200)
+            InstrumentView(instrumentName: "W.SPD", instrumentValue: "000", color: Color.blue, instrumentUnits: "KTS", unitsColor: Color.blue, fontSize: 200)
         }
     }
     return Preview()

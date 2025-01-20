@@ -23,7 +23,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
-        _ = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
+        _ = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { timer in
             self.startTracking()
         }
     }
@@ -72,14 +72,14 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         do {
             let weather = try await weatherManager.weather(for: location)
             let newWindSpeed = round((weather.currentWeather.wind.speed.value > 0 ? weather.currentWeather.wind.speed.value : 0.0) * 10) / 10
-            if (newWindSpeed != windSpeed) {
+            //if (newWindSpeed != windSpeed) {
                 windSpeed = newWindSpeed
-            }
+            //}
             
             let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
-            if (Double(newWindDirection) != windDirection) {
+            //if (Double(newWindDirection) != windDirection) {
                 windDirection = Double(newWindDirection)
-            }
+            //}
             print("\(Date().toTimestamp) -  \(#file) \(#function) weather updated windSpeed: \(windSpeed), windDirection: \(windDirection)")
         }
         catch {

@@ -17,11 +17,13 @@ struct HeelAngleView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText: convertedHeel > 0 ? String(format: "\u{25B8}%02d", convertedHeel) : String(format: "\u{25C2}%02d", abs(convertedHeel)),
+            instrumentName: "HEEL",
+            instrumentValue: convertedHeel > 0 ? String(format: "\u{25B8}%02d", convertedHeel) : String(format: "\u{25C2}%02d", abs(convertedHeel)),
             color: settings.color,
-            unitsText: "HEEL",
+            instrumentUnits: "DEG",
             unitsColor: settings.titleColor,
-            fontSize: settings.fontSize)
+            fontSize: settings.fontSize
+        )
         .onTapGesture {
             isPickerPresented = true
         }

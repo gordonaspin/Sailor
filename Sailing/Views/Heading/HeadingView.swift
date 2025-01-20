@@ -14,11 +14,13 @@ struct HeadingView: View {
 
     var body: some View {
         InstrumentView(
-            widgetText: String(format: "%03d", convertedHeading),
+            instrumentName: "HDG",
+            instrumentValue: String(format: "%03d", convertedHeading),
             color: settings.color,
-            unitsText: settings.trueNorth ? "TRU" : "MAG",
+            instrumentUnits: settings.trueNorth ? "TRUE" : "MAG",
             unitsColor: settings.color,
-            fontSize: settings.fontSize)
+            fontSize: settings.fontSize
+        )
         .onTapGesture {
             isPickerPresented = true
         }
