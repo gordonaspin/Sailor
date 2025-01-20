@@ -294,6 +294,108 @@
 				<string>8</string>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Wind Direction</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Wind Direction Color</string>
+			<key>Key</key>
+			<string>preference_windDirectionColor</string>
+			<key>DefaultValue</key>
+			<integer>7</integer>
+			<key>Titles</key>
+			<array>
+				<string>White</string>
+				<string>Red</string>
+				<string>Green</string>
+				<string>Blue</string>
+				<string>Yellow</string>
+				<string>Cyan</string>
+				<string>Purple</string>
+				<string>Grey</string>
+				<string>Black</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Wind Speed</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Wind Speed Color</string>
+			<key>Key</key>
+			<string>preference_windSpeedColor</string>
+			<key>DefaultValue</key>
+			<integer>7</integer>
+			<key>Titles</key>
+			<array>
+				<string>White</string>
+				<string>Red</string>
+				<string>Green</string>
+				<string>Blue</string>
+				<string>Yellow</string>
+				<string>Cyan</string>
+				<string>Purple</string>
+				<string>Grey</string>
+				<string>Black</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<string>8</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Wind Speed Units</string>
+			<key>Key</key>
+			<string>preference_windSpeedUnits</string>
+			<key>DefaultValue</key>
+			<string>KTS</string>
+			<key>Titles</key>
+			<array>
+				<string>KTS</string>
+				<string>MPH</string>
+				<string>M/S</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>knots</string>
+				<string>mph</string>
+				<string>m/s</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>

@@ -1,13 +1,13 @@
 //
-//  SailorUITests.swift
-//  SailorUITests
+//  SailingUITests.swift
+//  SailingUITests
 //
-//  Created by Gordon Aspin on 1/8/25.
+//  Created by Gordon Aspin on 1/19/25.
 //
 
 import XCTest
 
-final class SailorUITests: XCTestCase {
+final class SailingUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

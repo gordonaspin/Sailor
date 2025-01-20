@@ -7,69 +7,71 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F82E7B602D3882F200D0F44F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F82E7B5F2D3882F200D0F44F /* README.md */; };
-		F87ED4E12D3181B50015A07A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F87ED4E02D3181B50015A07A /* Settings.bundle */; };
+		F81ADDFC2D3DC7E200D7F0B7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F81ADDFB2D3DC7E200D7F0B7 /* Launch Screen.storyboard */; };
+		F81ADE4C2D3DCB7100D7F0B7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F81ADE4B2D3DCB7100D7F0B7 /* Settings.bundle */; };
+		F81ADE892D3DCFF000D7F0B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F81ADE882D3DCFF000D7F0B7 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F8E680BF2D2F345F00859E1D /* PBXContainerItemProxy */ = {
+		F81ADDDF2D3DC74000D7F0B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F8E680A62D2F345E00859E1D /* Project object */;
+			containerPortal = F81ADDC62D3DC73F00D7F0B7 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F8E680AD2D2F345E00859E1D;
-			remoteInfo = Sailor;
+			remoteGlobalIDString = F81ADDCD2D3DC73F00D7F0B7;
+			remoteInfo = Sailing;
 		};
-		F8E680C92D2F345F00859E1D /* PBXContainerItemProxy */ = {
+		F81ADDE92D3DC74000D7F0B7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F8E680A62D2F345E00859E1D /* Project object */;
+			containerPortal = F81ADDC62D3DC73F00D7F0B7 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F8E680AD2D2F345E00859E1D;
-			remoteInfo = Sailor;
+			remoteGlobalIDString = F81ADDCD2D3DC73F00D7F0B7;
+			remoteInfo = Sailing;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F82E7B5F2D3882F200D0F44F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F87ED4E02D3181B50015A07A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		F8E680AE2D2F345E00859E1D /* Sailor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sailor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8E680BE2D2F345F00859E1D /* SailorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8E680C82D2F345F00859E1D /* SailorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81ADDCE2D3DC73F00D7F0B7 /* Sailing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sailing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81ADDDE2D3DC74000D7F0B7 /* SailingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81ADDE82D3DC74000D7F0B7 /* SailingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81ADDFB2D3DC7E200D7F0B7 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		F81ADE4B2D3DCB7100D7F0B7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F81ADE882D3DCFF000D7F0B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F8E680B02D2F345E00859E1D /* Sailor */ = {
+		F81ADDD02D3DC73F00D7F0B7 /* Sailing */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Sailor;
+			path = Sailing;
 			sourceTree = "<group>";
 		};
-		F8E680C12D2F345F00859E1D /* SailorTests */ = {
+		F81ADDE12D3DC74000D7F0B7 /* SailingTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SailorTests;
+			path = SailingTests;
 			sourceTree = "<group>";
 		};
-		F8E680CB2D2F345F00859E1D /* SailorUITests */ = {
+		F81ADDEB2D3DC74000D7F0B7 /* SailingUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SailorUITests;
+			path = SailingUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F8E680AB2D2F345E00859E1D /* Frameworks */ = {
+		F81ADDCB2D3DC73F00D7F0B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680BB2D2F345F00859E1D /* Frameworks */ = {
+		F81ADDDB2D3DC74000D7F0B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680C52D2F345F00859E1D /* Frameworks */ = {
+		F81ADDE52D3DC74000D7F0B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,24 +81,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F8E680A52D2F345E00859E1D = {
+		F81ADDC52D3DC73F00D7F0B7 = {
 			isa = PBXGroup;
 			children = (
-				F82E7B5F2D3882F200D0F44F /* README.md */,
-				F87ED4E02D3181B50015A07A /* Settings.bundle */,
-				F8E680B02D2F345E00859E1D /* Sailor */,
-				F8E680C12D2F345F00859E1D /* SailorTests */,
-				F8E680CB2D2F345F00859E1D /* SailorUITests */,
-				F8E680AF2D2F345E00859E1D /* Products */,
+				F81ADDFB2D3DC7E200D7F0B7 /* Launch Screen.storyboard */,
+				F81ADE4B2D3DCB7100D7F0B7 /* Settings.bundle */,
+				F81ADDD02D3DC73F00D7F0B7 /* Sailing */,
+				F81ADDE12D3DC74000D7F0B7 /* SailingTests */,
+				F81ADDEB2D3DC74000D7F0B7 /* SailingUITests */,
+				F81ADDCF2D3DC73F00D7F0B7 /* Products */,
+				F81ADE882D3DCFF000D7F0B7 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
-		F8E680AF2D2F345E00859E1D /* Products */ = {
+		F81ADDCF2D3DC73F00D7F0B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8E680AE2D2F345E00859E1D /* Sailor.app */,
-				F8E680BE2D2F345F00859E1D /* SailorTests.xctest */,
-				F8E680C82D2F345F00859E1D /* SailorUITests.xctest */,
+				F81ADDCE2D3DC73F00D7F0B7 /* Sailing.app */,
+				F81ADDDE2D3DC74000D7F0B7 /* SailingTests.xctest */,
+				F81ADDE82D3DC74000D7F0B7 /* SailingUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,136 +107,137 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F8E680AD2D2F345E00859E1D /* Sailor */ = {
+		F81ADDCD2D3DC73F00D7F0B7 /* Sailing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8E680D22D2F345F00859E1D /* Build configuration list for PBXNativeTarget "Sailor" */;
+			buildConfigurationList = F81ADDF22D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "Sailing" */;
 			buildPhases = (
-				F8E680AA2D2F345E00859E1D /* Sources */,
-				F8E680AB2D2F345E00859E1D /* Frameworks */,
-				F8E680AC2D2F345E00859E1D /* Resources */,
+				F81ADDCA2D3DC73F00D7F0B7 /* Sources */,
+				F81ADDCB2D3DC73F00D7F0B7 /* Frameworks */,
+				F81ADDCC2D3DC73F00D7F0B7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				F8E680B02D2F345E00859E1D /* Sailor */,
+				F81ADDD02D3DC73F00D7F0B7 /* Sailing */,
 			);
-			name = Sailor;
+			name = Sailing;
 			packageProductDependencies = (
 			);
-			productName = Sailor;
-			productReference = F8E680AE2D2F345E00859E1D /* Sailor.app */;
+			productName = Sailing;
+			productReference = F81ADDCE2D3DC73F00D7F0B7 /* Sailing.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F8E680BD2D2F345F00859E1D /* SailorTests */ = {
+		F81ADDDD2D3DC74000D7F0B7 /* SailingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8E680D52D2F345F00859E1D /* Build configuration list for PBXNativeTarget "SailorTests" */;
+			buildConfigurationList = F81ADDF52D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "SailingTests" */;
 			buildPhases = (
-				F8E680BA2D2F345F00859E1D /* Sources */,
-				F8E680BB2D2F345F00859E1D /* Frameworks */,
-				F8E680BC2D2F345F00859E1D /* Resources */,
+				F81ADDDA2D3DC74000D7F0B7 /* Sources */,
+				F81ADDDB2D3DC74000D7F0B7 /* Frameworks */,
+				F81ADDDC2D3DC74000D7F0B7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F8E680C02D2F345F00859E1D /* PBXTargetDependency */,
+				F81ADDE02D3DC74000D7F0B7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				F8E680C12D2F345F00859E1D /* SailorTests */,
+				F81ADDE12D3DC74000D7F0B7 /* SailingTests */,
 			);
-			name = SailorTests;
+			name = SailingTests;
 			packageProductDependencies = (
 			);
-			productName = SailorTests;
-			productReference = F8E680BE2D2F345F00859E1D /* SailorTests.xctest */;
+			productName = SailingTests;
+			productReference = F81ADDDE2D3DC74000D7F0B7 /* SailingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F8E680C72D2F345F00859E1D /* SailorUITests */ = {
+		F81ADDE72D3DC74000D7F0B7 /* SailingUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8E680D82D2F345F00859E1D /* Build configuration list for PBXNativeTarget "SailorUITests" */;
+			buildConfigurationList = F81ADDF82D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "SailingUITests" */;
 			buildPhases = (
-				F8E680C42D2F345F00859E1D /* Sources */,
-				F8E680C52D2F345F00859E1D /* Frameworks */,
-				F8E680C62D2F345F00859E1D /* Resources */,
+				F81ADDE42D3DC74000D7F0B7 /* Sources */,
+				F81ADDE52D3DC74000D7F0B7 /* Frameworks */,
+				F81ADDE62D3DC74000D7F0B7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F8E680CA2D2F345F00859E1D /* PBXTargetDependency */,
+				F81ADDEA2D3DC74000D7F0B7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				F8E680CB2D2F345F00859E1D /* SailorUITests */,
+				F81ADDEB2D3DC74000D7F0B7 /* SailingUITests */,
 			);
-			name = SailorUITests;
+			name = SailingUITests;
 			packageProductDependencies = (
 			);
-			productName = SailorUITests;
-			productReference = F8E680C82D2F345F00859E1D /* SailorUITests.xctest */;
+			productName = SailingUITests;
+			productReference = F81ADDE82D3DC74000D7F0B7 /* SailingUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		F8E680A62D2F345E00859E1D /* Project object */ = {
+		F81ADDC62D3DC73F00D7F0B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					F8E680AD2D2F345E00859E1D = {
+					F81ADDCD2D3DC73F00D7F0B7 = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					F8E680BD2D2F345F00859E1D = {
+					F81ADDDD2D3DC74000D7F0B7 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = F8E680AD2D2F345E00859E1D;
+						TestTargetID = F81ADDCD2D3DC73F00D7F0B7;
 					};
-					F8E680C72D2F345F00859E1D = {
+					F81ADDE72D3DC74000D7F0B7 = {
 						CreatedOnToolsVersion = 16.2;
-						TestTargetID = F8E680AD2D2F345E00859E1D;
+						TestTargetID = F81ADDCD2D3DC73F00D7F0B7;
 					};
 				};
 			};
-			buildConfigurationList = F8E680A92D2F345E00859E1D /* Build configuration list for PBXProject "Sailor" */;
+			buildConfigurationList = F81ADDC92D3DC73F00D7F0B7 /* Build configuration list for PBXProject "Sailing" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = F8E680A52D2F345E00859E1D;
+			mainGroup = F81ADDC52D3DC73F00D7F0B7;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = F8E680AF2D2F345E00859E1D /* Products */;
+			productRefGroup = F81ADDCF2D3DC73F00D7F0B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F8E680AD2D2F345E00859E1D /* Sailor */,
-				F8E680BD2D2F345F00859E1D /* SailorTests */,
-				F8E680C72D2F345F00859E1D /* SailorUITests */,
+				F81ADDCD2D3DC73F00D7F0B7 /* Sailing */,
+				F81ADDDD2D3DC74000D7F0B7 /* SailingTests */,
+				F81ADDE72D3DC74000D7F0B7 /* SailingUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F8E680AC2D2F345E00859E1D /* Resources */ = {
+		F81ADDCC2D3DC73F00D7F0B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F82E7B602D3882F200D0F44F /* README.md in Resources */,
-				F87ED4E12D3181B50015A07A /* Settings.bundle in Resources */,
+				F81ADE4C2D3DCB7100D7F0B7 /* Settings.bundle in Resources */,
+				F81ADDFC2D3DC7E200D7F0B7 /* Launch Screen.storyboard in Resources */,
+				F81ADE892D3DCFF000D7F0B7 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680BC2D2F345F00859E1D /* Resources */ = {
+		F81ADDDC2D3DC74000D7F0B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680C62D2F345F00859E1D /* Resources */ = {
+		F81ADDE62D3DC74000D7F0B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -243,21 +247,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F8E680AA2D2F345E00859E1D /* Sources */ = {
+		F81ADDCA2D3DC73F00D7F0B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680BA2D2F345F00859E1D /* Sources */ = {
+		F81ADDDA2D3DC74000D7F0B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8E680C42D2F345F00859E1D /* Sources */ = {
+		F81ADDE42D3DC74000D7F0B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,20 +271,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F8E680C02D2F345F00859E1D /* PBXTargetDependency */ = {
+		F81ADDE02D3DC74000D7F0B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F8E680AD2D2F345E00859E1D /* Sailor */;
-			targetProxy = F8E680BF2D2F345F00859E1D /* PBXContainerItemProxy */;
+			target = F81ADDCD2D3DC73F00D7F0B7 /* Sailing */;
+			targetProxy = F81ADDDF2D3DC74000D7F0B7 /* PBXContainerItemProxy */;
 		};
-		F8E680CA2D2F345F00859E1D /* PBXTargetDependency */ = {
+		F81ADDEA2D3DC74000D7F0B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F8E680AD2D2F345E00859E1D /* Sailor */;
-			targetProxy = F8E680C92D2F345F00859E1D /* PBXContainerItemProxy */;
+			target = F81ADDCD2D3DC73F00D7F0B7 /* Sailing */;
+			targetProxy = F81ADDE92D3DC74000D7F0B7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		F8E680D02D2F345F00859E1D /* Debug */ = {
+		F81ADDF02D3DC74000D7F0B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -343,7 +347,7 @@
 			};
 			name = Debug;
 		};
-		F8E680D12D2F345F00859E1D /* Release */ = {
+		F81ADDF12D3DC74000D7F0B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -399,34 +403,30 @@
 			};
 			name = Release;
 		};
-		F8E680D32D2F345F00859E1D /* Debug */ = {
+		F81ADDF32D3DC74000D7F0B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Sailing/Sailing.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sailor/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sailing/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZG25ELEFX;
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailor needs access to Location Services to provide speed and heading data";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailing needs your permission to use location services in order to display device heading, location and speed.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.Sailor;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.Sailing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -434,34 +434,30 @@
 			};
 			name = Debug;
 		};
-		F8E680D42D2F345F00859E1D /* Release */ = {
+		F81ADDF42D3DC74000D7F0B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Sailing/Sailing.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Sailor/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sailing/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZG25ELEFX;
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailor needs access to Location Services to provide speed and heading data";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailing needs your permission to use location services in order to display device heading, location and speed.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.Sailor;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.Sailing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -469,114 +465,118 @@
 			};
 			name = Release;
 		};
-		F8E680D62D2F345F00859E1D /* Debug */ = {
+		F81ADDF62D3DC74000D7F0B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sailor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sailor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sailing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sailing";
 			};
 			name = Debug;
 		};
-		F8E680D72D2F345F00859E1D /* Release */ = {
+		F81ADDF72D3DC74000D7F0B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sailor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sailor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sailing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sailing";
 			};
 			name = Release;
 		};
-		F8E680D92D2F345F00859E1D /* Debug */ = {
+		F81ADDF92D3DC74000D7F0B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Sailor;
+				TEST_TARGET_NAME = Sailing;
 			};
 			name = Debug;
 		};
-		F8E680DA2D2F345F00859E1D /* Release */ = {
+		F81ADDFA2D3DC74000D7F0B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.aspin.SailingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Sailor;
+				TEST_TARGET_NAME = Sailing;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F8E680A92D2F345E00859E1D /* Build configuration list for PBXProject "Sailor" */ = {
+		F81ADDC92D3DC73F00D7F0B7 /* Build configuration list for PBXProject "Sailing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8E680D02D2F345F00859E1D /* Debug */,
-				F8E680D12D2F345F00859E1D /* Release */,
+				F81ADDF02D3DC74000D7F0B7 /* Debug */,
+				F81ADDF12D3DC74000D7F0B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8E680D22D2F345F00859E1D /* Build configuration list for PBXNativeTarget "Sailor" */ = {
+		F81ADDF22D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "Sailing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8E680D32D2F345F00859E1D /* Debug */,
-				F8E680D42D2F345F00859E1D /* Release */,
+				F81ADDF32D3DC74000D7F0B7 /* Debug */,
+				F81ADDF42D3DC74000D7F0B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8E680D52D2F345F00859E1D /* Build configuration list for PBXNativeTarget "SailorTests" */ = {
+		F81ADDF52D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "SailingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8E680D62D2F345F00859E1D /* Debug */,
-				F8E680D72D2F345F00859E1D /* Release */,
+				F81ADDF62D3DC74000D7F0B7 /* Debug */,
+				F81ADDF72D3DC74000D7F0B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8E680D82D2F345F00859E1D /* Build configuration list for PBXNativeTarget "SailorUITests" */ = {
+		F81ADDF82D3DC74000D7F0B7 /* Build configuration list for PBXNativeTarget "SailingUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8E680D92D2F345F00859E1D /* Debug */,
-				F8E680DA2D2F345F00859E1D /* Release */,
+				F81ADDF92D3DC74000D7F0B7 /* Debug */,
+				F81ADDFA2D3DC74000D7F0B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = F8E680A62D2F345E00859E1D /* Project object */;
+	rootObject = F81ADDC62D3DC73F00D7F0B7 /* Project object */;
 }

@@ -17,6 +17,7 @@ class MotionManager {
     private var motionManager = CMMotionManager()
     
     init() {
+        print("\(Date().toTimestamp) - \(#file) \(#function) motion manager initialized")
         setupMotionManager()
     }
     
@@ -49,6 +50,7 @@ class MotionManager {
                 if (newPitchAngle != self.pitchAngle) {
                     self.pitchAngle = newPitchAngle
                 }
+                print("\(Date().toTimestamp) - \(#file) \(#function) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
             }
         }
     }

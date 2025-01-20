@@ -20,7 +20,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     override init() {
         super.init()
-        print("location manager initialized")
+        print("\(Date().toTimestamp) - \(#file) \(#function) location manager initialized")
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
@@ -29,34 +29,36 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
     func startLocationServices() {
         if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse {
+            print("\(Date().toTimestamp) - \(#file) \(#function) location manager is authorized")
             startTracking()
             isAuthorized = true
         } else {
+            print("\(Date().toTimestamp) - \(#file) \(#function) location manager is not authorized, requesting")
             isAuthorized = false
             locationManager.requestWhenInUseAuthorization()
         }
     }
     
     func requestAuthorization() {
-        print("requesting authorization")
+        print("\(Date().toTimestamp) - \(#file) \(#function) requesting authorization")
         locationManager.requestWhenInUseAuthorization()
     }
     
     func startTracking() {
-        print("starting tracking")
+        print("\(Date().toTimestamp) - \(#file) \(#function) starting tracking")
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
-        
+
     }
     
     func stopTracking() {
-        print("stopping tracking")
+        print("\(Date().toTimestamp) - \(#file) \(#function) stopping tracking")
         locationManager.stopUpdatingLocation()
         locationManager.stopUpdatingHeading()
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location Manager Error: \(error.localizedDescription)")
+        print("\(Date().toTimestamp) - \(#file) \(#function) Location Manager Error: \(error.localizedDescription)")
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -66,7 +68,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             newSpeed = round(newSpeed * 10) / 10
             if (newSpeed != speed) {
                 speed = newSpeed
-                print("\(Date().toTimestamp) - \(#function) speed updated \(speed)")
+                print("\(Date().toTimestamp) - \(#file) \(#function) speed updated \(speed)")
             }
         }
     }
@@ -82,11 +84,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             trueHeading = Double(newTrueHeading)
         }
         heading = newHeading
-        print("\(Date().toTimestamp) - \(#function) heading updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
+        print("\(Date().toTimestamp) - \(#file) \(#function) heading updated magneticHeading: \(magneticHeading), trueHeading: \(trueHeading)")
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("location manager authorization changed \(manager.authorizationStatus)")
+        print("\(Date().toTimestamp) - \(#file) \(#function) location manager authorization changed \(manager.authorizationStatus)")
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             isAuthorized = true
@@ -96,7 +98,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         case .denied:
             isAuthorized = false
-            print("access denied")
+            print("\(Date().toTimestamp) - \(#file) \(#function) access denied")
         default:
             isAuthorized = true
             startLocationServices()

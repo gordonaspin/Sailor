@@ -1,5 +1,5 @@
 //
-//  HeelAngleView.swift
+//  PitchAngleView.swift
 //  Sailor
 //
 //  Created by Gordon Aspin on 1/6/25.

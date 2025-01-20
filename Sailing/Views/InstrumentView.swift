@@ -23,18 +23,16 @@ struct InstrumentView: View {
                 .padding(.top, -40)
                 .padding(.bottom, -40)
                 .foregroundColor(color)
-                
-            Text(unitsText)
-                .font(.body)
-                .foregroundColor(unitsColor)
-                .bold()
-                .padding(-16)
+            if !unitsText.isEmpty {
+                Text(unitsText)
+                    .font(.body)
+                    .foregroundColor(unitsColor)
+                    .bold()
+                    .padding(-16)
+            }
         }
     }
 }
-
-
-    var widgetText = "123"
 
 #Preview {
     struct Preview: View {
@@ -44,4 +42,3 @@ struct InstrumentView: View {
     }
     return Preview()
 }
-

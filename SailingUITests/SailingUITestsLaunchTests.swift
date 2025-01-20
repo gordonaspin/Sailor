@@ -1,13 +1,13 @@
 //
-//  SailorUITestsLaunchTests.swift
-//  SailorUITests
+//  SailingUITestsLaunchTests.swift
+//  SailingUITests
 //
-//  Created by Gordon Aspin on 1/8/25.
+//  Created by Gordon Aspin on 1/19/25.
 //
 
 import XCTest
 
-final class SailorUITestsLaunchTests: XCTestCase {
+final class SailingUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

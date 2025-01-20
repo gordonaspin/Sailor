@@ -16,17 +16,17 @@ protocol ColorProtocol {
 // Settings Base Class
 class Settings: ObservableObject {
     let colors: [(name: String, color: Color)] = [
-        ("White", Color.white),
-        ("Red", Color.red),
-        ("Green", Color.green),
-        ("Blue", Color.blue),
-        ("Yellow", Color.yellow),
-        ("Cyan", Color.cyan),
-        ("Purple", Color.purple),
-        ("Grey", Color.gray),
-        ("Black", Color.black)
+        ("White", Color.white),     // 0
+        ("Red", Color.red),         // 1
+        ("Green", Color.green),     // 2
+        ("Blue", Color.blue),       // 3
+        ("Yellow", Color.yellow),   // 4
+        ("Cyan", Color.cyan),       // 5
+        ("Purple", Color.purple),   // 6
+        ("Grey", Color.gray),       // 7
+        ("Black", Color.black)      // 9
     ]
-    var fontSize: CGFloat = 128.0+64.0
+    var fontSize: CGFloat = (128.0+64.0)*4.0/6.0
 }
 
 class SpeedSetttings: Settings, ColorProtocol {
@@ -162,3 +162,65 @@ class PitchAngleSettings: Settings, ColorProtocol {
     }
 }
 
+class WindDirectionSettings: Settings, ColorProtocol {
+    static var shared = WindDirectionSettings()
+    @AppStorage(wrappedValue: 7, "preference_windDirectionColor") var colorIndex: Int
+
+    override init() {
+        super.init()
+        print("WindDirectionViewSetting color: \(colorIndex) \(color)")
+    }
+    var color: Color {
+        return colors[colorIndex].color
+    }
+    public func nextColor() {
+        colorIndex = (colorIndex + 1) % colors.count
+    }
+    public func prevColor() {
+        colorIndex = (colorIndex - 1 + colors.count) % colors.count
+    }
+}
+
+class WindSpeedSetttings: Settings, ColorProtocol {
+    static var shared = SpeedSetttings()
+    let units = ["KTS", "MPH", "M/S"]
+    let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
+    @AppStorage(wrappedValue: 7, "preference_windSpeedColor") var colorIndex: Int
+    @AppStorage(wrappedValue: "KTS", "preference_windSpeedUnits") var speedUnits: String
+
+    override init() {
+        super.init()
+        print("SpeedViewSetting color: \(colorIndex) \(color)")
+        print("SpeedViewSetting units: \(speedUnits)")
+    }
+    func nextUnits() {
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex + 1) % units.count
+        speedUnits = units[unitIndex]
+    }
+    func prevUnits() {
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex - 1 + units.count) % units.count
+        speedUnits = units[unitIndex]
+    }
+    func setUnits(units: String) {
+        speedUnits = units
+    }
+    func convertSpeed(speed: Double) -> Double {
+        if let i = units.firstIndex(of: speedUnits) {
+            return speed * conversionFactors[i]
+        }
+        else {
+            return 0.0
+        }
+    }
+    var color: Color {
+        return colors[colorIndex].color
+    }
+    public func nextColor() {
+        colorIndex = (colorIndex + 1) % colors.count
+    }
+    public func prevColor() {
+        colorIndex = (colorIndex - 1 + colors.count) % colors.count
+    }
+}

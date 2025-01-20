@@ -11,6 +11,7 @@ import SwiftUI
 struct SailorApp: App {
     @State private var locationManager = LocationManager()
     @State private var motionManager = MotionManager()
+    @State private var weatherManager = WeatherManager()
 
     init() {
         print("SaliorApp init")
@@ -34,6 +35,7 @@ struct SailorApp: App {
         }
         .environment(locationManager)
         .environment(motionManager)
+        .environment(weatherManager)
     }
 }
 
@@ -43,6 +45,7 @@ struct SailorApp: App {
             LocationDeniedView()
                 .environment(LocationManager())
                 .environment(MotionManager())
+                .environment(WeatherManager())
         }
     }
     return Preview()

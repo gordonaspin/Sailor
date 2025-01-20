@@ -12,6 +12,10 @@ struct DefaultLayoutView: View {
         GeometryReader { geometry in
             if geometry.size.height > geometry.size.width {
                 VStack(alignment: .center, spacing: 0) {
+                    WindSpeedView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    WindDirectionView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     SpeedView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     HeadingView()
@@ -24,6 +28,12 @@ struct DefaultLayoutView: View {
             }
             else {
                 VStack(alignment: .center, spacing: 0) {
+                    HStack(alignment: .center, spacing: 0) {
+                        WindSpeedView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        WindDirectionView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                     HStack(alignment: .center, spacing: 0) {
                         SpeedView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -49,6 +59,7 @@ struct DefaultLayoutView: View {
             DefaultLayoutView()
                 .environment(LocationManager())
                 .environment(MotionManager())
+                .environment(WeatherManager())
         }
     }
     return Preview()}
