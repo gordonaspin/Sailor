@@ -13,7 +13,7 @@ import CoreLocation
 class WeatherManager: NSObject, CLLocationManagerDelegate {
     private let weatherManager = WeatherService()
     private let locationManager = CLLocationManager()
-    
+
     var windSpeed: Double = 0.0
     var windDirection: Double = 0.0
     var isAuthorized = false
@@ -23,6 +23,9 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
+        _ = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
+            self.startTracking()
+        }
     }
     
     func startLocationServices() {
@@ -68,7 +71,6 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     func fetchWeather(for location: CLLocation) async {
         do {
             let weather = try await weatherManager.weather(for: location)
-
             let newWindSpeed = round((weather.currentWeather.wind.speed.value > 0 ? weather.currentWeather.wind.speed.value : 0.0) * 10) / 10
             if (newWindSpeed != windSpeed) {
                 windSpeed = newWindSpeed
@@ -83,6 +85,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         catch {
             print("\(Date().toTimestamp) -  \(#file) \(#function) failed to fetch weather: \(error)")
         }
+        stopTracking()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -63,9 +63,9 @@
 			</array>
 			<key>Values</key>
 			<array>
-				<string>knots</string>
-				<string>mph</string>
-				<string>m/s</string>
+				<string>KTS</string>
+				<string>MPH</string>
+				<string>M/S</string>
 			</array>
 		</dict>
 		<dict>
@@ -387,13 +387,13 @@
 			<array>
 				<string>KTS</string>
 				<string>MPH</string>
-				<string>M/S</string>
+				<string>KM/H</string>
 			</array>
 			<key>Values</key>
 			<array>
-				<string>knots</string>
-				<string>mph</string>
-				<string>m/s</string>
+				<string>KTS</string>
+				<string>MPH</string>
+				<string>KM/H</string>
 			</array>
 		</dict>
 	</array>

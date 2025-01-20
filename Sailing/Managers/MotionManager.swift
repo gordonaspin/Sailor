@@ -23,7 +23,7 @@ class MotionManager {
     
     private func setupMotionManager() {
         if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.5
+            motionManager.deviceMotionUpdateInterval = 1.0
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
                 guard let self = self, let motion = motion else { return }
                 let gravity = motion.gravity
@@ -50,7 +50,7 @@ class MotionManager {
                 if (newPitchAngle != self.pitchAngle) {
                     self.pitchAngle = newPitchAngle
                 }
-                print("\(Date().toTimestamp) - \(#file) \(#function) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
+                print("\(Date().toTimestamp) - \(#file) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
             }
         }
     }
