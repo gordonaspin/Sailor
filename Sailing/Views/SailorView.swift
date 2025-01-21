@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct SailorView: View {
+    @State var isRaceTimerPresented: Bool = false
     var body: some View {
-        ZStack {
-            MapView()
-            DefaultLayoutView()
+        VStack {
+            if !isRaceTimerPresented {
+                ZStack {
+                    MapView()
+                    DefaultLayoutView()
+                }
+            }
+            else {
+                RaceTimerView(isPresented: $isRaceTimerPresented)
+            }
         }
+        .swipe(
+            left: {
+                isRaceTimerPresented = true
+            },
+            right: {
+                isRaceTimerPresented = false
+            }
+        )
     }
 }
 
@@ -24,6 +40,8 @@ struct SailorView: View {
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())
+                .environment(StopWatch(countDown: CountDown.shared))
+                .environment(CountDown())
         }
     }
     return Preview()

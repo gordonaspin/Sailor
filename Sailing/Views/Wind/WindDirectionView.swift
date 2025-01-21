@@ -11,7 +11,7 @@ struct WindDirectionView: View {
     @Environment(WeatherManager.self) var weatherManager
     @StateObject private var settings = WindDirectionSettings.shared
     @State private var isPickerPresented: Bool = false
-
+    
     var body: some View {
         InstrumentView(
             instrumentName: "W.DIR",
@@ -21,21 +21,22 @@ struct WindDirectionView: View {
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )
-        .onTapGesture {
-                isPickerPresented = true
+        .onTapGesture(count: 2) {
+            isPickerPresented = true
         }
-        .swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            })
+        /*.swipe(
+         left: {
+         settings.prevColor()
+         },
+         right: {
+         settings.nextColor()
+         }
+         )*/
         .sheet(isPresented: $isPickerPresented) {
             WindDirectionSettingsView(colorIndex: settings.$colorIndex)
         }
     }
-
+    
     private var convertedWindDirection: Int {
         print("\(Date().toTimestamp) - \(#function) \(weatherManager.windDirection)")
         return Int(weatherManager.windDirection)

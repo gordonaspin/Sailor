@@ -24,16 +24,17 @@ struct HeelAngleView: View {
             unitsColor: settings.titleColor,
             fontSize: settings.fontSize
         )
-        .onTapGesture {
+        .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        .swipe(
+        /*.swipe(
             left: {
                 settings.prevColor()
             },
             right: {
                 settings.nextColor()
-            })
+            }
+         )*/
         .sheet(isPresented: $isPickerPresented) {
             HeelAngleSettingsView(
                 colorIndex: $settings.colorIndex,

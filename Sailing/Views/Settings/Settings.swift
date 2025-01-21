@@ -224,3 +224,14 @@ class WindSpeedSetttings: Settings, ColorProtocol {
         colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
+
+class RaceTimerSettings: Settings {
+    static var shared = RaceTimerSettings()
+    let raceTimerValues = [1, 2, 3, 4, 5, 10, 15]
+    @AppStorage(wrappedValue: 600, "preference_raceTimer") var raceTimer: Int
+
+    override init() {
+        super.init()
+        print("RaceTimerSetttings raceTimer: \(raceTimer)")
+    }
+}

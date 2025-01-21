@@ -21,17 +21,17 @@ struct SpeedView: View {
             unitsColor: settings.color,
             fontSize: settings.fontSize
         )
-        .onTapGesture {
+        .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        .swipe(
+        /*.swipe(
             left: {
                 settings.prevColor()
             },
             right: {
                 settings.nextColor()
             }
-        )
+        )*/
         .sheet(isPresented: $isPickerPresented) {
             SpeedSettingsView(
                 speedUnits: settings.$speedUnits,

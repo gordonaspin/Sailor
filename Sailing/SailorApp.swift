@@ -12,6 +12,8 @@ struct SailorApp: App {
     @State private var locationManager = LocationManager()
     @State private var motionManager = MotionManager()
     @State private var weatherManager = WeatherManager()
+    @State private var stopWatch = StopWatch(countDown: CountDown.shared)
+    @State private var countDown = CountDown.shared
 
     init() {
         print("SaliorApp init")
@@ -36,6 +38,8 @@ struct SailorApp: App {
         .environment(locationManager)
         .environment(motionManager)
         .environment(weatherManager)
+        .environment(stopWatch)
+        .environment(countDown)
     }
 }
 
@@ -46,6 +50,8 @@ struct SailorApp: App {
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())
+                .environment(StopWatch(countDown: CountDown.shared))
+                .environment(CountDown())
         }
     }
     return Preview()
