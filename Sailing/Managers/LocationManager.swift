@@ -48,7 +48,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) - \(#file) \(#function) starting tracking")
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
-
     }
     
     func stopTracking() {

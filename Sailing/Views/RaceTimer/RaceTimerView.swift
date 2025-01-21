@@ -21,8 +21,8 @@ class StopWatch: ObservableObject {
     }
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            print(">>> stopwatch tick")
             self.counter += 1
+            print("\(Date().toTimestamp) -  \(#file) \(#function) stopwatch tick \(self.counter)")
             if self.countDown != nil && self.countDown!.isRunning {
                 self.countDown?.notify()
             }
@@ -45,7 +45,7 @@ class CountDown: ObservableObject {
     static private var settings = RaceTimerSettings.shared
     static var shared = CountDown()
     let synthesizer = AVSpeechSynthesizer()
-    let events = [4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+    let events = [5*60, 4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
     static var startFrom: Int = settings.raceTimer
     let increment: Int = 1
@@ -63,11 +63,11 @@ class CountDown: ObservableObject {
         isRunning = false
     }
     func notify() {
-        print(">>> countDown notify")
         guard isRunning else { return }
         countDownFrom -= increment
+        print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(countDownFrom)")
         if events.contains(countDownFrom) {
-            print(">>> countDown notify \(countDownFrom)")
+            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(countDownFrom)")
             if countDownFrom > 0 {
                 AudioServicesPlayAlertSound(1313)
                 if countDownFrom >= 60 {
@@ -134,7 +134,7 @@ struct RaceTimerView: View {
             }
         }
         .onChange(of: countDown.isRunning) {
-            print("onchange countdown running \(countDown.isRunning)")
+            print("\(Date().toTimestamp) -  \(#file) \(#function) onchange countdown running \(countDown.isRunning)")
             if countDown.isRunning {
                 stopWatch.start()
             }
@@ -143,7 +143,7 @@ struct RaceTimerView: View {
             }
         }
         .onChange(of: countDown.countDownFrom) {
-            print("countDown counter changed \(countDown.countDownFrom)")
+            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.countDownFrom)")
             if countDown.isRunning {
                 if countDown.countDownFrom > 0 {
                     if countDown.countDownFrom <= 0 {
@@ -166,7 +166,7 @@ struct RaceTimerView: View {
         .onAppear(perform: {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
             }
-            print("RaceTimerView onAppear: countdown.isRunning \(countDown.isRunning)")
+            print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear: countdown.isRunning \(countDown.isRunning)")
         })
         .onTapGesture(count: 2) {
             isPickerPresented = true

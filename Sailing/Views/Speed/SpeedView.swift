@@ -15,7 +15,7 @@ struct SpeedView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "SPD",
-            instrumentValue: String(format: "%.1f", locationManager.speed),
+            instrumentValue: String(format: "%.1f", convertedSpeed),
             color: settings.color,
             instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
@@ -24,20 +24,18 @@ struct SpeedView: View {
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        /*.swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            }
-        )*/
         .sheet(isPresented: $isPickerPresented) {
             SpeedSettingsView(
                 speedUnits: settings.$speedUnits,
                 items: settings.units,
                 colorIndex: settings.$colorIndex
             )
+        }
+        .onAppear() {
+            locationManager.startTracking()
+        }
+        .onDisappear {
+            locationManager.stopTracking()
         }
     }
     

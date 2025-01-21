@@ -20,14 +20,26 @@ struct MapView: View {
         }
         .mapControls( {
             MapCompass()
-                .mapControlVisibility(.automatic)
+                .mapControlVisibility(.visible)
+                /*.on
+                .onTapGesture {
+                    print(">>>  \(Date().toTimestamp) - MapCompass onTapGesture")
+                    settings.mapFollowsHeading.toggle()}*/
             MapScaleView()
+                .mapControlVisibility(.visible)
+            MapUserLocationButton()
                 .mapControlVisibility(.visible)
 
         })
-        .onChange(of: locationManager.heading) {
+        /*.onChange(of: locationManager.heading) {
             print("\(Date().toTimestamp) - onChange of heading \(String(describing: locationManager.heading))")
-            cameraPosition = .userLocation(followsHeading: settings.mapFollowsHeading, fallback: .automatic)
+            //cameraPosition = .userLocation(followsHeading: settings.mapFollowsHeading, fallback: .automatic)
+        }*/
+        .onAppear() {
+            locationManager.startTracking()
+        }
+        .onDisappear {
+            locationManager.stopTracking()
         }
     }
 }

@@ -56,6 +56,12 @@ struct HeelAngleView: View {
                 }
             }
         }
+        .onAppear {
+            motionManager.startTracking()
+        }
+        .onDisappear() {
+            motionManager.stopTracking()
+        }
     }
     
     private var convertedHeel: Int {

@@ -38,9 +38,22 @@
 		F81ADE882D3DCFF000D7F0B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F8A926552D403D7000B818B9 /* Exceptions for "Sailing" folder in "Sailing" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F81ADDCD2D3DC73F00D7F0B7 /* Sailing */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F81ADDD02D3DC73F00D7F0B7 /* Sailing */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F8A926552D403D7000B818B9 /* Exceptions for "Sailing" folder in "Sailing" target */,
+			);
 			path = Sailing;
 			sourceTree = "<group>";
 		};
@@ -415,6 +428,7 @@
 				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sailing/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailing needs your permission to use location services in order to display device heading, location and speed.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -447,6 +461,7 @@
 				DEVELOPMENT_TEAM = 4ZG25ELEFX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sailing/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Sailing needs your permission to use location services in order to display device heading, location and speed.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

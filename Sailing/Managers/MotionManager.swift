@@ -9,11 +9,11 @@ import CoreMotion
 
 @Observable
 class MotionManager {
-
+    
     var rollAngle: Double = 0
     var yawAngle: Double = 0
     var pitchAngle: Double = 0
-    
+    var isTracking: Bool = false
     private var motionManager = CMMotionManager()
     
     init() {
@@ -24,6 +24,14 @@ class MotionManager {
     private func setupMotionManager() {
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 1.0
+        }
+    }
+    
+    func startTracking() {
+        print("\(Date().toTimestamp) - \(#file) \(#function) start tracking")
+        if !isTracking {
+            isTracking.toggle()
+            
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
                 guard let self = self, let motion = motion else { return }
                 let gravity = motion.gravity
@@ -52,6 +60,15 @@ class MotionManager {
                 }
                 print("\(Date().toTimestamp) - \(#file) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
             }
+            
+        }
+    }
+    
+    func stopTracking() {
+        print("\(Date().toTimestamp) - \(#file) \(#function) stop tracking")
+        if isTracking {
+            motionManager.stopDeviceMotionUpdates()
+            isTracking.toggle()
         }
     }
 }

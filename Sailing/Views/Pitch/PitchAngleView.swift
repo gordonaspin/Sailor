@@ -24,17 +24,14 @@ struct PitchAngleView: View {
         .onTapGesture(count: 2) {
                 isPickerPresented = true
         }
-        /*.swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            }
-         )
-         */
         .sheet(isPresented: $isPickerPresented) {
             PitchAngleSettingsView(colorIndex: settings.$colorIndex)
+        }
+        .onAppear {
+            motionManager.startTracking()
+        }
+        .onDisappear() {
+            motionManager.stopTracking()
         }
     }
 

@@ -24,20 +24,18 @@ struct HeadingView: View {
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        /*.swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            }
-         )*/
         .sheet(isPresented: $isPickerPresented) {
             HeadingSettingsView(
                 trueNorth: $settings.trueNorth,
                 colorIndex: $settings.colorIndex,
                 mapFollowsHeading: $settings.mapFollowsHeading
             )
+        }
+        .onAppear() {
+            locationManager.startTracking()
+        }
+        .onDisappear {
+            locationManager.stopTracking()
         }
     }
     

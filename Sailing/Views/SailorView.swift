@@ -23,10 +23,10 @@ struct SailorView: View {
         }
         .swipe(
             left: {
-                isRaceTimerPresented = true
+                isRaceTimerPresented.toggle()
             },
             right: {
-                isRaceTimerPresented = false
+                isRaceTimerPresented.toggle()
             }
         )
     }
