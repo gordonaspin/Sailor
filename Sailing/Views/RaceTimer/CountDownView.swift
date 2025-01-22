@@ -10,6 +10,9 @@ import UserNotifications
 import AudioToolbox
 
 struct CountDownView: View {
+    let tenMinutes = 600
+    let fiveMinutes = 300
+    let oneMinute = 60
     let fontSize: CGFloat = 180
     @Binding var color: Color
     var counter: CountDown
@@ -18,14 +21,14 @@ struct CountDownView: View {
         HStack() {
             Spacer()
             Group {
-                let mt = String("\(counter.countDownFrom / 60 / 10)")
-                let mu = String("\(counter.countDownFrom / 60 % 10)")
-                let st = String("\((counter.countDownFrom % 60) / 10)")
-                let su = String("\((counter.countDownFrom % 60) % 10)")
-                if counter.countDownFrom >= 600 {
+                let mt = String("\(counter.countDownFrom / oneMinute / 10)")
+                let mu = String("\(counter.countDownFrom / oneMinute % 10)")
+                let st = String("\((counter.countDownFrom % oneMinute) / 10)")
+                let su = String("\((counter.countDownFrom % oneMinute) % 10)")
+                if counter.countDownFrom >= tenMinutes {
                     Text(mt)
                 }
-                if (counter.countDownFrom >= 60) {
+                if (counter.countDownFrom >= oneMinute) {
                     Text(mu)
                         .onDisappear() {
                         }
@@ -41,10 +44,10 @@ struct CountDownView: View {
             .bold()
             .foregroundColor(color)
             .onChange(of: counter.countDownFrom) {
-                if counter.countDownFrom > 300 {
+                if counter.countDownFrom > fiveMinutes {
                     color = Color.green
                 }
-                else if counter.countDownFrom > 60 {
+                else if counter.countDownFrom > oneMinute {
                     color = Color.yellow
                 }
                 else {

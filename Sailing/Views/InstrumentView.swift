@@ -55,8 +55,8 @@ struct InstrumentView: View {
     struct Preview: View {
         var body: some View {
             InstrumentView(
-                instrumentName: "W.SPD",
-                instrumentValue: "000",
+                instrumentName: "W.DIR",
+                instrumentValue: "100",
                 color: Color.blue,
                 instrumentUnits: "KTS",
                 unitsColor: Color.blue,

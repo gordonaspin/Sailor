@@ -42,6 +42,7 @@ class StopWatch: ObservableObject {
 
 @Observable
 class CountDown: ObservableObject {
+    let oneMinute: Int = 60
     static private var settings = RaceTimerSettings.shared
     static var shared = CountDown()
     let synthesizer = AVSpeechSynthesizer()
@@ -70,10 +71,10 @@ class CountDown: ObservableObject {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(countDownFrom)")
             if countDownFrom > 0 {
                 AudioServicesPlayAlertSound(1313)
-                if countDownFrom >= 60 {
-                    synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom/60) minute\(countDownFrom > 60 ? "s" : "")"))
+                if countDownFrom >= oneMinute {
+                    synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom/oneMinute) minute\(countDownFrom > oneMinute ? "s" : "")"))
                 }
-                else if countDownFrom < 60 && countDownFrom > 5 {
+                else if countDownFrom < oneMinute && countDownFrom > 5 {
                     synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom) seconds"))
                 }
                 else if countDownFrom <= 5 && countDownFrom > 0 {

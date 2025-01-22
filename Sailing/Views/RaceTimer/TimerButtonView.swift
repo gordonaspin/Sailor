@@ -54,3 +54,15 @@ struct TimerButtonView : View {
         }
     }
 }
+#Preview {
+    struct Preview: View {
+        @State var counter: CountDown = .init()
+        @State var arcFraction: CGFloat = 100.0
+        var body: some View {
+            TimerButtonView(counter: counter, arcFraction: $arcFraction)
+                .environment(StopWatch(countDown: CountDown()))
+                .environment(CountDown())
+        }
+    }
+    return Preview()
+}
