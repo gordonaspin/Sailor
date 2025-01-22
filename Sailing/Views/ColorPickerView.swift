@@ -21,7 +21,7 @@ struct ColorPickerView: View {
                         .frame(width: 20, height: 20)
                         .overlay(
                             Circle()
-                                .stroke(Color.black, lineWidth: 1) // Add border with black color
+                                .stroke(Color.black, lineWidth: 1)
                         )
                     Text(settings.colors[i].name)
                         .tag(i)

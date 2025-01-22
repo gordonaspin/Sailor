@@ -13,27 +13,23 @@ struct WindDirectionView: View {
     @State private var isPickerPresented: Bool = false
     
     var body: some View {
-        InstrumentView(
-            instrumentName: "W.DIR",
-            instrumentValue: String(format: "%03d", convertedWindDirection),
-            color: settings.color,
-            instrumentUnits: "DEG",
-            unitsColor: settings.color,
-            fontSize: settings.fontSize
-        )
-        .onTapGesture(count: 2) {
-            isPickerPresented = true
-        }
-        /*.swipe(
-         left: {
-         settings.prevColor()
-         },
-         right: {
-         settings.nextColor()
-         }
-         )*/
-        .sheet(isPresented: $isPickerPresented) {
-            WindDirectionSettingsView(colorIndex: settings.$colorIndex)
+        ZStack {
+            InstrumentView(
+                instrumentName: "W.DIR",
+                instrumentValue: String(format: "%03d", convertedWindDirection),
+                color: settings.color,
+                instrumentUnits: "DEG",
+                unitsColor: settings.color,
+                fontSize: settings.fontSize,
+                withIndicator: true,
+                indicatorAdjustment: 0
+            )
+            .onTapGesture(count: 2) {
+                isPickerPresented = true
+            }
+            .sheet(isPresented: $isPickerPresented) {
+                WindDirectionSettingsView(colorIndex: settings.$colorIndex)
+            }
         }
     }
     

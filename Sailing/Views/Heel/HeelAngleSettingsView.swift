@@ -49,9 +49,11 @@ struct HeelAngleSettingsView: View {
                 ColorPickerView(title: "Optimum Heel Color", selectedColor: $optimumHeelColorIndex)
             }
             .navigationTitle("Heel")
-            .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
 }
@@ -61,16 +63,16 @@ struct HeelAngleSettingsView: View {
         @StateObject private var settings = HeelAngleSettings()
         var body: some View {
             HeelAngleSettingsView(
-                                        colorIndex: $settings.colorIndex,
-                                        optimumHeelColorIndex: $settings.optimumHeelColorIndex,
-                                        optimumHeelAngle: $settings.optimumHeelAngle,
-                                        speakHeelAlarms: $settings.speakHeelAlarms,
-                                        underHeelAlarm: $settings.underHeelAlarm,
-                                        overHeelAlarm: $settings.overHeelAlarm,
-                                        optimumHeelAngles: settings.optimumHeelAngles
-                                        )
-
-            }
+                colorIndex: $settings.colorIndex,
+                optimumHeelColorIndex: $settings.optimumHeelColorIndex,
+                optimumHeelAngle: $settings.optimumHeelAngle,
+                speakHeelAlarms: $settings.speakHeelAlarms,
+                underHeelAlarm: $settings.underHeelAlarm,
+                overHeelAlarm: $settings.overHeelAlarm,
+                optimumHeelAngles: settings.optimumHeelAngles
+            )
+            
         }
+    }
     return Preview()
 }

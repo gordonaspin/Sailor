@@ -89,19 +89,15 @@ class CountDown: ObservableObject {
 }
 
 struct RaceTimerView: View {
-    let fontSize: CGFloat = 220
-    let increment = 1
-    @Binding var isPresented: Bool
     @Environment(StopWatch.self) var stopWatch
     @Environment(CountDown.self) var countDown
     @StateObject private var settings = RaceTimerSettings.shared
     @State private var isPickerPresented: Bool = false
-
     @State var arcFraction: CGFloat = 0
     @State var timerColor = Color.green
-    
+    @Binding var isPresented: Bool
+
     var body: some View {
-        
         ZStack {
             GeometryReader { geometry in
                 if geometry.size.height > geometry.size.width {
@@ -109,7 +105,8 @@ struct RaceTimerView: View {
                         Spacer()
                         ZStack() {
                             CircleView(color: $timerColor, fraction: $arcFraction)
-                        }.frame(width: 280, height: 280)
+                        }
+                        .frame(width: 280, height: 280)
                         CountDownView(color: $timerColor, counter: countDown)
                         Spacer()
                         TimerButtonView(counter: countDown, arcFraction: $arcFraction)
@@ -121,7 +118,8 @@ struct RaceTimerView: View {
                         Spacer()
                         ZStack {
                             CircleView(color: $timerColor, fraction: $arcFraction)
-                        }.frame(width: 280, height: 280)
+                        }
+                        .frame(width: 280, height: 280)
                         VStack {
                             CountDownView(color: $timerColor, counter: countDown)
                             Spacer()

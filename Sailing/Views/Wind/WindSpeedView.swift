@@ -19,19 +19,13 @@ struct WindSpeedView: View {
             color: settings.color,
             instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
-            fontSize: settings.fontSize
+            fontSize: settings.fontSize,
+            withIndicator: false,
+            indicatorAdjustment: 0
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        /*.swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            }
-        )*/
         .sheet(isPresented: $isPickerPresented) {
             WindSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
@@ -53,7 +47,6 @@ struct WindSpeedView: View {
             WindSpeedView()
                 .environment(WeatherManager())
                 .background(Color.black)
-
         }
     }
     return Preview()

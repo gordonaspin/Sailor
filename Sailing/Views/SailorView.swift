@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SailorView: View {
+    @Environment(LocationManager.self) var locationManager
+    @Environment(MotionManager.self) var motionManager
+    @Environment(WeatherManager.self) var weatherManager
     @State var isRaceTimerPresented: Bool = false
     var body: some View {
         VStack {
@@ -16,9 +19,20 @@ struct SailorView: View {
                     MapView()
                     DefaultLayoutView()
                 }
+                .onAppear() {
+                    print("\(Date().toTimestamp) -  \(#file) \(#function) Map & DefaultLayoutView onAppear, start tracking")
+                    locationManager.startTracking()
+                    motionManager.startTracking()
+                }
+                
             }
             else {
                 RaceTimerView(isPresented: $isRaceTimerPresented)
+                    .onAppear {
+                        print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear, stop tracking")
+                        locationManager.stopTracking()
+                        motionManager.stopTracking()
+                    }
             }
         }
         .swipe(

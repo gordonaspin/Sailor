@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-
 struct SpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
     let items: [String]
     @Binding var colorIndex: Int
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -23,24 +22,30 @@ struct SpeedSettingsView: View {
                     }
                 }
                 .pickerStyle(InlinePickerStyle())
-                ColorPickerView(title: "Color", selectedColor: $colorIndex)
+                ColorPickerView(
+                    title: "Color",
+                    selectedColor: $colorIndex
+                )
             }
             .navigationTitle("Speed")
             .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
-
 }
 
 #Preview {
     struct Preview: View {
         @StateObject private var settings = SpeedSetttings.shared
         var body: some View {
-            SpeedSettingsView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: $settings.colorIndex)
+            SpeedSettingsView(
+                speedUnits: settings.$speedUnits,
+                items: settings.units,
+                colorIndex: $settings.colorIndex
+            )
         }
     }
     return Preview()
-
 }

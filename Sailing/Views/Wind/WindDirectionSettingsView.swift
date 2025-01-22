@@ -17,9 +17,11 @@ struct WindDirectionSettingsView: View {
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
             .navigationTitle("Wind Direction")
-            .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
 }
@@ -28,7 +30,7 @@ struct WindDirectionSettingsView: View {
     struct Preview: View {
         @StateObject private var settings = WindDirectionSettings.shared
         var body: some View {
-            WindDirectionSettingsView( colorIndex: $settings.colorIndex)
+            WindDirectionSettingsView(colorIndex: $settings.colorIndex)
         }
     }
     return Preview()

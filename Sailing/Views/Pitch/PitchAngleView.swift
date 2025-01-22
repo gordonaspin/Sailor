@@ -15,23 +15,19 @@ struct PitchAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "TRIM",
-            instrumentValue: convertedPitch > 0 ? String(format: "\u{25BE}%02d", convertedPitch) : String(format: "\u{25B4}%02d", abs(convertedPitch)),
+            instrumentValue: String("\(convertedPitch)"),
             color: settings.color,
             instrumentUnits: "DEG",
             unitsColor: settings.color,
-            fontSize: settings.fontSize
+            fontSize: settings.fontSize,
+            withIndicator: true,
+            indicatorAdjustment: +90
         )
         .onTapGesture(count: 2) {
                 isPickerPresented = true
         }
         .sheet(isPresented: $isPickerPresented) {
             PitchAngleSettingsView(colorIndex: settings.$colorIndex)
-        }
-        .onAppear {
-            motionManager.startTracking()
-        }
-        .onDisappear() {
-            motionManager.stopTracking()
         }
     }
 

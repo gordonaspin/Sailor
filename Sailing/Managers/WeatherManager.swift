@@ -13,7 +13,6 @@ import CoreLocation
 class WeatherManager: NSObject, CLLocationManagerDelegate {
     private let weatherManager = WeatherService()
     private let locationManager = CLLocationManager()
-
     var windSpeed: Double = 0.0
     var windDirection: Double = 0.0
     var isAuthorized = false
@@ -72,19 +71,16 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         do {
             let weather = try await weatherManager.weather(for: location)
             let newWindSpeed = round((weather.currentWeather.wind.speed.value > 0 ? weather.currentWeather.wind.speed.value : 0.0) * 10) / 10
-            //if (newWindSpeed != windSpeed) {
-                windSpeed = newWindSpeed
-            //}
+            windSpeed = newWindSpeed
             
             let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
-            //if (Double(newWindDirection) != windDirection) {
-                windDirection = Double(newWindDirection)
-            //}
+            windDirection = Double(newWindDirection)
             print("\(Date().toTimestamp) -  \(#file) \(#function) weather updated windSpeed: \(windSpeed), windDirection: \(windDirection)")
         }
         catch {
             print("\(Date().toTimestamp) -  \(#file) \(#function) failed to fetch weather: \(error)")
         }
+        print("\(Date().toTimestamp) -  \(#file) \(#function) stop tracking")
         stopTracking()
     }
     

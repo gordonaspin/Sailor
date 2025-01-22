@@ -27,18 +27,22 @@ struct WindSpeedSettingsView: View {
             }
             .navigationTitle("Wind Speed")
             .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
-
 }
 
 #Preview {
     struct Preview: View {
         @StateObject private var settings = WindSpeedSetttings.shared
         var body: some View {
-            WindSpeedSettingsView(speedUnits: settings.$speedUnits, items: settings.units, colorIndex: $settings.colorIndex)
+            WindSpeedSettingsView(
+                speedUnits: settings.$speedUnits,
+                items: settings.units,
+                colorIndex: $settings.colorIndex
+            )
         }
     }
     return Preview()

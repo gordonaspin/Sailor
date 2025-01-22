@@ -27,6 +27,7 @@ struct SailorApp: App {
                     }
                     .onDisappear() {
                         UIApplication.shared.isIdleTimerDisabled = false
+                        print("\(Date().toTimestamp) -  \(#file) \(#function) onDisappear, stop tracking")
                         locationManager.stopTracking()
                     }
                     .background(Color.black)
@@ -40,6 +41,7 @@ struct SailorApp: App {
         .environment(weatherManager)
         .environment(stopWatch)
         .environment(countDown)
+
     }
 }
 

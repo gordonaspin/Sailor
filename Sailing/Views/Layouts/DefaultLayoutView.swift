@@ -62,4 +62,5 @@ struct DefaultLayoutView: View {
                 .environment(WeatherManager())
         }
     }
-    return Preview()}
+    return Preview()
+}

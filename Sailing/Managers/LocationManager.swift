@@ -10,7 +10,6 @@ import CoreLocation
 @Observable
 class LocationManager: NSObject, CLLocationManagerDelegate {
     @ObservationIgnored let locationManager = CLLocationManager()
-    
     var speed: Double = 0.0
     var trueHeading: Double = 0
     var magneticHeading: Double = 0

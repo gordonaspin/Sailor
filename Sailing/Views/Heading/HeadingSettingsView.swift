@@ -13,24 +13,20 @@ struct HeadingSettingsView: View {
     @Binding var trueNorth: Bool
     @Binding var colorIndex: Int
     @Binding var mapFollowsHeading: Bool
-
+    
     var body: some View {
         NavigationView {
             Form {
-                //Picker("Heading", selection: $trueNorth) {
-                //    Text("True ").tag(true)
-                //    Text(.init("Magnetic ")).tag(false)
-                //}
-                //.pickerStyle(InlinePickerStyle())
                 Toggle("True North", isOn: $trueNorth)
                 Toggle("Map follows heading", isOn: $mapFollowsHeading)
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
-                
             }
             .navigationTitle("Heading")
-            .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
 }
@@ -39,7 +35,11 @@ struct HeadingSettingsView: View {
     struct Preview: View {
         @StateObject private var settings = HeadingSettings.shared
         var body: some View {
-            HeadingSettingsView(trueNorth: $settings.trueNorth, colorIndex: $settings.colorIndex, mapFollowsHeading: $settings.mapFollowsHeading)
+            HeadingSettingsView(
+                trueNorth: $settings.trueNorth,
+                colorIndex: $settings.colorIndex,
+                mapFollowsHeading: $settings.mapFollowsHeading
+            )
         }
     }
     return Preview()

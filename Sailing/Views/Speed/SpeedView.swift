@@ -19,7 +19,9 @@ struct SpeedView: View {
             color: settings.color,
             instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
-            fontSize: settings.fontSize
+            fontSize: settings.fontSize,
+            withIndicator: false,
+            indicatorAdjustment: 0
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
@@ -30,12 +32,6 @@ struct SpeedView: View {
                 items: settings.units,
                 colorIndex: settings.$colorIndex
             )
-        }
-        .onAppear() {
-            locationManager.startTracking()
-        }
-        .onDisappear {
-            locationManager.stopTracking()
         }
     }
     

@@ -12,12 +12,12 @@ struct CircleView: View {
     @Binding var fraction: CGFloat
     
     var body: some View {
-            Circle()
-                .trim(from: 0, to: 1)
-                .stroke(.gray.opacity(0.5), style: StrokeStyle(lineWidth: 35, lineCap: .round))
-            Circle()
-                .trim(from: 0, to: fraction)
-                .stroke(color, style: StrokeStyle(lineWidth: 35, lineCap: .round))
-                .rotationEffect(.init(degrees: 270))
+        Circle()
+            .trim(from: 0, to: 1)
+            .stroke(.gray.opacity(0.5), style: StrokeStyle(lineWidth: 35, lineCap: .round))
+        Circle()
+            .trim(from: 0, to: fraction)
+            .stroke(color, style: StrokeStyle(lineWidth: 35, lineCap: .round))
+            .rotationEffect(.init(degrees: 270))
     }
 }

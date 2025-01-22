@@ -9,12 +9,11 @@ import CoreMotion
 
 @Observable
 class MotionManager {
-    
+    private var motionManager = CMMotionManager()
     var rollAngle: Double = 0
     var yawAngle: Double = 0
     var pitchAngle: Double = 0
     var isTracking: Bool = false
-    private var motionManager = CMMotionManager()
     
     init() {
         print("\(Date().toTimestamp) - \(#file) \(#function) motion manager initialized")
@@ -31,7 +30,6 @@ class MotionManager {
         print("\(Date().toTimestamp) - \(#file) \(#function) start tracking")
         if !isTracking {
             isTracking.toggle()
-            
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
                 guard let self = self, let motion = motion else { return }
                 let gravity = motion.gravity

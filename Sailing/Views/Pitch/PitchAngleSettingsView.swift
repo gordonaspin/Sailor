@@ -10,16 +10,18 @@ import SwiftUI
 struct PitchAngleSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var colorIndex: Int
-
+    
     var body: some View {
         NavigationView {
             Form {
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
             .navigationTitle("Pitch")
-            .navigationBarItems(trailing: Button("Done") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
 }
@@ -28,9 +30,9 @@ struct PitchAngleSettingsView: View {
     struct Preview: View {
         @StateObject private var settings = PitchAngleSettings.shared
         var body: some View {
-            PitchAngleSettingsView( colorIndex: $settings.colorIndex)
+            PitchAngleSettingsView(colorIndex: $settings.colorIndex)
         }
     }
     return Preview()
-
+    
 }

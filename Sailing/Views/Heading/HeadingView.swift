@@ -19,7 +19,9 @@ struct HeadingView: View {
             color: settings.color,
             instrumentUnits: settings.trueNorth ? "TRUE" : "MAG",
             unitsColor: settings.color,
-            fontSize: settings.fontSize
+            fontSize: settings.fontSize,
+            withIndicator: true,
+            indicatorAdjustment: 0
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
@@ -30,12 +32,6 @@ struct HeadingView: View {
                 colorIndex: $settings.colorIndex,
                 mapFollowsHeading: $settings.mapFollowsHeading
             )
-        }
-        .onAppear() {
-            locationManager.startTracking()
-        }
-        .onDisappear {
-            locationManager.stopTracking()
         }
     }
     

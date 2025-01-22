@@ -18,23 +18,17 @@ struct HeelAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "HEEL",
-            instrumentValue: convertedHeel > 0 ? String(format: "\u{25B8}%02d", convertedHeel) : String(format: "\u{25C2}%02d", abs(convertedHeel)),
+            instrumentValue: String("\(convertedHeel)"),
             color: settings.color,
             instrumentUnits: "DEG",
             unitsColor: settings.titleColor,
-            fontSize: settings.fontSize
+            fontSize: settings.fontSize,
+            withIndicator: true,
+            indicatorAdjustment: 0
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
-        /*.swipe(
-            left: {
-                settings.prevColor()
-            },
-            right: {
-                settings.nextColor()
-            }
-         )*/
         .sheet(isPresented: $isPickerPresented) {
             HeelAngleSettingsView(
                 colorIndex: $settings.colorIndex,
@@ -55,12 +49,6 @@ struct HeelAngleView: View {
                     synthesizer.speak(AVSpeechUtterance(string: settings.overHeelAlarm))
                 }
             }
-        }
-        .onAppear {
-            motionManager.startTracking()
-        }
-        .onDisappear() {
-            motionManager.stopTracking()
         }
     }
     

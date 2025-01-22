@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-
 struct RaceTimerSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var timerStartValue: Int
     var raceTimerValues: [Int]
-
+    
     var body: some View {
         NavigationStack {
             List {
@@ -32,7 +31,6 @@ struct RaceTimerSettingsView: View {
             })
         }
     }
-
 }
 
 #Preview {
@@ -46,5 +44,5 @@ struct RaceTimerSettingsView: View {
         }
     }
     return Preview()
-
+    
 }
