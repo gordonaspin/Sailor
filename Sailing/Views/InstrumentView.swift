@@ -22,6 +22,7 @@ struct InstrumentView: View {
             Text(instrumentName)
                 .font(.body)
                 .bold()
+                .frame(width: 60, height: 100)
                 .rotationEffect(Angle(degrees: -90))
                 .foregroundColor(unitsColor)
             if withIndicator {
@@ -32,12 +33,16 @@ struct InstrumentView: View {
                     height: 25
                 )
                 .frame(width: 10)
+            } else {
+                Text("")
+                    .frame(width: 10)
             }
             Spacer()
             Text(instrumentValue)
                 .font(.system(size: fontSize).monospacedDigit())
                 .fontWidth(.compressed)
                 .bold()
+                .frame(maxWidth: .infinity)
                 .padding(.top, -40)
                 .padding(.bottom, -40)
                 .foregroundColor(color)
@@ -46,8 +51,10 @@ struct InstrumentView: View {
                 .rotationEffect(Angle(degrees: -90))
                 .font(.body)
                 .bold()
+                .frame(width: 60, height: 100)
                 .foregroundColor(unitsColor)
         }
+        
     }
 }
 

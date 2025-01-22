@@ -8,43 +8,34 @@
 import SwiftUI
 
 struct DefaultLayoutView: View {
+    @State private var instruments: [AnyView] = [
+        AnyView(WindSpeedView()),
+        AnyView(WindDirectionView()),
+        AnyView(SpeedView()),
+        AnyView(HeadingView()),
+        AnyView(HeelAngleView()),
+        AnyView(PitchAngleView())
+        ]
+
     var body: some View {
         GeometryReader { geometry in
             if geometry.size.height > geometry.size.width {
                 VStack(alignment: .center, spacing: 0) {
-                    WindSpeedView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    WindDirectionView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    SpeedView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    HeadingView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    HeelAngleView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    PitchAngleView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
+                    ForEach(0..<instruments.count, id: \..self) { i in
+                        instruments[i]
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+               }
             }
             else {
                 VStack(alignment: .center, spacing: 0) {
-                    HStack(alignment: .center, spacing: 0) {
-                        WindSpeedView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        WindDirectionView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    HStack(alignment: .center, spacing: 0) {
-                        SpeedView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        HeadingView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    HStack(alignment: .center, spacing: 0){
-                        HeelAngleView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        PitchAngleView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    ForEach(0..<instruments.count/2, id: \..self) { i in
+                        HStack(alignment: .center, spacing: 0) {
+                            instruments[i*2]
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            instruments[i*2 + 1]
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
                 }
             }

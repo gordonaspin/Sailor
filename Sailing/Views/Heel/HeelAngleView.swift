@@ -58,8 +58,8 @@ struct HeelAngleView: View {
         switch UIDevice.current.orientation {
             case .portrait:              tilt = Int(motionManager.rollAngle)
             case .portraitUpsideDown:    tilt = Int(motionManager.rollAngle)
-            case .landscapeRight:        tilt = Int(motionManager.yawAngle - 90)
-            case .landscapeLeft:         tilt = Int(90 - motionManager.yawAngle)
+            case .landscapeLeft:         tilt = Int(motionManager.yawAngle - 90)
+            case .landscapeRight:        tilt = Int(90 - motionManager.yawAngle)
             default: tilt = Int(motionManager.rollAngle)
         }
         if (abs(tilt) >= (settings.optimumHeelAngle - 5) && abs(tilt) <= (settings.optimumHeelAngle + 5)) {
