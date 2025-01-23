@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct DefaultLayoutView: View {
+struct SpeedHeadingHeelPitchInstrumentsLayoutView: View {
     @State private var instruments: [AnyView] = [
-        AnyView(WindSpeedView()),
-        AnyView(WindDirectionView()),
         AnyView(SpeedView()),
         AnyView(HeadingView()),
+        AnyView(Spacer()),
+        AnyView(Spacer()),
         AnyView(HeelAngleView()),
         AnyView(PitchAngleView())
         ]
@@ -47,7 +47,7 @@ struct DefaultLayoutView: View {
     struct Preview: View {
         @StateObject private var settings = HeadingSettings.shared
         var body: some View {
-            DefaultLayoutView()
+            SpeedHeadingHeelPitchInstrumentsLayoutView()
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())

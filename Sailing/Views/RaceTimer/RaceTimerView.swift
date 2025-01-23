@@ -48,37 +48,37 @@ class CountDown: ObservableObject {
     let synthesizer = AVSpeechSynthesizer()
     let events = [5*60, 4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
 
-    static var startFrom: Int = settings.raceTimer
+    static var startValue: Int = settings.raceTimer
     let increment: Int = 1
-    var countDownFrom: Int
+    var value: Int
     var isRunning: Bool
     init() {
-        countDownFrom = CountDown.startFrom
+        value = CountDown.startValue
         isRunning = false
     }
     func restart() {
-        countDownFrom = CountDown.startFrom
+        value = CountDown.startValue
     }
     func reset() {
-        countDownFrom = CountDown.startFrom
+        value = CountDown.startValue
         isRunning = false
     }
     func notify() {
         guard isRunning else { return }
-        countDownFrom -= increment
-        print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(countDownFrom)")
-        if events.contains(countDownFrom) {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(countDownFrom)")
-            if countDownFrom > 0 {
+        value -= increment
+        print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(value)")
+        if events.contains(value) {
+            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(value)")
+            if value > 0 {
                 AudioServicesPlayAlertSound(1313)
-                if countDownFrom >= oneMinute {
-                    synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom/oneMinute) minute\(countDownFrom > oneMinute ? "s" : "")"))
+                if value >= oneMinute {
+                    synthesizer.speak(AVSpeechUtterance(string: "\(value/oneMinute) minute\(value > oneMinute ? "s" : "")"))
                 }
-                else if countDownFrom < oneMinute && countDownFrom > 5 {
-                    synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom) seconds"))
+                else if value < oneMinute && value > 5 {
+                    synthesizer.speak(AVSpeechUtterance(string: "\(value) seconds"))
                 }
-                else if countDownFrom <= 5 && countDownFrom > 0 {
-                    synthesizer.speak(AVSpeechUtterance(string: "\(countDownFrom)"))
+                else if value <= 5 && value > 0 {
+                    synthesizer.speak(AVSpeechUtterance(string: "\(value)"))
                 }
             }
             else {
@@ -90,6 +90,7 @@ class CountDown: ObservableObject {
 }
 
 struct RaceTimerView: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(StopWatch.self) var stopWatch
     @Environment(CountDown.self) var countDown
     @StateObject private var settings = RaceTimerSettings.shared
@@ -97,6 +98,7 @@ struct RaceTimerView: View {
     @State var arcFraction: CGFloat = 0
     @State var timerColor = Color.green
     @Binding var isPresented: Bool
+    @Binding var viewIndex: Int
 
     var body: some View {
         ZStack {
@@ -141,23 +143,18 @@ struct RaceTimerView: View {
                 stopWatch.stop()
             }
         }
-        .onChange(of: countDown.countDownFrom) {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.countDownFrom)")
+        .onChange(of: countDown.value) {
+            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.value)")
             if countDown.isRunning {
-                if countDown.countDownFrom > 0 {
-                    if countDown.countDownFrom <= 0 {
-                        countDown.reset()
-                        isPresented.toggle()
-                    }
+                if countDown.value > 0 {
                     withAnimation(.default) {
-                        arcFraction = CGFloat(countDown.countDownFrom) / CGFloat(CountDown.startFrom)
+                        arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
                     }
                 } else {
                     withAnimation(.default) {
-                        arcFraction = CGFloat(CountDown.startFrom)
+                        arcFraction = CGFloat(CountDown.startValue)
                     }
-                    countDown.reset()
-                    isPresented.toggle()
+                    dissmissMe()
                     notify()
                 }
             }
@@ -171,8 +168,8 @@ struct RaceTimerView: View {
             isPickerPresented = true
         }
         .onChange(of: settings.raceTimer) {
-            countDown.countDownFrom = settings.raceTimer
-            CountDown.startFrom = settings.raceTimer
+            countDown.value = settings.raceTimer
+            CountDown.startValue = settings.raceTimer
         }
         .sheet(isPresented: $isPickerPresented) {
             RaceTimerSettingsView(
@@ -181,7 +178,16 @@ struct RaceTimerView: View {
             )
         }
     }
-    
+    private func dissmissMe() {
+        countDown.reset()
+        if viewIndex < 0 {
+            viewIndex = viewIndex + 1
+        }
+        else {
+            viewIndex = viewIndex - 1
+        }
+        isPresented.toggle()
+    }
     private func notify() {
         let content = UNMutableNotificationContent()
         content.title = "Sailing"
@@ -197,8 +203,9 @@ struct RaceTimerView: View {
 #Preview {
     struct Preview: View {
         @State var isPresented: Bool = true
+        @State var viewIndex: Int = 0
         var body: some View {
-            RaceTimerView(isPresented: $isPresented)
+            RaceTimerView(isPresented: $isPresented, viewIndex: $viewIndex)
                 .environment(StopWatch(countDown: CountDown()))
                 .environment(CountDown())
         }

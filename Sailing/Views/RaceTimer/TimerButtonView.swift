@@ -34,7 +34,7 @@ struct TimerButtonView : View {
             Button {
                 counter.restart()
                 withAnimation {
-                    arcFraction = CGFloat(CountDown.startFrom)
+                    arcFraction = CGFloat(CountDown.startValue)
                 }
             } label: {
                 HStack(spacing: 15) {

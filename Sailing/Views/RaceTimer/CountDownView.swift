@@ -21,20 +21,20 @@ struct CountDownView: View {
         HStack() {
             Spacer()
             Group {
-                let mt = String("\(counter.countDownFrom / oneMinute / 10)")
-                let mu = String("\(counter.countDownFrom / oneMinute % 10)")
-                let st = String("\((counter.countDownFrom % oneMinute) / 10)")
-                let su = String("\((counter.countDownFrom % oneMinute) % 10)")
-                if counter.countDownFrom >= tenMinutes {
+                let mt = String("\(counter.value / oneMinute / 10)")
+                let mu = String("\(counter.value / oneMinute % 10)")
+                let st = String("\((counter.value % oneMinute) / 10)")
+                let su = String("\((counter.value % oneMinute) % 10)")
+                if counter.value >= tenMinutes {
                     Text(mt)
                 }
-                if (counter.countDownFrom >= oneMinute) {
+                if (counter.value >= oneMinute) {
                     Text(mu)
                         .onDisappear() {
                         }
                     Text(":")
                 }
-                if (counter.countDownFrom > 9) {
+                if (counter.value > 9) {
                     Text(st)
                 }
                 Text(su)
@@ -43,11 +43,11 @@ struct CountDownView: View {
             .fontWidth(.compressed)
             .bold()
             .foregroundColor(color)
-            .onChange(of: counter.countDownFrom) {
-                if counter.countDownFrom > fiveMinutes {
+            .onChange(of: counter.value) {
+                if counter.value > fiveMinutes {
                     color = Color.green
                 }
-                else if counter.countDownFrom > oneMinute {
+                else if counter.value > oneMinute {
                     color = Color.yellow
                 }
                 else {
