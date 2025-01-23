@@ -15,7 +15,7 @@ struct WindSpeedView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "W.SPD",
-            instrumentValue: String(format: "%.1f", convertedSpeed),
+            instrumentValue: String(format: "%.1f", convertedWindSpeed),
             color: settings.color,
             instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,
@@ -35,8 +35,8 @@ struct WindSpeedView: View {
         }
     }
     
-    private var convertedSpeed: Double {
-        print("\(Date().toTimestamp) - \(#function) - \(weatherManager.windSpeed)")
+    private var convertedWindSpeed: Double {
+        print("\(Date().toTimestamp) - \(#function) \(weatherManager.windSpeed)")
         return settings.convertSpeed(speed: weatherManager.windSpeed)
     }
 }

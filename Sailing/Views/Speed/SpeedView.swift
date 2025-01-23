@@ -36,7 +36,7 @@ struct SpeedView: View {
     }
     
     private var convertedSpeed: Double {
-        print("\(Date().toTimestamp) - \(#function) - \(locationManager.speed)")
+        print("\(Date().toTimestamp) - \(#function) \(locationManager.speed)")
         return settings.convertSpeed(speed: locationManager.speed)
     }
 }

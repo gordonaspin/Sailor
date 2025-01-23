@@ -30,7 +30,7 @@ struct SailorApp: App {
                         print("\(Date().toTimestamp) -  \(#file) \(#function) onDisappear, stop tracking")
                         locationManager.stopTracking()
                     }
-                    .background(Color.black)
+                    //.background(Color.black)
             }
             else {
                 LocationDeniedView()
