@@ -15,7 +15,9 @@ struct PitchAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "TRIM",
-            instrumentValue: String("\(convertedPitch)"),
+            instrumentValue: convertedPitch,
+            formatSpecifier: "%d",
+            showSign: false,
             color: settings.color,
             instrumentUnits: "DEG",
             unitsColor: settings.color,

@@ -22,7 +22,7 @@ class MotionManager {
     
     private func setupMotionManager() {
         if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 1.0
+            motionManager.deviceMotionUpdateInterval = 0.2
         }
     }
     
@@ -46,19 +46,24 @@ class MotionManager {
                 let newYawAngle = round(yTiltAngle)
                 let newPitchAngle = round(zTiltAngle) - 90.0
                 
+                var hasChanged: Bool = false
                 // Don't publish new values if they have not changed
                 if (newRollAngle != self.rollAngle) {
                     self.rollAngle = newRollAngle
+                    hasChanged = true
                 }
                 if (newYawAngle != self.yawAngle) {
                     self.yawAngle = newYawAngle
+                    hasChanged = true
                 }
                 if (newPitchAngle != self.pitchAngle) {
                     self.pitchAngle = newPitchAngle
+                    hasChanged = true
                 }
-                print("\(Date().toTimestamp) - \(#file) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
+                if hasChanged {
+                    print("\(Date().toTimestamp) - \(#file) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
+                }
             }
-            
         }
     }
     

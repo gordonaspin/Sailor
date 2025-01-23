@@ -15,7 +15,9 @@ struct WindSpeedView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "W.SPD",
-            instrumentValue: String(format: "%.1f", convertedWindSpeed),
+            instrumentValue: convertedWindSpeed,
+            formatSpecifier: "%.1f",
+            showSign: false,
             color: settings.color,
             instrumentUnits: settings.speedUnits,
             unitsColor: settings.color,

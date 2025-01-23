@@ -15,7 +15,9 @@ struct HeadingView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "HDG",
-            instrumentValue: String(format: "%03d", convertedHeading),
+            instrumentValue: convertedHeading,
+            formatSpecifier: "%03d",
+            showSign: false,
             color: settings.color,
             instrumentUnits: settings.trueNorth ? "TRUE" : "MAG",
             unitsColor: settings.color,

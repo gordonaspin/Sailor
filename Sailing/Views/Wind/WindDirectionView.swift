@@ -16,7 +16,9 @@ struct WindDirectionView: View {
         ZStack {
             InstrumentView(
                 instrumentName: "W.DIR",
-                instrumentValue: String(format: "%03d", convertedWindDirection),
+                instrumentValue: convertedWindDirection,
+                formatSpecifier: "%03d",
+                showSign: false,
                 color: settings.color,
                 instrumentUnits: "DEG",
                 unitsColor: settings.color,

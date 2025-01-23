@@ -18,7 +18,9 @@ struct HeelAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "HEEL",
-            instrumentValue: String("\(convertedHeel)"),
+            instrumentValue: convertedHeel,
+            formatSpecifier: "%d",
+            showSign: false,
             color: settings.color,
             instrumentUnits: "DEG",
             unitsColor: settings.titleColor,
