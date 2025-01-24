@@ -12,13 +12,11 @@ struct HeadingSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var trueNorth: Bool
     @Binding var colorIndex: Int
-    @Binding var mapFollowsHeading: Bool
     
     var body: some View {
         NavigationView {
             Form {
                 Toggle("True North", isOn: $trueNorth)
-                Toggle("Map follows heading", isOn: $mapFollowsHeading)
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
             .navigationTitle("Heading")
@@ -37,8 +35,7 @@ struct HeadingSettingsView: View {
         var body: some View {
             HeadingSettingsView(
                 trueNorth: $settings.trueNorth,
-                colorIndex: $settings.colorIndex,
-                mapFollowsHeading: $settings.mapFollowsHeading
+                colorIndex: $settings.colorIndex
             )
         }
     }

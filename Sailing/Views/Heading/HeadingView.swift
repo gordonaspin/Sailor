@@ -31,8 +31,7 @@ struct HeadingView: View {
         .sheet(isPresented: $isPickerPresented) {
             HeadingSettingsView(
                 trueNorth: $settings.trueNorth,
-                colorIndex: $settings.colorIndex,
-                mapFollowsHeading: $settings.mapFollowsHeading
+                colorIndex: $settings.colorIndex
             )
         }
     }

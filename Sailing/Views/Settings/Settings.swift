@@ -77,13 +77,11 @@ class HeadingSettings: Settings, ColorProtocol {
     static var shared = HeadingSettings()
     @AppStorage(wrappedValue: 5, "preference_headingColor") var colorIndex: Int
     @AppStorage(wrappedValue: false, "preference_trueNorth") var trueNorth: Bool
-    @AppStorage(wrappedValue: true, "preference_mapFollowsHeading") var mapFollowsHeading: Bool
 
     override init() {
         super.init()
         print("HeadingViewSetting color: \(colorIndex) \(color)")
         print("HeadingViewSetting trueNorth: \(trueNorth)")
-        print("HeadingViewSetting mapFollowsHeading: \(mapFollowsHeading)")
     }
     var color: Color {
         return colors[colorIndex].color
