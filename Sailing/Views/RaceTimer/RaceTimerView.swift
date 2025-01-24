@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UserNotifications
-import AudioToolbox
+//import AudioToolbox
 import AVFoundation
 
 @Observable
@@ -43,15 +43,17 @@ class StopWatch: ObservableObject {
 @Observable
 class CountDown: ObservableObject {
     let oneMinute: Int = 60
-    static private var settings = RaceTimerSettings.shared
-    static var shared = CountDown()
+    let increment: Int = 1
     let synthesizer = AVSpeechSynthesizer()
     let events = [5*60, 4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
-    
+    let url = URL(fileURLWithPath: "/System/Library/Audio/UISounds/sms-received5.caf")
+    static private var settings = RaceTimerSettings.shared
+    static var shared = CountDown()
     static var startValue: Int = settings.raceTimer
-    let increment: Int = 1
     var value: Int
     var isRunning: Bool
+    var systemSoundID : SystemSoundID = 1013 // doesnt matter; edit path instead
+
     init() {
         value = CountDown.startValue
         isRunning = false
@@ -69,7 +71,8 @@ class CountDown: ObservableObject {
         print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(value)")
         if events.contains(value) {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(value)")
-            AudioServicesPlayAlertSound(1313)
+            AudioServicesCreateSystemSoundID(url as CFURL, &systemSoundID)
+            AudioServicesPlaySystemSound(systemSoundID)
             if value > 0 {
                 if value >= oneMinute {
                     synthesizer.speak(AVSpeechUtterance(string: "\(value/oneMinute) minute\(value > oneMinute ? "s" : "")"))
