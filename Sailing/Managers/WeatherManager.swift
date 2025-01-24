@@ -23,7 +23,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
-        _ = Timer.scheduledTimer(withTimeInterval: fiveMminutes, repeats: true) { timer in
+        _ = Timer.scheduledTimer(withTimeInterval: fiveMminutes, repeats: true) { _ in
             self.startTracking()
         }
     }

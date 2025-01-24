@@ -40,7 +40,7 @@ struct TimerButtonView : View {
                 HStack(spacing: 15) {
                     Image(systemName: "arrow.clockwise")
                         .foregroundColor(color)
-                    Text("Restart")
+                    Text(counter.isRunning ? "Restart" : " Reset ")
                         .foregroundColor(color)
                 }
             }

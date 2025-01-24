@@ -1,19 +1,25 @@
-
 I wrote this IOS Navigation application to learn SwiftUI. I use the application on my iPhone as a navigation aid while sailing my MC Scow dingy. I have the phone mounted vertically so I can use it as a compass, knotmeter, and heel and pitch monitor.
 
-The user interface presented is a map with four views superimposed that display information:
-- Speed in knots, mph or m/s
-- Heading, true or magentic north
-- Heel angle
-- Pitch angle
+
 
 ### Main Screen
-The primary user interface displays the map, a compass icon, map scale and user location with heading. Overlaid on the map are the speed the device is moving, the magnetic or true heading, the degrees of heel (or tilt) and pitch of the device from vertical.
+The initial user interface displays a map, a compass icon, map scale and user location with heading. Overlaid on the map are various instruments:
+- Wind Speed
+- Wind Direction
+- Boat Speed
+- Current Heading / Direction of movement
+- The Heel angle
+- The Pitch angle
 
+The user can swipe left or right through a number of preset layouts with different instruments overlaid on the map.
 
-![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMain.png)
+Wind speed and direction are from the Apple WeatherKit service. Boat speed and Heading are from CoreLocation. Heel and pitch are derived from CoreMotion.
 
-A tap gesture on each of the four metrics will bring up the settings screen for that metric
+| Main Screen Dark | Main Screen Light | StopWatch Screen |
+| ---------------- | ----------------- | ---------------- |
+| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatch.png) |
+
+A double tap gesture on any of the instruments will bring up the settings screen for that instrument
 | Speed settings | Heading Settings |
 | -------------- | ---------------- |
 | ![image info](./Sailing/Assets.xcassets/README/SailorSpeed.imageset/SailorSpeed.png) | ![image info](./Sailing/Assets.xcassets/README/SailorHeading.imageset/SailorHeading.png) |
@@ -164,7 +170,7 @@ Similarly in MotionManager, only publish new Roll, Yaw and Pitch angles if they 
 ```swift
     private func setupMotionManager() {
         if motionManager.isDeviceMotionAvailable {
-            motionManager.deviceMotionUpdateInterval = 0.5
+            motionManager.deviceMotionUpdateInterval = 0.2
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
                 guard let self = self, let motion = motion else { return }
                 let gravity = motion.gravity
@@ -193,5 +199,43 @@ Similarly in MotionManager, only publish new Roll, Yaw and Pitch angles if they 
                 }
             }
         }
+    }
+```
+WeatherManager uses WeatherKit for current wind speed and direction. These values don't change frequently, and obviously weather depends on currrent location, so I use another instance of location manager but stop tracking in between the five minute updates:
+```swift
+@Observable
+class WeatherManager: NSObject, CLLocationManagerDelegate {
+    private let fiveMminutes: TimeInterval = 5 * 60
+    private let weatherManager = WeatherService()
+    private let locationManager = CLLocationManager()
+    var windSpeed: Double = 0.0
+    var windDirection: Double = 0.0
+    var isAuthorized = false
+
+    override init() {
+        super.init()
+        print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
+        locationManager.delegate = self
+        startLocationServices()
+        _ = Timer.scheduledTimer(withTimeInterval: fiveMminutes, repeats: true) { _ in
+            self.startTracking()
+        }
+    }
+    ...
+    func fetchWeather(for location: CLLocation) async {
+        do {
+            let weather = try await weatherManager.weather(for: location)
+            let newWindSpeed = round((weather.currentWeather.wind.speed.value > 0 ? weather.currentWeather.wind.speed.value : 0.0) * 10) / 10
+            windSpeed = newWindSpeed
+            
+            let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
+            windDirection = Double(newWindDirection)
+            print("\(Date().toTimestamp) -  \(#file) \(#function) weather updated windSpeed: \(windSpeed), windDirection: \(windDirection)")
+        }
+        catch {
+            print("\(Date().toTimestamp) -  \(#file) \(#function) failed to fetch weather: \(error)")
+        }
+        print("\(Date().toTimestamp) -  \(#file) \(#function) stop tracking")
+        stopTracking()
     }
 ```

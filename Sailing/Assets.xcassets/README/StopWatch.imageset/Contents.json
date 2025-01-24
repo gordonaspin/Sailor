@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "SailorMainDark.png",
+      "filename" : "StopWatch.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SailorMainLight.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

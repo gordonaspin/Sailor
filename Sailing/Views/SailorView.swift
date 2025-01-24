@@ -26,7 +26,6 @@ struct SailorView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             VStack {
                 ZStack {
                     MapView()
@@ -112,7 +111,6 @@ struct SailorView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingSettings.shared
         var body: some View {
             SailorView()
                 .environment(LocationManager())

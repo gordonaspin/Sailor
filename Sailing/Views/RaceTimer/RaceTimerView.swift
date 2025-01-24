@@ -69,8 +69,8 @@ class CountDown: ObservableObject {
         print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(value)")
         if events.contains(value) {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(value)")
+            AudioServicesPlayAlertSound(1313)
             if value > 0 {
-                AudioServicesPlayAlertSound(1313)
                 if value >= oneMinute {
                     synthesizer.speak(AVSpeechUtterance(string: "\(value/oneMinute) minute\(value > oneMinute ? "s" : "")"))
                 }
@@ -82,7 +82,7 @@ class CountDown: ObservableObject {
                 }
             }
             else {
-                AudioServicesPlayAlertSound(1304)
+                isRunning = false
                 synthesizer.speak(AVSpeechUtterance(string: "start racing, good luck!"))
             }
         }
@@ -145,7 +145,7 @@ struct RaceTimerView: View {
         }
         .onChange(of: countDown.value) {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.value)")
-            if countDown.isRunning {
+            //if countDown.isRunning {
                 if countDown.value > 0 {
                     withAnimation(.default) {
                         arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
@@ -157,12 +157,15 @@ struct RaceTimerView: View {
                     dissmissMe()
                     notify()
                 }
-            }
+            //}
         }
         .onAppear(perform: {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
             }
             print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear: countdown.isRunning \(countDown.isRunning)")
+            if !countDown.isRunning {
+                countDown.reset()
+            }
         })
         .onTapGesture(count: 2) {
             isPickerPresented = true
