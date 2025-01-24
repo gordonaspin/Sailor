@@ -13,44 +13,55 @@ struct SailorView: View {
         AnyView(SpeedHeadingHeelPitchInstrumentsLayoutView()),
         AnyView(SpeedHeadingInstrumentsLayoutView())
     ]
-    
     @Environment(LocationManager.self) var locationManager
     @Environment(MotionManager.self) var motionManager
     @Environment(WeatherManager.self) var weatherManager
     @Environment(\.colorScheme) var colorScheme
-    @State var isRaceTimerPresented: Bool = false
-    @State var viewIndex: Int = 0
+    @State private var isRaceTimerPresented: Bool = false
+    @State private var viewIndex: Int = 0
     @State private var offset: CGFloat = 0
     @State private var backgroundColor: Color = .clear
     @State private var scaleFactor: CGFloat = 1
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
-                ZStack {
-                    MapView()
-                    if !isRaceTimerPresented {
-                        views[viewIndex]
-                            .offset(x: offset)
-                            .scaleEffect(scaleFactor)
-                            .background(backgroundColor)
-                            .onAppear() {
-                                print("\(Date().toTimestamp) -  \(#file) \(#function) Map & DefaultLayoutView onAppear, start tracking")
-                                locationManager.startTracking()
-                                motionManager.startTracking()
-                            }
+            ZStack {
+                MapView()
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            isRaceTimerPresented.toggle()
+                        } label: {
+                            Image(systemName: "timer.square")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 40))
+                                .offset(
+                                    x: (geometry.size.height > geometry.size.width) ? -7 : 30,
+                                    y: (geometry.size.height > geometry.size.width) ? +5 : 0)
+                        }
+                        .ignoresSafeArea()
                     }
-                    else {
-                        RaceTimerView(isPresented: $isRaceTimerPresented, viewIndex: $viewIndex)
-                            .background(colorScheme == .dark ? Color.black : Color.white)
-                            .offset(x: offset)
-                            .scaleEffect(scaleFactor)
-                            .onAppear {
-                                print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear, stop tracking")
-                                locationManager.stopTracking()
-                                motionManager.stopTracking()
-                            }
-                    }
+                if !isRaceTimerPresented {
+                    views[viewIndex]
+                        .offset(x: offset)
+                        .scaleEffect(scaleFactor)
+                        .background(backgroundColor)
+                        .onAppear() {
+                            print("\(Date().toTimestamp) -  \(#file) \(#function) Map & DefaultLayoutView onAppear, start tracking")
+                            locationManager.startTracking()
+                            motionManager.startTracking()
+                        }
+                }
+                else {
+                    RaceTimerView(isPresented: $isRaceTimerPresented)
+                        .background(colorScheme == .dark ? Color.black : Color.white)
+                        .offset(x: offset)
+                        .scaleEffect(scaleFactor)
+                        .onAppear {
+                            print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear, stop tracking")
+                            locationManager.stopTracking()
+                            motionManager.stopTracking()
+                        }
+                    
                 }
             }
             .animation(.spring(), value: offset)
@@ -59,7 +70,7 @@ struct SailorView: View {
                     .onChanged { gesture in
                         offset = gesture.translation.width
                         if abs(gesture.translation.width) > geometry.size.width / 8 {
-                            backgroundColor = Color.gray.opacity(0.9)
+                            backgroundColor = Color.gray.opacity(0.5)
                             scaleFactor = 0.9
                         }
                     }
@@ -81,29 +92,20 @@ struct SailorView: View {
     private func nextView() {
         withAnimation {
             if isRaceTimerPresented {
-                viewIndex = 0
-                isRaceTimerPresented = false
+                isRaceTimerPresented.toggle()
             }
             else {
-                viewIndex = viewIndex + 1
-            }
-            if viewIndex == views.count {
-                isRaceTimerPresented = true
+                viewIndex = (viewIndex + 1) % views.count
             }
         }
     }
     private func prevView() {
         withAnimation {
-            backgroundColor = Color.gray
             if isRaceTimerPresented {
-                viewIndex = views.count - 1
-                isRaceTimerPresented = false
+                isRaceTimerPresented.toggle()
             }
             else {
-                viewIndex = viewIndex - 1
-            }
-            if viewIndex == -1 {
-                isRaceTimerPresented = true
+                viewIndex = (viewIndex - 1 + views.count) % views.count
             }
         }
     }

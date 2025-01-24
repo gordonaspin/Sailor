@@ -47,7 +47,7 @@ class CountDown: ObservableObject {
     static var shared = CountDown()
     let synthesizer = AVSpeechSynthesizer()
     let events = [5*60, 4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
-
+    
     static var startValue: Int = settings.raceTimer
     let increment: Int = 1
     var value: Int
@@ -98,8 +98,7 @@ struct RaceTimerView: View {
     @State var arcFraction: CGFloat = 0
     @State var timerColor = Color.green
     @Binding var isPresented: Bool
-    @Binding var viewIndex: Int
-
+    
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -145,19 +144,17 @@ struct RaceTimerView: View {
         }
         .onChange(of: countDown.value) {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.value)")
-            //if countDown.isRunning {
-                if countDown.value > 0 {
-                    withAnimation(.default) {
-                        arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
-                    }
-                } else {
-                    withAnimation(.default) {
-                        arcFraction = CGFloat(CountDown.startValue)
-                    }
-                    dissmissMe()
-                    notify()
+            if countDown.value > 0 {
+                withAnimation(.default) {
+                    arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
                 }
-            //}
+            } else {
+                withAnimation(.default) {
+                    arcFraction = CGFloat(CountDown.startValue)
+                }
+                dissmissMe()
+                notify()
+            }
         }
         .onAppear(perform: {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
@@ -183,12 +180,6 @@ struct RaceTimerView: View {
     }
     private func dissmissMe() {
         countDown.reset()
-        if viewIndex < 0 {
-            viewIndex = viewIndex + 1
-        }
-        else {
-            viewIndex = viewIndex - 1
-        }
         isPresented.toggle()
     }
     private func notify() {
@@ -206,9 +197,8 @@ struct RaceTimerView: View {
 #Preview {
     struct Preview: View {
         @State var isPresented: Bool = true
-        @State var viewIndex: Int = 0
         var body: some View {
-            RaceTimerView(isPresented: $isPresented, viewIndex: $viewIndex)
+            RaceTimerView(isPresented: $isPresented)
                 .environment(StopWatch(countDown: CountDown()))
                 .environment(CountDown())
         }
