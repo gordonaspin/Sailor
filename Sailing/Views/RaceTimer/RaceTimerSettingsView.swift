@@ -11,6 +11,8 @@ struct RaceTimerSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var timerStartValue: Int
     var raceTimerValues: [Int]
+    @Binding var speakTimerAlerts: Bool
+    @Binding var audibleTimerAlerts: Bool
     
     var body: some View {
         NavigationStack {
@@ -23,8 +25,12 @@ struct RaceTimerSettingsView: View {
                     }
                 })
                 .pickerStyle(.inline)
-                
+                Section(header: Text("Timer Alerts")) {
+                    Toggle("Speak Timer Alerts", isOn: $speakTimerAlerts)
+                    Toggle("Audible Timer Alerts", isOn: $audibleTimerAlerts)
+                }
             }
+
             .navigationTitle("Race Timer")
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
@@ -39,7 +45,10 @@ struct RaceTimerSettingsView: View {
         var body: some View {
             RaceTimerSettingsView(
                 timerStartValue: settings.$raceTimer,
-                raceTimerValues: settings.raceTimerValues
+                raceTimerValues: settings.raceTimerValues,
+                speakTimerAlerts: settings.$speakTimerAlerts,
+                audibleTimerAlerts: settings.$audibleTimerAlerts
+                
             )
         }
     }

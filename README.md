@@ -15,9 +15,15 @@ The user can swipe left or right through a number of preset layouts with differe
 
 Wind speed and direction are from the Apple WeatherKit service. Boat speed and Heading are from CoreLocation. Heel and pitch are derived from CoreMotion.
 
-| Main Screen Dark | Main Screen Light | StopWatch Screen |
-| ---------------- | ----------------- | ---------------- |
-| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatch.png) |
+| Main Screen Dark | Main Screen Light |
+| ---------------- | ----------------- |
+| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) |
+
+A tap on the stopwatch icon in the lower right will bring up the stopwatch. The stopwatch can be started, paused and reset using the buttons. A double tap will bring up the settings for the stopwatch, such as the number of minutes to count down from. Announcements are made at various times as to how much time is left before the start of the race. The stopwatch can be dismissed with a left or right swipe and will return to the instrument view. The stopwatch will continue to run in the background.
+
+| StopWatch Dark | StopWatch Light |
+| -------------- | --------------- |
+| ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchDark.png) | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchLight.png) |
 
 A double tap gesture on any of the instruments will bring up the settings screen for that instrument
 | Speed settings | Heading Settings |

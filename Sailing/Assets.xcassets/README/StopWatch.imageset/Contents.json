@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "StopWatch.png",
+      "filename" : "StopWatchDark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "StopWatchLight.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

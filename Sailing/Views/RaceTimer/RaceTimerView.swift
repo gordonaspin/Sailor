@@ -71,9 +71,11 @@ class CountDown: ObservableObject {
         print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(value)")
         if events.contains(value) {
             print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(value)")
-            AudioServicesCreateSystemSoundID(url as CFURL, &systemSoundID)
-            AudioServicesPlaySystemSound(systemSoundID)
-            if value > 0 {
+            if CountDown.settings.audibleTimerAlerts {
+                AudioServicesCreateSystemSoundID(url as CFURL, &systemSoundID)
+                AudioServicesPlaySystemSound(systemSoundID)
+            }
+            if value > 0 && CountDown.settings.speakTimerAlerts {
                 if value >= oneMinute {
                     synthesizer.speak(AVSpeechUtterance(string: "\(value/oneMinute) minute\(value > oneMinute ? "s" : "")"))
                 }
@@ -84,7 +86,7 @@ class CountDown: ObservableObject {
                     synthesizer.speak(AVSpeechUtterance(string: "\(value)"))
                 }
             }
-            else {
+            if value == 0 {
                 isRunning = false
                 synthesizer.speak(AVSpeechUtterance(string: "start racing, good luck!"))
             }
@@ -177,7 +179,9 @@ struct RaceTimerView: View {
         .sheet(isPresented: $isPickerPresented) {
             RaceTimerSettingsView(
                 timerStartValue: settings.$raceTimer,
-                raceTimerValues: settings.raceTimerValues
+                raceTimerValues: settings.raceTimerValues,
+                speakTimerAlerts: settings.$speakTimerAlerts,
+                audibleTimerAlerts: settings.$audibleTimerAlerts
             )
         }
     }

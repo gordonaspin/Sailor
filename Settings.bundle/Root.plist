@@ -422,6 +422,26 @@
 				<integer>900</integer>
 			</array>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Speak Timer Alerts</string>
+			<key>Key</key>
+			<string>preference_speakTimerAlerts</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Audible Timer Alerts</string>
+			<key>Key</key>
+			<string>preference_audibleTimerAlerts</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>
