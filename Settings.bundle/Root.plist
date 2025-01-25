@@ -30,7 +30,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -57,9 +57,9 @@
 			<string>KTS</string>
 			<key>Titles</key>
 			<array>
-				<string>KTS</string>
-				<string>MPH</string>
-				<string>M/S</string>
+				<string>Knots</string>
+				<string>Miles Per Hour</string>
+				<string>Meters Per Second</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -92,7 +92,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -142,7 +142,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -198,7 +198,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -268,7 +268,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -308,7 +308,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -348,7 +348,7 @@
 				<string>Yellow</string>
 				<string>Cyan</string>
 				<string>Purple</string>
-				<string>Grey</string>
+				<string>Gray</string>
 				<string>Black</string>
 			</array>
 			<key>Values</key>
@@ -375,9 +375,9 @@
 			<string>KTS</string>
 			<key>Titles</key>
 			<array>
-				<string>KTS</string>
-				<string>MPH</string>
-				<string>KM/H</string>
+				<string>Knots</string>
+				<string>Miles Per Hour</string>
+				<string>Kilometers Per Hour</string>
 			</array>
 			<key>Values</key>
 			<array>

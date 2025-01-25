@@ -11,15 +11,16 @@ import SwiftUI
 struct WindSpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
-    let items: [String]
+    let shortUnits: [String]
+    let longUnits: [String]
     @Binding var colorIndex: Int
 
     var body: some View {
         NavigationView {
             Form {
                 Picker("Units", selection: $speedUnits) {
-                    ForEach(items, id: \.self) { item in
-                        Text(item).tag(item)
+                    ForEach(0..<shortUnits.count, id: \.self) { i in
+                        Text(longUnits[i]).tag(shortUnits[i])
                     }
                 }
                 .pickerStyle(InlinePickerStyle())
@@ -40,7 +41,8 @@ struct WindSpeedSettingsView: View {
         var body: some View {
             WindSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
-                items: settings.units,
+                shortUnits: settings.units,
+                longUnits:  settings.longUnits,
                 colorIndex: $settings.colorIndex
             )
         }

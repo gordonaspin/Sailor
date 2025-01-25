@@ -10,16 +10,20 @@ import SwiftUI
 struct SpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
-    let items: [String]
+    let shortUnits: [String]
+    let longUnits: [String]
     @Binding var colorIndex: Int
     
     var body: some View {
         NavigationView {
             Form {
                 Picker("Units", selection: $speedUnits) {
-                    ForEach(items, id: \.self) { item in
-                        Text(item).tag(item)
+                    ForEach(0..<shortUnits.count, id: \.self) { i in
+                        Text(longUnits[i]).tag(shortUnits[i])
                     }
+                    //ForEach(items, id: \.self) { item in
+                    //    Text(item).tag(item)
+                    //}
                 }
                 .pickerStyle(InlinePickerStyle())
                 ColorPickerView(
@@ -42,7 +46,8 @@ struct SpeedSettingsView: View {
         var body: some View {
             SpeedSettingsView(
                 speedUnits: settings.$speedUnits,
-                items: settings.units,
+                shortUnits: settings.units,
+                longUnits: settings.longUnits,
                 colorIndex: $settings.colorIndex
             )
         }

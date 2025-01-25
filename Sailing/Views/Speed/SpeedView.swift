@@ -31,7 +31,8 @@ struct SpeedView: View {
         .sheet(isPresented: $isPickerPresented) {
             SpeedSettingsView(
                 speedUnits: settings.$speedUnits,
-                items: settings.units,
+                shortUnits: settings.units,
+                longUnits: settings.longUnits,
                 colorIndex: settings.$colorIndex
             )
         }

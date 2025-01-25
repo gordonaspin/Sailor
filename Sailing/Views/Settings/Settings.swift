@@ -23,7 +23,7 @@ class Settings: ObservableObject {
         ("Yellow", Color.yellow),   // 4
         ("Cyan", Color.cyan),       // 5
         ("Purple", Color.purple),   // 6
-        ("Grey", Color.gray),       // 7
+        ("Gray", Color.gray),       // 7
         ("Black", Color.black)      // 9
     ]
     var fontSize: CGFloat = (128.0+64.0)*4.0/6.0
@@ -31,6 +31,7 @@ class Settings: ObservableObject {
 
 class SpeedSetttings: Settings, ColorProtocol {
     static var shared = SpeedSetttings()
+    let longUnits = ["Knots", "Miles Per Hour", "Meters Per Second"]
     let units = ["KTS", "MPH", "M/S"]
     let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
     @AppStorage(wrappedValue: 0, "preference_speedColor") var colorIndex: Int
@@ -181,6 +182,7 @@ class WindDirectionSettings: Settings, ColorProtocol {
 
 class WindSpeedSetttings: Settings, ColorProtocol {
     static var shared = WindSpeedSetttings()
+    let longUnits = ["Knots", "Miles per hour", "Kilometers per hour"]
     let units = ["KTS", "MPH", "KM/H"]
     let conversionFactors = [0.539957, 0.621371, 1.0] // from km/h
     @AppStorage(wrappedValue: 7, "preference_windSpeedColor") var colorIndex: Int
