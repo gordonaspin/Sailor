@@ -19,10 +19,11 @@ struct SailorView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var isRaceTimerPresented: Bool = false
     @State private var viewIndex: Int = 0
-    @State private var offset: CGFloat = 0
+    @State private var offset: CGFloat = 0.0
     @State private var backgroundColor: Color = .clear
     @State private var scaleFactor: CGFloat = 1
-    
+    @GestureState private var dragGestureActive: Bool = false
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -53,20 +54,28 @@ struct SailorView: View {
                 }
                 else {
                     RaceTimerView(isPresented: $isRaceTimerPresented)
-                        .background(colorScheme == .dark ? Color.black : Color.white)
                         .offset(x: offset)
                         .scaleEffect(scaleFactor)
+                        .background(colorScheme == .dark ? Color.black : Color.white)
                         .onAppear {
                             print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear, stop tracking")
                             locationManager.stopTracking()
                             motionManager.stopTracking()
                         }
-                    
                 }
             }
             .animation(.spring(), value: offset)
+            .onChange(of: dragGestureActive) {
+                if dragGestureActive == false {
+                    offset = .zero
+                    scaleFactor = 1.0
+                }
+            }
             .gesture(
                 DragGesture()
+                    .updating($dragGestureActive) { value, state, transaction in
+                        state = true
+                    }
                     .onChanged { gesture in
                         offset = gesture.translation.width
                         if abs(gesture.translation.width) > geometry.size.width / 8 {
@@ -82,7 +91,7 @@ struct SailorView: View {
                             offset = -geometry.size.width
                             prevView()
                         }
-                        offset = 0.0
+                        offset = .zero
                         scaleFactor = 1.0
                         backgroundColor = Color.clear
                     }
