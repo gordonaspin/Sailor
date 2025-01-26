@@ -34,12 +34,12 @@ struct SailorView: View {
                         } label: {
                             Image(systemName: "timer.square")
                                 .foregroundColor(.blue)
+                                .frame(width: 40, height: 40)
                                 .font(.system(size: 40))
                                 .offset(
-                                    x: (geometry.size.height > geometry.size.width) ? -7 : 30,
-                                    y: (geometry.size.height > geometry.size.width) ? +5 : 0)
+                                    x: (geometry.size.height > geometry.size.width) ? -7 : -5,
+                                    y: (geometry.size.height > geometry.size.width) ? +5 : 15)
                         }
-                        .ignoresSafeArea()
                     }
                 if !isRaceTimerPresented {
                     views[viewIndex]

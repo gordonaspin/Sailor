@@ -88,7 +88,9 @@ class CountDown: ObservableObject {
             }
             if value == 0 {
                 isRunning = false
-                synthesizer.speak(AVSpeechUtterance(string: "start racing, good luck!"))
+                if CountDown.settings.speakTimerAlerts {
+                    synthesizer.speak(AVSpeechUtterance(string: "start racing, good luck!"))
+                }
             }
         }
     }

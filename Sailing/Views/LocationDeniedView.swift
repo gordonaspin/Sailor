@@ -3,8 +3,12 @@ import SwiftUI
 struct LocationDeniedView: View {
     var body: some View {
         ContentUnavailableView(
+            
             label: {
-                Label("Location Services", image: "launchScreen")
+                Image("launchScreen")
+                    .resizable()
+                    .frame(width: 150, height: 150)
+                Text("Location Services Denied")
             },
             description: {
                 Text(
