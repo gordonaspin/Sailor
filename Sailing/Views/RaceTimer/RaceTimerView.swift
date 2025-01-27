@@ -110,15 +110,18 @@ struct RaceTimerView: View {
         ZStack {
             GeometryReader { geometry in
                 if geometry.size.height > geometry.size.width {
-                    VStack() {
+                    VStack(alignment: .center) {
                         Spacer()
                         ZStack() {
                             CircleView(color: $timerColor, fraction: $arcFraction)
                         }
-                        .frame(width: 280, height: 280)
+                        .frame(width: .infinity, height: geometry.size.height / 3)
+                        Spacer()
                         CountDownView(color: $timerColor, counter: countDown)
+                            .frame(width: .infinity)
                         Spacer()
                         TimerButtonView(counter: countDown, arcFraction: $arcFraction)
+                            .frame(width: geometry.size.width)
                         Spacer()
                     }
                 }
@@ -128,7 +131,8 @@ struct RaceTimerView: View {
                         ZStack {
                             CircleView(color: $timerColor, fraction: $arcFraction)
                         }
-                        .frame(width: 280, height: 280)
+                        .frame(width: geometry.size.width / 3, height: geometry.size.height)
+                        Spacer()
                         VStack {
                             Spacer()
                             CountDownView(color: $timerColor, counter: countDown)
@@ -136,6 +140,7 @@ struct RaceTimerView: View {
                             TimerButtonView(counter: countDown, arcFraction: $arcFraction)
                             Spacer()
                         }
+                        Spacer()
                     }
                 }
             }
