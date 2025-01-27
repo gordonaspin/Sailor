@@ -125,10 +125,10 @@ struct RaceTimerView: View {
                         ZStack() {
                             CircleView(color: $timerColor, fraction: $arcFraction)
                         }
-                        .frame(width: .infinity, height: geometry.size.height / 3)
+                        .frame(width: geometry.size.width, height: geometry.size.height / 3)
                         Spacer()
                         CountDownView(color: $timerColor, counter: countDown)
-                            .frame(width: .infinity)
+                            //.frame(width: .infinity)
                         Spacer()
                         TimerButtonView(counter: countDown, arcFraction: $arcFraction)
                             .frame(width: geometry.size.width)
