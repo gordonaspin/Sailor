@@ -1,6 +1,6 @@
 //
 //  HeelAngleSettingsView.swift
-//  Sailor
+//  Sailing
 //
 //  Created by Gordon Aspin on 1/9/25.
 //

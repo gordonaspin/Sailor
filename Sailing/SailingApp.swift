@@ -1,6 +1,6 @@
 //
-//  SailorApp.swift
-//  Sailor
+//  SailingApp.swift
+//  Sailing
 //
 //  Created by Gordon Aspin on 1/5/25.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SailorApp: App {
+struct SailingApp: App {
     @State private var locationManager = LocationManager()
     @State private var motionManager = MotionManager()
     @State private var weatherManager = WeatherManager()
@@ -21,7 +21,7 @@ struct SailorApp: App {
     var body: some Scene {
         WindowGroup {
             if (locationManager.isAuthorized) {
-                SailorView()
+                SailingView()
                     .onAppear() {
                         UIApplication.shared.isIdleTimerDisabled = true
                     }
@@ -49,7 +49,7 @@ struct SailorApp: App {
         @State private var locationManager = LocationManager()
         var body: some View {
             if locationManager.isAuthorized {
-                SailorView()
+                SailingView()
                     .environment(LocationManager())
                     .environment(MotionManager())
                     .environment(WeatherManager())

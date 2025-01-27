@@ -1,13 +1,13 @@
 //
 //  ContentView.swift
-//  Sailor
+//  Sailing
 //
 //  Created by Gordon Aspin on 1/5/25.
 //
 
 import SwiftUI
 
-struct SailorView: View {
+struct SailingView: View {
     @State private var views: [AnyView] = [
         AnyView(AllInstrumentsLayoutView()),
         AnyView(SpeedHeadingHeelPitchInstrumentsLayoutView()),
@@ -127,7 +127,7 @@ struct SailorView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            SailorView()
+            SailingView()
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())
