@@ -88,9 +88,19 @@ class CountDown: ObservableObject {
             }
             if value == 0 {
                 isRunning = false
+                let message = "Race has started! Good luck!"
+                let identifier = Bundle.main.bundleIdentifier ?? ""
                 if CountDown.settings.speakTimerAlerts {
-                    synthesizer.speak(AVSpeechUtterance(string: "start racing, good luck!"))
+                    synthesizer.speak(AVSpeechUtterance(string: message))
                 }
+                let content = UNMutableNotificationContent()
+                content.title = "Sailing"
+                content.body = message
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let req = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                print("\(Date().toTimestamp) -  \(#file) \(#function) notification \(identifier) \(content.title) \(content.body)")
+                UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
             }
         }
     }
@@ -165,7 +175,6 @@ struct RaceTimerView: View {
                     arcFraction = CGFloat(CountDown.startValue)
                 }
                 dissmissMe()
-                notify()
             }
         }
         .onAppear(perform: {
@@ -196,16 +205,7 @@ struct RaceTimerView: View {
         countDown.reset()
         isPresented.toggle()
     }
-    private func notify() {
-        let content = UNMutableNotificationContent()
-        content.title = "Sailing"
-        content.body = "Race has started!"
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let req = UNNotificationRequest(identifier: "MSF", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
-    }
+
 }
 
 #Preview {
