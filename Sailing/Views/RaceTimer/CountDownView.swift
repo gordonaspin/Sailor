@@ -19,7 +19,6 @@ struct CountDownView: View {
     
     var body: some View {
         HStack() {
-            //Spacer()
             Group {
                 let mt = String("\(counter.value / oneMinute / 10)")
                 let mu = String("\(counter.value / oneMinute % 10)")
@@ -54,9 +53,7 @@ struct CountDownView: View {
                     color = Color.red
                 }
             }
-            //Spacer()
         }
-        .frame(width: .infinity, height: 200)
     }
 }
 #Preview {
