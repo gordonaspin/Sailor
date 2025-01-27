@@ -95,7 +95,7 @@ struct InstrumentView<T: Numeric>: View {
                 color: Color.blue,
                 instrumentUnits: "KTS",
                 unitsColor: Color.blue,
-                fontSize: 200,
+                fontSize: 128,
                 withIndicator: false,
                 indicatorAdjustment: 0
             )

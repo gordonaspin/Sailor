@@ -23,18 +23,18 @@ struct SpeedHeadingHeelPitchInstrumentsLayoutView: View {
                 VStack(alignment: .center, spacing: 0) {
                     ForEach(0..<instruments.count, id: \..self) { i in
                         instruments[i]
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .frame(width: geometry.size.width, height: geometry.size.height/CGFloat(instruments.count))
                     }
                }
             }
             else {
-                VStack(alignment: .center, spacing: 0) {
+                VStack(alignment: .center, spacing: 11) {
                     ForEach(0..<instruments.count/2, id: \..self) { i in
                         HStack(alignment: .center, spacing: 0) {
                             instruments[i*2]
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .frame(width: geometry.size.width/2, height: geometry.size.height/3)
                             instruments[i*2 + 1]
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .frame(width: geometry.size.width/2, height: geometry.size.height/3)
                         }
                     }
                 }

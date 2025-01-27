@@ -30,7 +30,6 @@ struct SailorApp: App {
                         print("\(Date().toTimestamp) -  \(#file) \(#function) onDisappear, stop tracking")
                         locationManager.stopTracking()
                     }
-                    //.background(Color.black)
             }
             else {
                 LocationDeniedView()
@@ -47,13 +46,19 @@ struct SailorApp: App {
 
 #Preview {
     struct Preview: View {
+        @State private var locationManager = LocationManager()
         var body: some View {
-            LocationDeniedView()
-                .environment(LocationManager())
-                .environment(MotionManager())
-                .environment(WeatherManager())
-                .environment(StopWatch(countDown: CountDown.shared))
-                .environment(CountDown())
+            if locationManager.isAuthorized {
+                SailorView()
+                    .environment(LocationManager())
+                    .environment(MotionManager())
+                    .environment(WeatherManager())
+                    .environment(StopWatch(countDown: CountDown.shared))
+                    .environment(CountDown.shared)
+            }
+            else {
+                LocationDeniedView()
+            }
         }
     }
     return Preview()

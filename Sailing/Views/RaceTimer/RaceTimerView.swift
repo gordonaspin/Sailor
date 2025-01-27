@@ -130,12 +130,12 @@ struct RaceTimerView: View {
                         }
                         .frame(width: 280, height: 280)
                         VStack {
+                            Spacer()
                             CountDownView(color: $timerColor, counter: countDown)
                             Spacer()
                             TimerButtonView(counter: countDown, arcFraction: $arcFraction)
                             Spacer()
                         }
-                        Spacer()
                     }
                 }
             }

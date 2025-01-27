@@ -32,13 +32,16 @@ struct SailorView: View {
                         Button {
                             isRaceTimerPresented.toggle()
                         } label: {
-                            Image(systemName: "timer.square")
+                            Image(systemName: "timer.circle")
                                 .foregroundColor(.blue)
+                                .background(colorScheme == .dark ? Color.black.opacity(0.6) : Color.white)
+                                .clipShape(Circle()) // Makes the background round
                                 .frame(width: 40, height: 40)
                                 .font(.system(size: 40))
                                 .offset(
                                     x: (geometry.size.height > geometry.size.width) ? -7 : -5,
                                     y: (geometry.size.height > geometry.size.width) ? +5 : 15)
+                                
                         }
                     }
                 if !isRaceTimerPresented {
@@ -97,6 +100,7 @@ struct SailorView: View {
                     }
             )
         }
+        
     }
     private func nextView() {
         withAnimation {
