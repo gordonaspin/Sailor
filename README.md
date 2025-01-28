@@ -78,7 +78,6 @@ struct SpeedView: View {
     @Environment(LocationManager.self) var locationManager
     ...
     var body: some View {
-        Text("\(convertedSpeed, specifier: "%.1f")")
         ...
     }
     private var convertedSpeed: Double {
@@ -208,7 +207,7 @@ WeatherManager uses WeatherKit for current wind speed and direction. These value
 ```swift
 @Observable
 class WeatherManager: NSObject, CLLocationManagerDelegate {
-    private let fiveMminutes: TimeInterval = 5 * 60
+    private let fiveMinutes: TimeInterval = 5 * 60
     private let weatherManager = WeatherService()
     private let locationManager = CLLocationManager()
     var windSpeed: Double = 0.0
@@ -220,7 +219,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
-        _ = Timer.scheduledTimer(withTimeInterval: fiveMminutes, repeats: true) { _ in
+        _ = Timer.scheduledTimer(withTimeInterval: fiveMinutes, repeats: true) { _ in
             self.startTracking()
         }
     }
@@ -233,12 +232,8 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             
             let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
             windDirection = Double(newWindDirection)
-            print("\(Date().toTimestamp) -  \(#file) \(#function) weather updated windSpeed: \(windSpeed), windDirection: \(windDirection)")
         }
-        catch {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) failed to fetch weather: \(error)")
-        }
-        print("\(Date().toTimestamp) -  \(#file) \(#function) stop tracking")
+        ...
         stopTracking()
     }
 }
