@@ -10,8 +10,8 @@ import UserNotifications
 import AudioToolbox
 
 struct CountDownView: View {
-    let tenMinutes = 600
-    let fiveMinutes = 300
+    let tenMinutes = 10*60
+    let fourMinutes = 4*60
     let oneMinute = 60
     let fontSize: CGFloat = 180
     @Binding var color: Color
@@ -43,11 +43,11 @@ struct CountDownView: View {
             .bold()
             .foregroundColor(color)
             .onChange(of: counter.value) {
-                if counter.value > fiveMinutes {
+                if counter.value > fourMinutes {
                     color = Color.green
                 }
                 else if counter.value > oneMinute {
-                    color = Color.yellow
+                    color = Color.orange
                 }
                 else {
                     color = Color.red

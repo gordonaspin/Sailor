@@ -227,8 +227,8 @@ class WindSpeedSetttings: Settings, ColorProtocol {
 
 class RaceTimerSettings: Settings {
     static var shared = RaceTimerSettings()
-    let raceTimerValues = [1, 2, 3, 4, 5, 10, 15]
-    @AppStorage(wrappedValue: 600, "preference_raceTimer") var raceTimer: Int
+    let raceTimerValues = [1, 2, 3, 4, 5, 10]
+    @AppStorage(wrappedValue: 300, "preference_raceTimer") var raceTimer: Int
     @AppStorage(wrappedValue: true, "preference_speakTimerAlerts") var speakTimerAlerts: Bool
     @AppStorage(wrappedValue: true, "preference_audibleTimerAlerts") var audibleTimerAlerts: Bool
 

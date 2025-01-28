@@ -400,16 +400,15 @@
 			<key>Key</key>
 			<string>preference_raceTimer</string>
 			<key>DefaultValue</key>
-			<integer>10</integer>
+			<integer>5</integer>
 			<key>Titles</key>
 			<array>
 				<string>1 minute</string>
 				<string>2 minutes</string>
 				<string>3 minutes</string>
 				<string>4 minutes</string>
-				<string>5 minutes</string>
+				<string>5 minutes (RRS 26)</string>
 				<string>10 minutes</string>
-				<string>15 minutes</string>
 			</array>
 			<key>Values</key>
 			<array>
