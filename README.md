@@ -11,7 +11,7 @@ The initial user interface displays a map, a compass icon, map scale and user lo
 - The Heel angle
 - The Pitch angle
 
-The user can swipe left or right through a number of preset layouts with different instruments overlaid on the map.
+The user can use a drag gesture left or right through a number of preset layouts with different instruments overlaid on the map.
 
 Wind speed and direction are from the Apple WeatherKit service. Boat speed and Heading are from CoreLocation. Heel and pitch are derived from CoreMotion.
 
@@ -19,13 +19,13 @@ Wind speed and direction are from the Apple WeatherKit service. Boat speed and H
 | ---------------- | ----------------- |
 | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) |
 
-A tap on the stopwatch icon in the lower right will bring up the stopwatch. The stopwatch can be started, paused and reset using the buttons. A double tap will bring up the settings for the stopwatch, such as the number of minutes to count down from. Announcements are made at various times as to how much time is left before the start of the race. The stopwatch can be dismissed with a left or right swipe and will return to the instrument view. The stopwatch will continue to run in the background.
+A tap on the stopwatch icon in the lower right will bring up the stopwatch. The stopwatch can be started, paused and reset using the buttons. Announcements are made at various times as to how much time is left before the start of the race. The stopwatch can be dismissed with a left or right drag gesture and will return to the instrument view. The stopwatch will continue to run in the background.
 
 | StopWatch Dark | StopWatch Light |
 | -------------- | --------------- |
 | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchDark.png) | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchLight.png) |
 
-A double tap gesture on any of the instruments will bring up the settings screen for that instrument
+A double tap gesture on any of the instruments will bring up the settings screen for that instrument. This also goes for the stopwwatch.
 | Speed settings | Heading Settings |
 | -------------- | ---------------- |
 | ![image info](./Sailing/Assets.xcassets/README/SailorSpeed.imageset/SailorSpeed.png) | ![image info](./Sailing/Assets.xcassets/README/SailorHeading.imageset/SailorHeading.png) |
@@ -34,6 +34,10 @@ A double tap gesture on any of the instruments will bring up the settings screen
 | Heel settings | Pitch Settings |
 | -------------- | ---------------- |
 | ![image info](./Sailing/Assets.xcassets/README/SailorHeel.imageset/SailorHeel.png) | ![image info](./Sailing/Assets.xcassets/README/SailorPitch.imageset/SailorPitch.png) |
+
+| StopWatch settings |
+| -------------------|
+| ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchSettings.png) |
 
 ## Technical Design Details
 
@@ -111,18 +115,14 @@ As the MotionManager is injected into the environment, View classes can subscrib
 struct HeelAngleView: View {
     @Environment(MotionManager.self) var motionManager
     ...
-    var body: some View {
-        Text("\(convertedHeel, specifier: "%02d")º")
-        ...
-    }
 
-    private var convertedHeel: Int {
-        var tilt: Int = 0
-        switch UIDevice.current.orientation {
-            // calculate tilt based on orientation of device on 3 axes
+    var body: some View {
+        InstrumentView(
+            instrumentName: "HEEL",
+            instrumentValue: convertedHeel,
             ...
-        }
-        return tilt
+        )
+        ...       
     }
 }
 ```
@@ -130,16 +130,13 @@ struct HeelAngleView: View {
 The Views maintain a variety of state properties such as, color, trueNorth, Heel angle limits, etc. When these properties are modified by the user, the view reacts to the change and updates itself, e.g. with the HeelAngleView:
 ```swift
 struct HeelAngleView: View {
-    ...
+    @Environment(MotionManager.self) var motionManager
     @StateObject private var settings = HeelAngleSettings.shared
+    @State private var isPickerPresented: Bool = false
     ...
+
     var body: some View {
-        VStack() {
-            Text("heel")
-                .font(.title)
-                .foregroundColor(settings.titleColor)
-                ...
-        }
+        ...
     }
 }
 ```
@@ -244,4 +241,5 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         print("\(Date().toTimestamp) -  \(#file) \(#function) stop tracking")
         stopTracking()
     }
+}
 ```
