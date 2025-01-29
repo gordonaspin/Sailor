@@ -102,7 +102,7 @@ struct SailorApp: App {
     @State private var MotionManager = MotionManager()
     ...
     var body: Some Scene {
-        WindGroup {
+        WindowGroup {
             ...
         }
         .environment(motionManager)
