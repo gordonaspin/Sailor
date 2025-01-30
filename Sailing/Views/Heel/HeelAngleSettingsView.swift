@@ -15,11 +15,15 @@ struct HeelAngleSettingsView: View {
     @Binding var speakHeelAlarms: Bool
     @Binding var underHeelAlarm: String
     @Binding var overHeelAlarm: String
+    @Binding var heelAngleWindwardLeeward: Bool
     var optimumHeelAngles: [Int]
     
     var body: some View {
         NavigationStack {
             List {
+                Section(header: Text("Heel Angle Display")) {
+                    Toggle("Display Windward / Leeward", isOn: $heelAngleWindwardLeeward)
+                }
                 Picker("Optimum Heel Angle",
                        selection: $optimumHeelAngle,
                        content: {
@@ -69,6 +73,7 @@ struct HeelAngleSettingsView: View {
                 speakHeelAlarms: $settings.speakHeelAlarms,
                 underHeelAlarm: $settings.underHeelAlarm,
                 overHeelAlarm: $settings.overHeelAlarm,
+                heelAngleWindwardLeeward: $settings.heelAngleWindwardLeeward,
                 optimumHeelAngles: settings.optimumHeelAngles
             )
             

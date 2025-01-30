@@ -105,6 +105,8 @@ class HeelAngleSettings: Settings, ColorProtocol {
     @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String
     @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String
     @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int
+    @AppStorage(wrappedValue: true, "preference_heelAngleWindwardLeeward") var heelAngleWindwardLeeward: Bool
+
     var currentColorIndex: Int = 1
     
     override init() {
@@ -112,11 +114,11 @@ class HeelAngleSettings: Settings, ColorProtocol {
         currentColorIndex = colorIndex
         print("HeelAngleViewSetting colorIndex: \(colorIndex) \(color)")
         print("HeelAngleViewSetting optimumHeelColorIndex: \(optimumHeelColorIndex)")
-        print("HeelAngleViewSetting optimumHeelAngle: \(optimumHeelAngle)")
         print("HeelAngleViewSetting speakHeelAlarms: \(speakHeelAlarms)")
         print("HeelAngleViewSetting underHeelAlarm: \(underHeelAlarm)")
         print("HeelAngleViewSetting overHeelAlarm: \(overHeelAlarm)")
-
+        print("HeelAngleViewSetting optimumHeelAngle: \(optimumHeelAngle)")
+        print("HeelAngleViewSetting heelAngleWindwardLeeward: \(heelAngleWindwardLeeward)")
     }
     func setOptimumHeelColor() {
         currentColorIndex = optimumHeelColorIndex

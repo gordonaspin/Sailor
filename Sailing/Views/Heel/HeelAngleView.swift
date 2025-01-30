@@ -25,10 +25,12 @@ struct HeelAngleView: View {
             instrumentValueColor: settings.color,
             formatSpecifier: "%d",
             showSign: false,
-            instrumentTag: determineHeelDirection(
-                windDirection: weatherManager.windDirection,
-                vesselHeading: locationManager.trueHeading,
-                heelAngle: convertedHeel),
+            instrumentTag: settings.heelAngleWindwardLeeward ?
+                determineHeelDirection(
+                    windDirection: weatherManager.windDirection,
+                    vesselHeading: locationManager.trueHeading,
+                    heelAngle: convertedHeel) :
+                convertedHeel < 0 ? "PORT" : "STBD",
             fontSize: settings.fontSize,
             withIndicator: true,
             indicatorAdjustment: 0
@@ -44,6 +46,7 @@ struct HeelAngleView: View {
                 speakHeelAlarms: $settings.speakHeelAlarms,
                 underHeelAlarm: $settings.underHeelAlarm,
                 overHeelAlarm: $settings.overHeelAlarm,
+                heelAngleWindwardLeeward: $settings.heelAngleWindwardLeeward,
                 optimumHeelAngles: settings.optimumHeelAngles
             )
         }
