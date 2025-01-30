@@ -15,12 +15,12 @@ struct HeadingView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "HDG",
+            instrumentColor: settings.color,
             instrumentValue: convertedHeading,
+            instrumentValueColor: settings.color,
             formatSpecifier: "%03d",
             showSign: false,
-            color: settings.color,
-            instrumentUnits: settings.trueNorth ? "TRUE" : "MAG",
-            unitsColor: settings.color,
+            instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
             fontSize: settings.fontSize,
             withIndicator: true,
             indicatorAdjustment: 0

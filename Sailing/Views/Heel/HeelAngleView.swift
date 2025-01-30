@@ -10,6 +10,8 @@ import AVFoundation
 
 struct HeelAngleView: View {
     @Environment(MotionManager.self) var motionManager
+    @Environment(LocationManager.self) var locationManager
+    @Environment(WeatherManager.self) var weatherManager
     @StateObject private var settings = HeelAngleSettings.shared
     @State private var isPickerPresented: Bool = false
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
@@ -18,12 +20,15 @@ struct HeelAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "HEEL",
+            instrumentColor: settings.titleColor,
             instrumentValue: convertedHeel,
+            instrumentValueColor: settings.color,
             formatSpecifier: "%d",
             showSign: false,
-            color: settings.color,
-            instrumentUnits: "DEG",
-            unitsColor: settings.titleColor,
+            instrumentTag: determineHeelDirection(
+                windDirection: weatherManager.windDirection,
+                vesselHeading: locationManager.trueHeading,
+                heelAngle: convertedHeel),
             fontSize: settings.fontSize,
             withIndicator: true,
             indicatorAdjustment: 0
@@ -72,7 +77,27 @@ struct HeelAngleView: View {
         }
         return tilt
     }
-}
+    
+
+    private func determineHeelDirection(windDirection: Double, vesselHeading: Double, heelAngle: Int) -> String {
+        // Compute True Wind Angle (TWA)
+        let TWA = (windDirection - vesselHeading + 360).truncatingRemainder(dividingBy: 360)
+
+        // Determine windward side
+        let windFromStarboard = (TWA >= 0 && TWA < 180)  // Wind coming from starboard
+        let windFromPort = (TWA >= 180 && TWA < 360)     // Wind coming from port
+
+        // Determine heel direction
+        let heelingToStarboard = (heelAngle > 0) // Positive heel means starboard heel
+        let heelingToPort = (heelAngle < 0)      // Negative heel means port heel
+
+        // Compare heel direction with windward side
+        if (windFromStarboard && heelingToStarboard) || (windFromPort && heelingToPort) {
+            return "LEE"
+        } else {
+            return "WD"
+        }
+    }}
 
 #Preview {
     struct Preview: View {

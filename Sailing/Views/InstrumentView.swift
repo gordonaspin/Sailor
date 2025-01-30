@@ -9,12 +9,12 @@ import SwiftUI
 
 struct InstrumentView<T: Numeric>: View {
     var instrumentName: String
+    var instrumentColor: Color
     var instrumentValue: T
+    var instrumentValueColor: Color
     var formatSpecifier: String
     var showSign: Bool
-    var color: Color
-    var instrumentUnits: String
-    var unitsColor: Color
+    var instrumentTag: String
     var fontSize: CGFloat
     var withIndicator: Bool
     var indicatorAdjustment: Int
@@ -26,11 +26,11 @@ struct InstrumentView<T: Numeric>: View {
                 .bold()
                 .frame(width: 60, height: 100)
                 .rotationEffect(Angle(degrees: -90))
-                .foregroundColor(unitsColor)
+                .foregroundColor(instrumentColor)
             if withIndicator {
                 let intValue = instrumentValue as? Int
                 ArrowView(
-                    color: color,
+                    color: instrumentValueColor,
                     angle: indicatorAdjustment+(intValue ?? 0),
                     width: 10,
                     height: 25
@@ -48,14 +48,14 @@ struct InstrumentView<T: Numeric>: View {
                 .frame(maxWidth: .infinity)
                 .padding(.top, -40)
                 .padding(.bottom, -40)
-                .foregroundColor(color)
+                .foregroundColor(instrumentValueColor)
             Spacer()
-            Text(instrumentUnits)
+            Text(instrumentTag)
                 .rotationEffect(Angle(degrees: -90))
                 .font(.body)
                 .bold()
                 .frame(width: 60, height: 100)
-                .foregroundColor(unitsColor)
+                .foregroundColor(instrumentColor)
         }
     }
     private var formattedValue: String {
@@ -89,12 +89,12 @@ struct InstrumentView<T: Numeric>: View {
         var body: some View {
             InstrumentView(
                 instrumentName: "W.DIR",
+                instrumentColor: Color.blue,
                 instrumentValue: 10,
+                instrumentValueColor: Color.blue,
                 formatSpecifier: "%03d",
                 showSign: false,
-                color: Color.blue,
-                instrumentUnits: "KTS",
-                unitsColor: Color.blue,
+                instrumentTag: "KTS",
                 fontSize: 128,
                 withIndicator: false,
                 indicatorAdjustment: 0

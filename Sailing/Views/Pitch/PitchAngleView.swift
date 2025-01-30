@@ -15,12 +15,12 @@ struct PitchAngleView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "TRIM",
+            instrumentColor: settings.color,
             instrumentValue: convertedPitch,
+            instrumentValueColor: settings.color,
             formatSpecifier: "%d",
             showSign: false,
-            color: settings.color,
-            instrumentUnits: "DEG",
-            unitsColor: settings.color,
+            instrumentTag: convertedPitch < 0 ? "AFT" : "FWD",
             fontSize: settings.fontSize,
             withIndicator: true,
             indicatorAdjustment: +90

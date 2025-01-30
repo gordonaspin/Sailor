@@ -15,12 +15,12 @@ struct SpeedView: View {
     var body: some View {
         InstrumentView(
             instrumentName: "SPD",
+            instrumentColor: settings.color,
             instrumentValue: convertedSpeed,
+            instrumentValueColor: settings.color,
             formatSpecifier: "%.1f",
             showSign: false,
-            color: settings.color,
-            instrumentUnits: settings.speedUnits,
-            unitsColor: settings.color,
+            instrumentTag: settings.speedUnits,
             fontSize: settings.fontSize,
             withIndicator: false,
             indicatorAdjustment: 0
