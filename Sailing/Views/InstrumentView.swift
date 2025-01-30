@@ -16,8 +16,7 @@ struct InstrumentView<T: Numeric>: View {
     var showSign: Bool
     var instrumentTag: String
     var fontSize: CGFloat
-    var withIndicator: Bool
-    var indicatorAdjustment: Int
+    var indicatorType: Int
     
     var body: some View {
         HStack() {
@@ -27,16 +26,33 @@ struct InstrumentView<T: Numeric>: View {
                 .frame(width: 60, height: 100)
                 .rotationEffect(Angle(degrees: -90))
                 .foregroundColor(instrumentColor)
-            if withIndicator {
-                let intValue = instrumentValue as? Int
+            let angle = instrumentValue as? Int
+            switch indicatorType {
+            case 1:
                 ArrowView(
                     color: instrumentValueColor,
-                    angle: indicatorAdjustment+(intValue ?? 0),
+                    angle: angle ?? 0,
                     width: 10,
                     height: 25
                 )
                 .frame(width: 10)
-            } else {
+            case 2:
+                TransomView(
+                    color: instrumentValueColor,
+                    angle: angle ?? 0,
+                    width: 10,
+                    height: 25
+                )
+                .frame(width: 10)
+            case 3:
+                SideView(
+                    color: instrumentValueColor,
+                    angle: angle ?? 0,
+                    width: 10,
+                    height: 25
+                )
+                .frame(width: 10)
+            default:
                 Text("")
                     .frame(width: 10)
             }
@@ -96,8 +112,7 @@ struct InstrumentView<T: Numeric>: View {
                 showSign: false,
                 instrumentTag: "KTS",
                 fontSize: 128,
-                withIndicator: false,
-                indicatorAdjustment: 0
+                indicatorType: 0
             )
         }
     }

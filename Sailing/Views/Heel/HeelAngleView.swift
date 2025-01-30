@@ -32,8 +32,7 @@ struct HeelAngleView: View {
                     heelAngle: convertedHeel) :
                 convertedHeel < 0 ? "PORT" : "STBD",
             fontSize: settings.fontSize,
-            withIndicator: true,
-            indicatorAdjustment: 0
+            indicatorType: 2
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

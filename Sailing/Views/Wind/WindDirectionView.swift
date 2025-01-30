@@ -23,8 +23,7 @@ struct WindDirectionView: View {
                 showSign: false,
                 instrumentTag: "TRUE",
                 fontSize: settings.fontSize,
-                withIndicator: true,
-                indicatorAdjustment: 0
+                indicatorType: 1
             )
             .onTapGesture(count: 2) {
                 isPickerPresented = true

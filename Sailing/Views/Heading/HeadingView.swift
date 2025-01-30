@@ -22,8 +22,7 @@ struct HeadingView: View {
             showSign: false,
             instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
             fontSize: settings.fontSize,
-            withIndicator: true,
-            indicatorAdjustment: 0
+            indicatorType: 1
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

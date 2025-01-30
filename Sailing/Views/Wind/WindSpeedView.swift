@@ -22,8 +22,7 @@ struct WindSpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             fontSize: settings.fontSize,
-            withIndicator: false,
-            indicatorAdjustment: 0
+            indicatorType: 0
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
