@@ -87,8 +87,8 @@ struct HeelAngleView: View {
         let TWA = (windDirection - vesselHeading + 360).truncatingRemainder(dividingBy: 360)
 
         // Determine windward side
-        let windFromStarboard = (TWA >= 0 && TWA < 180)  // Wind coming from starboard
-        let windFromPort = (TWA >= 180 && TWA < 360)     // Wind coming from port
+        let windFromStarboard = (TWA < 180)  // Wind coming from starboard
+        let windFromPort = (TWA >= 180)      // Wind coming from port
 
         // Determine heel direction
         let heelingToStarboard = (heelAngle > 0) // Positive heel means starboard heel
