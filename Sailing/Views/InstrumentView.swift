@@ -26,20 +26,21 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 .frame(width: 60, height: 100)
                 .rotationEffect(Angle(degrees: -90))
                 .foregroundColor(instrumentColor)
+            
+            ZStack(alignment: .leading) {
+                self.indicator()
+                    .frame(width: 10)
 
-            self.indicator()
-                .frame(width: 10)
+                Text(formattedValue)
+                    .font(.system(size: fontSize).monospacedDigit())
+                    .fontWidth(.compressed)
+                    .bold()
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, -40)
+                    .padding(.bottom, -40)
+                    .foregroundColor(instrumentValueColor)
+            }
 
-            Spacer()
-            Text(formattedValue)
-                .font(.system(size: fontSize).monospacedDigit())
-                .fontWidth(.compressed)
-                .bold()
-                .frame(maxWidth: .infinity)
-                .padding(.top, -40)
-                .padding(.bottom, -40)
-                .foregroundColor(instrumentValueColor)
-            Spacer()
             Text(instrumentTag)
                 .rotationEffect(Angle(degrees: -90))
                 .font(.body)
