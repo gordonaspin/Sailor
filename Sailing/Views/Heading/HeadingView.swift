@@ -22,7 +22,12 @@ struct HeadingView: View {
             showSign: false,
             instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
             fontSize: settings.fontSize,
-            indicatorType: 1
+            indicator: { ArrowView(
+                color: settings.color,
+                angle: convertedHeading,
+                width: 10,
+                height: 25)
+            }
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

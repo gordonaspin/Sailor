@@ -32,7 +32,12 @@ struct HeelAngleView: View {
                     heelAngle: convertedHeel) :
                 convertedHeel < 0 ? "PORT" : "STBD",
             fontSize: settings.fontSize,
-            indicatorType: 2
+            indicator: { TransomView(
+                color: settings.color,
+                angle: convertedHeel,
+                width: 10,
+                height: 25
+            )}
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

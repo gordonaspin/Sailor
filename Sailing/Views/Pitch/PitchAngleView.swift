@@ -22,7 +22,12 @@ struct PitchAngleView: View {
             showSign: false,
             instrumentTag: convertedPitch < 0 ? "AFT" : "FWD",
             fontSize: settings.fontSize,
-            indicatorType: 3
+            indicator: { SideView(
+                color: settings.color,
+                angle: convertedPitch,
+                width: 10,
+                height: 25
+            )}
         )
         .onTapGesture(count: 2) {
                 isPickerPresented = true

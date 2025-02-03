@@ -22,7 +22,7 @@ struct SpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             fontSize: settings.fontSize,
-            indicatorType: 0
+            indicator: {EmptyView()}
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

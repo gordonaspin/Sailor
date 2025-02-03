@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstrumentView<T: Numeric>: View {
+struct InstrumentView<T: Numeric, Content: View>: View {
     var instrumentName: String
     var instrumentColor: Color
     var instrumentValue: T
@@ -16,7 +16,7 @@ struct InstrumentView<T: Numeric>: View {
     var showSign: Bool
     var instrumentTag: String
     var fontSize: CGFloat
-    var indicatorType: Int
+    @ViewBuilder var indicator: () -> Content
     
     var body: some View {
         HStack() {
@@ -26,36 +26,10 @@ struct InstrumentView<T: Numeric>: View {
                 .frame(width: 60, height: 100)
                 .rotationEffect(Angle(degrees: -90))
                 .foregroundColor(instrumentColor)
-            let angle = instrumentValue as? Int
-            switch indicatorType {
-            case 1:
-                ArrowView(
-                    color: instrumentValueColor,
-                    angle: angle ?? 0,
-                    width: 10,
-                    height: 25
-                )
+
+            self.indicator()
                 .frame(width: 10)
-            case 2:
-                TransomView(
-                    color: instrumentValueColor,
-                    angle: angle ?? 0,
-                    width: 10,
-                    height: 25
-                )
-                .frame(width: 10)
-            case 3:
-                SideView(
-                    color: instrumentValueColor,
-                    angle: angle ?? 0,
-                    width: 10,
-                    height: 25
-                )
-                .frame(width: 10)
-            default:
-                Text("")
-                    .frame(width: 10)
-            }
+
             Spacer()
             Text(formattedValue)
                 .font(.system(size: fontSize).monospacedDigit())
@@ -112,7 +86,12 @@ struct InstrumentView<T: Numeric>: View {
                 showSign: false,
                 instrumentTag: "KTS",
                 fontSize: 128,
-                indicatorType: 0
+                indicator: { ArrowView(
+                    color: Color.blue,
+                    angle: 10,
+                    width: 10,
+                    height: 25)
+                }
             )
         }
     }
