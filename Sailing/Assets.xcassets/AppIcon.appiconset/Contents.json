@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "icons8-sailboat-90.png",
+      "filename" : "Sailing Icon Any.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icons8-sailboat-90 1.png",
+      "filename" : "Sailing Icon.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "icons8-sailboat-90 2.png",
+      "filename" : "Sailing Icon Tinted.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
