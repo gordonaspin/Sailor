@@ -101,9 +101,9 @@ struct HeelAngleView: View {
         print("\(Date().toTimestamp) - #file #function TWA: \(TWA) windFromStarboard: \(windFromStarboard) windFromPort: \(windFromPort) heelingToStarboard: \(heelingToStarboard) heelingToPort: \(heelingToPort)")
         // Compare heel direction with windward side
         if (windFromStarboard && heelingToStarboard) || (windFromPort && heelingToPort) {
-            return "LEE"
-        } else {
             return "WD"
+        } else {
+            return "LEE"
         }
     }}
 
