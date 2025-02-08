@@ -44,6 +44,29 @@ struct SailingView: View {
                                 
                         }
                     }
+                    .overlay(alignment: .bottomLeading) {
+                        // Legal requirements (Apple logo and source link)
+                        HStack(spacing: 0) {
+                            Image(systemName: "apple.logo") // Use the Apple Weather logo asset
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 13, height: 13)
+                            Text("Weather")
+                                .font(.system(size:16))
+                                //.foregroundColor(.gray)
+                                .bold()
+                                .padding(.bottom, -3)
+                                //.padding([.top, .bottom], 10)
+                            Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
+                                Text("Legal")
+                                .underline()})
+                            .font(.system(size:9))
+                                .foregroundColor(.gray)
+                                .padding(.leading, 5)
+                                .padding(.bottom, -3)
+                        }
+                        .offset(x: 9, y: 8)
+                    }
                 if !isRaceTimerPresented {
                     views[viewIndex]
                         .offset(x: offset)
