@@ -98,7 +98,7 @@ struct HeelAngleView: View {
         let heelingToStarboard = (heelAngle > 0) // Positive heel means starboard heel
         let heelingToPort = (heelAngle < 0)      // Negative heel means port heel
 
-        print("\(Date().toTimestamp) - #file #function TWA: \(TWA) windFromStarboard: \(windFromStarboard) windFromPort: \(windFromPort) heelingToStarboard: \(heelingToStarboard) heelingToPort: \(heelingToPort)")
+        print("\(Date().toTimestamp) - #file #function Wind Dir: \(windDirection) Heading: \(vesselHeading) heel: \(heelAngle) TWA: \(TWA) windFromStarboard: \(windFromStarboard) windFromPort: \(windFromPort) heelingToStarboard: \(heelingToStarboard) heelingToPort: \(heelingToPort)")
         // Compare heel direction with windward side
         if (windFromStarboard && heelingToStarboard) || (windFromPort && heelingToPort) {
             return "WD"

@@ -23,9 +23,10 @@ struct WindDirectionView: View {
                 showSign: false,
                 instrumentTag: "TRUE",
                 fontSize: settings.fontSize,
-                indicator: { ArrowView(
+                indicator: { WindView(
                     color: settings.color,
-                    angle: convertedWindDirection,
+                    angle: convertedWindDirection + 180 % 360,
+                    speed: weatherManager.windSpeed * 0.621371,
                     width: 10,
                     height: 25)
                 }
