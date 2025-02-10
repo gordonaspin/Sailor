@@ -27,7 +27,7 @@ struct SailingApp: App {
                     }
                     .onDisappear() {
                         UIApplication.shared.isIdleTimerDisabled = false
-                        print("\(Date().toTimestamp) -  \(#file) \(#function) onDisappear, stop tracking")
+                        print("onDisappear, stop tracking")
                         locationManager.stopTracking()
                     }
             }

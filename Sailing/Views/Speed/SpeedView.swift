@@ -13,10 +13,11 @@ struct SpeedView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
+        let speed = convertedSpeed
         InstrumentView(
             instrumentName: "SPD",
             instrumentColor: settings.color,
-            instrumentValue: convertedSpeed,
+            instrumentValue: speed,
             instrumentValueColor: settings.color,
             formatSpecifier: "%.1f",
             showSign: false,
@@ -38,7 +39,7 @@ struct SpeedView: View {
     }
     
     private var convertedSpeed: Double {
-        print("\(Date().toTimestamp) - \(#function) \(locationManager.speed)")
+        print("\(locationManager.speed)")
         return settings.convertSpeed(speed: locationManager.speed)
     }
 }

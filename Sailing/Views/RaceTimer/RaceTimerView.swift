@@ -22,7 +22,7 @@ class StopWatch: ObservableObject {
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.counter += 1
-            print("\(Date().toTimestamp) -  \(#file) \(#function) stopwatch tick \(self.counter)")
+            print("stopwatch tick", "\(self.counter)")
             if self.countDown != nil && self.countDown!.isRunning {
                 self.countDown?.notify()
             }
@@ -68,9 +68,9 @@ class CountDown: ObservableObject {
     func notify() {
         guard isRunning else { return }
         value -= increment
-        print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify \(value)")
+        print("countDown notify:", "\(value)")
         if events.contains(value) {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown notify event \(value)")
+            print("countDown notify event:", "\(value)")
             if CountDown.settings.audibleTimerAlerts {
                 AudioServicesCreateSystemSoundID(url as CFURL, &systemSoundID)
                 AudioServicesPlaySystemSound(systemSoundID)
@@ -99,7 +99,7 @@ class CountDown: ObservableObject {
                 
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                 let req = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-                print("\(Date().toTimestamp) -  \(#file) \(#function) notification \(identifier) \(content.title) \(content.body)")
+                print("notification:", "\(identifier)", content.title, content.body)
                 UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
             }
         }
@@ -156,7 +156,7 @@ struct RaceTimerView: View {
             }
         }
         .onChange(of: countDown.isRunning) {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) onchange countdown running \(countDown.isRunning)")
+            print("onchange countdown running:", "\(countDown.isRunning)")
             if countDown.isRunning {
                 stopWatch.start()
             }
@@ -165,7 +165,7 @@ struct RaceTimerView: View {
             }
         }
         .onChange(of: countDown.value) {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) countDown counter changed \(countDown.value)")
+            print("countDown counter changed:", "\(countDown.value)")
             if countDown.value > 0 {
                 withAnimation(.default) {
                     arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
@@ -180,7 +180,7 @@ struct RaceTimerView: View {
         .onAppear(perform: {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
             }
-            print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear: countdown.isRunning \(countDown.isRunning)")
+            print("RaceTimerView onAppear: countdown.isRunning:", "\(countDown.isRunning)")
             if !countDown.isRunning {
                 countDown.reset()
             }

@@ -14,10 +14,11 @@ struct WindDirectionView: View {
     
     var body: some View {
         ZStack {
+            let windDirection = convertedWindDirection
             InstrumentView(
                 instrumentName: "W.DIR",
                 instrumentColor: settings.color,
-                instrumentValue: convertedWindDirection,
+                instrumentValue: windDirection,
                 instrumentValueColor: settings.color,
                 formatSpecifier: "%03d",
                 showSign: false,
@@ -25,7 +26,7 @@ struct WindDirectionView: View {
                 fontSize: settings.fontSize,
                 indicator: { WindView(
                     color: settings.color,
-                    angle: convertedWindDirection + 180 % 360,
+                    angle: windDirection + 180 % 360,
                     speed: weatherManager.windSpeed * 0.621371,
                     width: 10,
                     height: 25)
@@ -41,7 +42,7 @@ struct WindDirectionView: View {
     }
     
     private var convertedWindDirection: Int {
-        print("\(Date().toTimestamp) - \(#function) \(weatherManager.windDirection)")
+        print("\(weatherManager.windDirection)")
         return Int(weatherManager.windDirection)
     }
 }

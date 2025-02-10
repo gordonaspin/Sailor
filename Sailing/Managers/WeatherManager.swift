@@ -20,7 +20,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
 
     override init() {
         super.init()
-        print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
+        print("weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
         _ = Timer.scheduledTimer(withTimeInterval: fiveMinutes, repeats: true) { _ in
@@ -30,28 +30,28 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     
     func startLocationServices() {
         if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) location manager is authorized")
+            print("location manager is authorized")
             startTracking()
             isAuthorized = true
         } else {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) location manager is not authorized, requesting")
+            print("location manager is not authorized, requesting")
             isAuthorized = false
             locationManager.requestWhenInUseAuthorization()
         }
     }
     
     func startTracking() {
-        print("\(Date().toTimestamp) -  \(#file) \(#function) starting tracking")
+        print("starting tracking")
         locationManager.startUpdatingLocation()
     }
     
     func stopTracking() {
-        print("\(Date().toTimestamp) -  \(#file) \(#function) stopping tracking")
+        print("stopping tracking")
         locationManager.stopUpdatingLocation()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("\(Date().toTimestamp) -  \(#file) \(#function) location manager authorization changed \(manager.authorizationStatus)")
+        print("location manager authorization changed:", "\(manager.authorizationStatus)")
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             isAuthorized = true
@@ -61,7 +61,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             manager.requestWhenInUseAuthorization()
         case .denied:
             isAuthorized = false
-            print("\(Date().toTimestamp) -  \(#file) \(#function) access denied")
+            print("access denied")
         default:
             isAuthorized = true
             startLocationServices()
@@ -76,12 +76,12 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             
             let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
             windDirection = Double(newWindDirection)
-            print("\(Date().toTimestamp) -  \(#file) \(#function) weather updated windSpeed: \(windSpeed), windDirection: \(windDirection)")
+            print("weather updated windSpeed:", "\(windSpeed)", "windDirection:", "\(windDirection)")
         }
         catch {
-            print("\(Date().toTimestamp) -  \(#file) \(#function) failed to fetch weather: \(error)")
+            print("failed to fetch weather:", error.localizedDescription)
         }
-        print("\(Date().toTimestamp) -  \(#file) \(#function) stop tracking")
+        print("stop tracking")
         stopTracking()
     }
     
@@ -93,7 +93,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("\(Date().toTimestamp) - \(#file) \(#function) weather error: \(error.localizedDescription)")
+        print("weather error:", error.localizedDescription)
     }
 }
 

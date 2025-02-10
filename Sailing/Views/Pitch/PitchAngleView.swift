@@ -13,18 +13,19 @@ struct PitchAngleView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
+        let pitch = convertedPitch
         InstrumentView(
             instrumentName: "TRIM",
             instrumentColor: settings.color,
-            instrumentValue: convertedPitch,
+            instrumentValue: pitch,
             instrumentValueColor: settings.color,
             formatSpecifier: "%d",
             showSign: false,
-            instrumentTag: convertedPitch < 0 ? "AFT" : "FWD",
+            instrumentTag: pitch < 0 ? "AFT" : "FWD",
             fontSize: settings.fontSize,
             indicator: { SideView(
                 color: settings.color,
-                angle: convertedPitch,
+                angle: pitch,
                 width: 10,
                 height: 25
             )}
@@ -38,7 +39,7 @@ struct PitchAngleView: View {
     }
 
     private var convertedPitch: Int {
-        print("\(Date().toTimestamp) - \(#function) motionManager.pitchAngle: \(motionManager.pitchAngle)")
+        print("motionManager.pitchAngle:", "\(motionManager.pitchAngle)")
         switch UIDevice.current.orientation {
             case .portrait:              return Int(motionManager.pitchAngle)
             case .portraitUpsideDown:    return Int(motionManager.pitchAngle)

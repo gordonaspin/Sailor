@@ -216,7 +216,7 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
 
     override init() {
         super.init()
-        print("\(Date().toTimestamp) -  \(#file) \(#function) weather manager initialized")
+        print("weather manager initialized")
         locationManager.delegate = self
         startLocationServices()
         _ = Timer.scheduledTimer(withTimeInterval: fiveMinutes, repeats: true) { _ in

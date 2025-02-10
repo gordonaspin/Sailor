@@ -94,8 +94,6 @@ struct Wind: Shape {
         let full = 10
         let delta = 3
         
-
-        print("\(Date().toTimestamp) - #file #function - speed: \(speed)")
         if speed < 1 {
             path.move(to: CGPoint(x: 2 + width / 2, y: height / 2))
             path.addArc(center: CGPoint(x: width / 2, y: height / 2), radius: 2, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)

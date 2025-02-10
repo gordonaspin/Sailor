@@ -13,10 +13,11 @@ struct WindSpeedView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
+        let windSpeed = convertedWindSpeed
         InstrumentView(
             instrumentName: "W.SPD",
             instrumentColor: settings.color,
-            instrumentValue: convertedWindSpeed,
+            instrumentValue: windSpeed,
             instrumentValueColor: settings.color,
             formatSpecifier: "%.1f",
             showSign: false,
@@ -38,7 +39,7 @@ struct WindSpeedView: View {
     }
     
     private var convertedWindSpeed: Double {
-        print("\(Date().toTimestamp) - \(#function) \(weatherManager.windSpeed)")
+        print("\(weatherManager.windSpeed)")
         return settings.convertSpeed(speed: weatherManager.windSpeed)
     }
 }

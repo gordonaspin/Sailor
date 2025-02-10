@@ -17,7 +17,7 @@ struct TimerButtonView : View {
         HStack(spacing: 50) {
             Button {
                 counter.isRunning.toggle()
-                print("button toggled isRunning: \(counter.isRunning)")
+                print("button toggled isRunning:", "\(counter.isRunning)")
             } label: {
                 HStack(spacing: 15) {
                     Image(systemName: counter.isRunning ? "pause.fill" : "play.fill")

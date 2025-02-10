@@ -13,10 +13,11 @@ struct HeadingView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
+        let heading = convertedHeading
         InstrumentView(
             instrumentName: "HDG",
             instrumentColor: settings.color,
-            instrumentValue: convertedHeading,
+            instrumentValue: heading,
             instrumentValueColor: settings.color,
             formatSpecifier: "%03d",
             showSign: false,
@@ -24,7 +25,7 @@ struct HeadingView: View {
             fontSize: settings.fontSize,
             indicator: { ArrowView(
                 color: settings.color,
-                angle: convertedHeading,
+                angle: heading,
                 width: 10,
                 height: 25)
             }
@@ -41,7 +42,7 @@ struct HeadingView: View {
     }
     
     private var convertedHeading: Int {
-        print("\(Date().toTimestamp) - \(#function) \(settings.trueNorth ? "trueHeading  \(locationManager.trueHeading)" : "magneticHeading \(locationManager.magneticHeading)")")
+        print("settings.trueNorth", "\(settings.trueNorth)", "true:", "\(locationManager.trueHeading)", "magnetic:", "\(locationManager.magneticHeading)")
         let heading: Int = Int(settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         switch UIDevice.current.orientation {
             case .portrait:

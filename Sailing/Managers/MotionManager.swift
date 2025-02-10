@@ -16,7 +16,7 @@ class MotionManager {
     var isTracking: Bool = false
     
     init() {
-        print("\(Date().toTimestamp) - \(#file) \(#function) motion manager initialized")
+        print("motion manager initialized")
         setupMotionManager()
     }
     
@@ -27,7 +27,7 @@ class MotionManager {
     }
     
     func startTracking() {
-        print("\(Date().toTimestamp) - \(#file) \(#function) start tracking")
+        print("start tracking")
         if !isTracking {
             isTracking.toggle()
             motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
@@ -61,14 +61,14 @@ class MotionManager {
                     hasChanged = true
                 }
                 if hasChanged {
-                    print("\(Date().toTimestamp) - \(#file) roll/pitch/yaw updated rollAngle: \(rollAngle), pitchAngle: \(pitchAngle), yawAngle: \(yawAngle)")
+                    print("roll/pitch/yaw updated rollAngle:", "\(rollAngle)", "pitchAngle:", "\(pitchAngle)", "yawAngle:", "\(yawAngle)")
                 }
             }
         }
     }
     
     func stopTracking() {
-        print("\(Date().toTimestamp) - \(#file) \(#function) stop tracking")
+        print("stop tracking")
         if isTracking {
             motionManager.stopDeviceMotionUpdates()
             isTracking.toggle()

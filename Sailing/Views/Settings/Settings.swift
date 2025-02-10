@@ -39,8 +39,8 @@ class SpeedSetttings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("SpeedViewSetting color: \(colorIndex) \(color)")
-        print("SpeedViewSetting units: \(speedUnits)")
+        print("SpeedViewSetting color:", "\(colorIndex)", "\(color)")
+        print("SpeedViewSetting units:", "\(speedUnits)")
     }
     func nextUnits() {
         var unitIndex: Int = units.firstIndex(of: speedUnits)!
@@ -81,8 +81,8 @@ class HeadingSettings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("HeadingViewSetting color: \(colorIndex) \(color)")
-        print("HeadingViewSetting trueNorth: \(trueNorth)")
+        print("HeadingViewSetting color:", "\(colorIndex)", "\(color)")
+        print("HeadingViewSetting trueNorth:", "\(trueNorth)")
     }
     var color: Color {
         return colors[colorIndex].color
@@ -112,13 +112,13 @@ class HeelAngleSettings: Settings, ColorProtocol {
     override init() {
         super.init()
         currentColorIndex = colorIndex
-        print("HeelAngleViewSetting colorIndex: \(colorIndex) \(color)")
-        print("HeelAngleViewSetting optimumHeelColorIndex: \(optimumHeelColorIndex)")
-        print("HeelAngleViewSetting speakHeelAlarms: \(speakHeelAlarms)")
-        print("HeelAngleViewSetting underHeelAlarm: \(underHeelAlarm)")
-        print("HeelAngleViewSetting overHeelAlarm: \(overHeelAlarm)")
-        print("HeelAngleViewSetting optimumHeelAngle: \(optimumHeelAngle)")
-        print("HeelAngleViewSetting heelAngleWindwardLeeward: \(heelAngleWindwardLeeward)")
+        print("HeelAngleViewSetting colorIndex:", "\(colorIndex)", "\(color)")
+        print("HeelAngleViewSetting optimumHeelColorIndex:", "\(optimumHeelColorIndex)")
+        print("HeelAngleViewSetting speakHeelAlarms:", "\(speakHeelAlarms)")
+        print("HeelAngleViewSetting underHeelAlarm:", "\(underHeelAlarm)")
+        print("HeelAngleViewSetting overHeelAlarm:", "\(overHeelAlarm)")
+        print("HeelAngleViewSetting optimumHeelAngle:", "\(optimumHeelAngle)")
+        print("HeelAngleViewSetting heelAngleWindwardLeeward:", "\(heelAngleWindwardLeeward)")
     }
     func setOptimumHeelColor() {
         currentColorIndex = optimumHeelColorIndex
@@ -150,7 +150,7 @@ class PitchAngleSettings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("PitchAngleViewSetting color: \(colorIndex) \(color)")
+        print("PitchAngleViewSetting color:", "\(colorIndex)", "\(color)")
     }
     var color: Color {
         return colors[colorIndex].color
@@ -169,7 +169,7 @@ class WindDirectionSettings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("WindDirectionViewSetting color: \(colorIndex) \(color)")
+        print("WindDirectionViewSetting color:", "\(colorIndex)", "\(color)")
     }
     var color: Color {
         return colors[colorIndex].color
@@ -192,8 +192,8 @@ class WindSpeedSetttings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("SpeedViewSetting color: \(colorIndex) \(color)")
-        print("SpeedViewSetting units: \(speedUnits)")
+        print("SpeedViewSetting color:", "\(colorIndex)", "\(color)")
+        print("SpeedViewSetting units:", "\(speedUnits)")
     }
     func nextUnits() {
         var unitIndex: Int = units.firstIndex(of: speedUnits)!
@@ -236,6 +236,6 @@ class RaceTimerSettings: Settings {
 
     override init() {
         super.init()
-        print("RaceTimerSetttings raceTimer: \(raceTimer)")
+        print("RaceTimerSetttings raceTimer:", "\(raceTimer)")
     }
 }

@@ -18,10 +18,11 @@ struct HeelAngleView: View {
     let synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
+        let heel = convertedHeel
         InstrumentView(
             instrumentName: "HEEL",
             instrumentColor: settings.titleColor,
-            instrumentValue: convertedHeel,
+            instrumentValue: heel,
             instrumentValueColor: settings.color,
             formatSpecifier: "%d",
             showSign: false,
@@ -29,12 +30,12 @@ struct HeelAngleView: View {
                 determineHeelDirection(
                     windDirection: weatherManager.windDirection,
                     vesselHeading: locationManager.trueHeading,
-                    heelAngle: convertedHeel) :
-                convertedHeel < 0 ? "PORT" : "STBD",
+                    heelAngle: heel) :
+                heel < 0 ? "PORT" : "STBD",
             fontSize: settings.fontSize,
             indicator: { TransomView(
                 color: settings.color,
-                angle: convertedHeel,
+                angle: heel,
                 width: 10,
                 height: 25
             )}
@@ -67,7 +68,7 @@ struct HeelAngleView: View {
     }
     
     private var convertedHeel: Int {
-        print("\(Date().toTimestamp) - \(#function) motionManager.rollAngle: \(motionManager.rollAngle) motionManager.yawAngle: \(motionManager.yawAngle)")
+        print("motionManager.rollAngle:", "\(motionManager.rollAngle)", "motionManager.yawAngle:", "\(motionManager.yawAngle)")
         var tilt: Int = 0
         switch UIDevice.current.orientation {
             case .portrait:              tilt = Int(motionManager.rollAngle)
@@ -98,7 +99,7 @@ struct HeelAngleView: View {
         let heelingToStarboard = (heelAngle > 0) // Positive heel means starboard heel
         let heelingToPort = (heelAngle < 0)      // Negative heel means port heel
 
-        print("\(Date().toTimestamp) - #file #function Wind Dir: \(windDirection) Heading: \(vesselHeading) heel: \(heelAngle) TWA: \(TWA) windFromStarboard: \(windFromStarboard) windFromPort: \(windFromPort) heelingToStarboard: \(heelingToStarboard) heelingToPort: \(heelingToPort)")
+        print("Wind Dir:", "\(windDirection)", "Heading:", "\(vesselHeading)", "heel:", "\(heelAngle)", "TWA:", "\(TWA)", "windFromStarboard:", "\(windFromStarboard)", "windFromPort:", "\(windFromPort)", "heelingToStarboard:", "\(heelingToStarboard)", "heelingToPort:", "\(heelingToPort)")
         // Compare heel direction with windward side
         if (windFromStarboard && heelingToStarboard) || (windFromPort && heelingToPort) {
             return "WD"

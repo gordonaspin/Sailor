@@ -73,7 +73,7 @@ struct SailingView: View {
                         .scaleEffect(scaleFactor)
                         .background(backgroundColor)
                         .onAppear() {
-                            print("\(Date().toTimestamp) -  \(#file) \(#function) Map & DefaultLayoutView onAppear, start tracking")
+                            print("Map & DefaultLayoutView onAppear, start tracking")
                             locationManager.startTracking()
                             motionManager.startTracking()
                         }
@@ -84,7 +84,7 @@ struct SailingView: View {
                         .scaleEffect(scaleFactor)
                         .background(colorScheme == .dark ? Color.black : Color.white)
                         .onAppear {
-                            print("\(Date().toTimestamp) -  \(#file) \(#function) RaceTimerView onAppear, stop tracking")
+                            print("RaceTimerView onAppear, stop tracking")
                             locationManager.stopTracking()
                             motionManager.stopTracking()
                         }

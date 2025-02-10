@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+public func print(_ items: String..., filename: String = #file, function : String = #function, line: Int = #line, separator: String = " ", terminator: String = "\n") {
+    #if DEBUG
+        let pretty = "\(Date().toTimestamp): \(URL(fileURLWithPath: filename).lastPathComponent).\(line) \(function): "
+        let output = items.map { "\($0)" }.joined(separator: separator)
+        Swift.print(pretty+output, terminator: terminator)
+    #else
+        Swift.print("RELEASE MODE")
+    #endif
+}
+
+public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+    #if DEBUG
+        let pretty = "\(Date().toTimestamp): "
+        let output = items.map { "\($0)" }.joined(separator: separator)
+        Swift.print(pretty+output, terminator: terminator)
+    #else
+        Swift.print("RELEASE MODE")
+    #endif
+}
+
 extension Date {
 
     var toTimestamp: String {
