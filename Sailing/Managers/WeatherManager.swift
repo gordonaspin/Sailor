@@ -41,12 +41,12 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     }
     
     func startTracking() {
-        print("starting tracking")
+        print("start tracking")
         locationManager.startUpdatingLocation()
     }
     
     func stopTracking() {
-        print("stopping tracking")
+        print("stop tracking")
         locationManager.stopUpdatingLocation()
     }
     

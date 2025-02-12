@@ -14,11 +14,12 @@ struct HeelAngleView: View {
     @Environment(WeatherManager.self) var weatherManager
     @StateObject private var settings = HeelAngleSettings.shared
     @State private var isPickerPresented: Bool = false
-    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    let synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
-        let heel = convertedHeel
+        let heel = HeelAngleView.convertHeel(
+            rollAngle: motionManager.rollAngle,
+            yawAngle: motionManager.yawAngle
+        )
         InstrumentView(
             instrumentName: "HEEL",
             instrumentColor: settings.titleColor,
@@ -56,27 +57,18 @@ struct HeelAngleView: View {
                 optimumHeelAngles: settings.optimumHeelAngles
             )
         }
-        .onReceive(timer) { _ in
-            if (settings.speakHeelAlarms) {
-                if (abs(convertedHeel) < settings.optimumHeelAngle - 5) {
-                    synthesizer.speak(AVSpeechUtterance(string: settings.underHeelAlarm))
-                }
-                else if (abs(convertedHeel) > settings.optimumHeelAngle + 5) {
-                    synthesizer.speak(AVSpeechUtterance(string: settings.overHeelAlarm))
-                }
-            }
-        }
     }
     
-    private var convertedHeel: Int {
-        print("motionManager.rollAngle:", "\(motionManager.rollAngle)", "motionManager.yawAngle:", "\(motionManager.yawAngle)")
+    public static func convertHeel(rollAngle: Double, yawAngle: Double) -> Int {
+        print("motionManager.rollAngle:", "\(rollAngle)", "motionManager.yawAngle:", "\(yawAngle)")
+        let settings = HeelAngleSettings.shared
         var tilt: Int = 0
         switch UIDevice.current.orientation {
-            case .portrait:              tilt = Int(motionManager.rollAngle)
-            case .portraitUpsideDown:    tilt = Int(motionManager.rollAngle)
-            case .landscapeLeft:         tilt = Int(motionManager.yawAngle - 90)
-            case .landscapeRight:        tilt = Int(90 - motionManager.yawAngle)
-            default: tilt = Int(motionManager.rollAngle)
+            case .portrait:              tilt = Int(rollAngle)
+            case .portraitUpsideDown:    tilt = Int(rollAngle)
+            case .landscapeLeft:         tilt = Int(yawAngle - 90)
+            case .landscapeRight:        tilt = Int(90 - yawAngle)
+            default: tilt = Int(rollAngle)
         }
         if (abs(tilt) >= (settings.optimumHeelAngle - 5) && abs(tilt) <= (settings.optimumHeelAngle + 5)) {
             settings.setOptimumHeelColor()

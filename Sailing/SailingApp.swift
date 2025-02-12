@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct SailingApp: App {
+    @Environment(\.scenePhase) private var phase
     @State private var locationManager = LocationManager()
     @State private var motionManager = MotionManager()
     @State private var weatherManager = WeatherManager()
@@ -27,8 +28,6 @@ struct SailingApp: App {
                     }
                     .onDisappear() {
                         UIApplication.shared.isIdleTimerDisabled = false
-                        print("onDisappear, stop tracking")
-                        locationManager.stopTracking()
                     }
             }
             else {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct SailingView: View {
     @State private var views: [AnyView] = [
@@ -14,6 +15,7 @@ struct SailingView: View {
         AnyView(SpeedHeadingHeelPitchInstrumentsLayoutView()),
         AnyView(SpeedHeadingInstrumentsLayoutView())
     ]
+    @Environment(\.scenePhase) private var phase
     @Environment(LocationManager.self) var locationManager
     @Environment(MotionManager.self) var motionManager
     @Environment(WeatherManager.self) var weatherManager
@@ -23,8 +25,11 @@ struct SailingView: View {
     @State private var offset: CGFloat = 0.0
     @State private var backgroundColor: Color = .clear
     @State private var scaleFactor: CGFloat = 1
+    @StateObject private var heelAngleSettings = HeelAngleSettings.shared
     @GestureState private var dragGestureActive: Bool = false
-
+    @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    let synthesizer = AVSpeechSynthesizer()
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -54,10 +59,8 @@ struct SailingView: View {
                                 .frame(width: 13, height: 13)
                             Text("Weather")
                                 .font(.system(size:16))
-                                //.foregroundColor(.gray)
                                 .bold()
                                 .padding(.bottom, -3)
-                                //.padding([.top, .bottom], 10)
                             Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
                                 Text("Legal")
                                 .underline()})
@@ -73,22 +76,12 @@ struct SailingView: View {
                         .offset(x: offset)
                         .scaleEffect(scaleFactor)
                         .background(backgroundColor)
-                        .onAppear() {
-                            print("Map & DefaultLayoutView onAppear, start tracking")
-                            locationManager.startTracking()
-                            motionManager.startTracking()
-                        }
                 }
                 else {
                     RaceTimerView(isPresented: $isRaceTimerPresented)
                         .offset(x: offset)
                         .scaleEffect(scaleFactor)
                         .background(colorScheme == .dark ? Color.black : Color.white)
-                        .onAppear {
-                            print("RaceTimerView onAppear, stop tracking")
-                            locationManager.stopTracking()
-                            motionManager.stopTracking()
-                        }
                 }
             }
             .animation(.spring(), value: offset)
@@ -124,7 +117,41 @@ struct SailingView: View {
                     }
             )
         }
-        
+        .onChange(of: phase) {
+            switch phase {
+            case .active:
+                print("active")
+                timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+                locationManager.startTracking()
+                motionManager.startTracking()
+                weatherManager.startTracking()
+            case .inactive:
+                print("inactive")
+                timer.upstream.connect().cancel()
+                locationManager.stopTracking()
+                motionManager.stopTracking()
+                weatherManager.stopTracking()
+            case .background:
+                print("background")
+            @unknown default:
+                break
+            }
+        }
+        .onReceive(timer) { _ in
+            if (heelAngleSettings.speakHeelAlarms) {
+                let heel = abs(HeelAngleView.convertHeel(
+                    rollAngle: motionManager.rollAngle,
+                    yawAngle: motionManager.yawAngle)
+                )
+                print("heel check timer fired, heel:", "\(heel)")
+                if (heel < heelAngleSettings.optimumHeelAngle - 5) {
+                    synthesizer.speak(AVSpeechUtterance(string: heelAngleSettings.underHeelAlarm))
+                }
+                else if (heel > heelAngleSettings.optimumHeelAngle + 5) {
+                    synthesizer.speak(AVSpeechUtterance(string: heelAngleSettings.overHeelAlarm))
+                }
+            }
+        }
     }
     private func nextView() {
         withAnimation {

@@ -39,18 +39,18 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func requestAuthorization() {
-        print("requesting authorization")
+        print("request authorization")
         locationManager.requestWhenInUseAuthorization()
     }
     
     func startTracking() {
-        print("starting tracking")
+        print("start tracking")
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }
     
     func stopTracking() {
-        print("stopping tracking")
+        print("stop tracking")
         locationManager.stopUpdatingLocation()
         locationManager.stopUpdatingHeading()
     }
