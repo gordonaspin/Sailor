@@ -1,5 +1,5 @@
 //
-//  WidgetView.swift
+//  InstrumentView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/18/25.
@@ -15,6 +15,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     var formatSpecifier: String
     var showSign: Bool
     var instrumentTag: String
+    var instrumentTagColor: Color
     var fontSize: CGFloat
     @ViewBuilder var indicator: () -> Content
     
@@ -46,7 +47,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 .font(.body)
                 .bold()
                 .frame(width: 60, height: 100)
-                .foregroundColor(instrumentColor)
+                .foregroundColor(instrumentTagColor)
         }
     }
     private var formattedValue: String {
@@ -86,6 +87,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 formatSpecifier: "%03d",
                 showSign: false,
                 instrumentTag: "KTS",
+                instrumentTagColor: Color.blue,
                 fontSize: 128,
                 indicator: { ArrowView(
                     color: Color.blue,

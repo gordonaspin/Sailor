@@ -22,6 +22,7 @@ struct HeadingView: View {
             formatSpecifier: "%03d",
             showSign: false,
             instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
+            instrumentTagColor: settings.color,
             fontSize: settings.fontSize,
             indicator: { ArrowView(
                 color: settings.color,

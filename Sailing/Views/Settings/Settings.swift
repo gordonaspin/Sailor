@@ -1,5 +1,5 @@
 //
-//  ViewSettings.swift
+//  Settings.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/8/25.
@@ -192,8 +192,8 @@ class WindSpeedSetttings: Settings, ColorProtocol {
 
     override init() {
         super.init()
-        print("SpeedViewSetting color:", "\(colorIndex)", "\(color)")
-        print("SpeedViewSetting units:", "\(speedUnits)")
+        print("WindSpeedSetttings color:", "\(colorIndex)", "\(color)")
+        print("WindSpeedSetttings units:", "\(speedUnits)")
     }
     func nextUnits() {
         var unitIndex: Int = units.firstIndex(of: speedUnits)!
@@ -237,5 +237,69 @@ class RaceTimerSettings: Settings {
     override init() {
         super.init()
         print("RaceTimerSetttings raceTimer:", "\(raceTimer)")
+    }
+}
+
+class ApparentWindAngleSettings: Settings, ColorProtocol {
+    static var shared = ApparentWindAngleSettings()
+    @AppStorage(wrappedValue: 7, "preference_ApparentWindAngleColor") var colorIndex: Int
+
+    override init() {
+        super.init()
+        print("ApparentWindAngleViewSetting color:", "\(colorIndex)", "\(color)")
+    }
+    var color: Color {
+        return colors[colorIndex].color
+    }
+    public func nextColor() {
+        colorIndex = (colorIndex + 1) % colors.count
+    }
+    public func prevColor() {
+        colorIndex = (colorIndex - 1 + colors.count) % colors.count
+    }
+}
+
+class ApparentWindSpeedSetttings: Settings, ColorProtocol {
+    static var shared = ApparentWindSpeedSetttings()
+    let longUnits = ["Knots", "Miles per hour", "Kilometers per hour"]
+    let units = ["KTS", "MPH", "KM/H"]
+    let conversionFactors = [0.539957, 0.621371, 1.0] // from km/h
+    @AppStorage(wrappedValue: 7, "preference_apparentWindSpeedColor") var colorIndex: Int
+    @AppStorage(wrappedValue: "KTS", "preference_apparentWindSpeedUnits") var speedUnits: String
+
+    override init() {
+        super.init()
+        print("ApparentWindSpeedSetting color:", "\(colorIndex)", "\(color)")
+        print("ApparentWindSpeedSetting units:", "\(speedUnits)")
+    }
+    func nextUnits() {
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex + 1) % units.count
+        speedUnits = units[unitIndex]
+    }
+    func prevUnits() {
+        var unitIndex: Int = units.firstIndex(of: speedUnits)!
+        unitIndex = (unitIndex - 1 + units.count) % units.count
+        speedUnits = units[unitIndex]
+    }
+    func setUnits(units: String) {
+        speedUnits = units
+    }
+    func convertSpeed(speed: Double) -> Double {
+        if let i = units.firstIndex(of: speedUnits) {
+            return speed * conversionFactors[i]
+        }
+        else {
+            return 0.0
+        }
+    }
+    var color: Color {
+        return colors[colorIndex].color
+    }
+    public func nextColor() {
+        colorIndex = (colorIndex + 1) % colors.count
+    }
+    public func prevColor() {
+        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }

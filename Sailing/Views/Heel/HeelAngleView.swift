@@ -32,6 +32,7 @@ struct HeelAngleView: View {
                     vesselHeading: locationManager.trueHeading,
                     heelAngle: heel) :
                 heel < 0 ? "PORT" : "STBD",
+            instrumentTagColor: settings.heelAngleWindwardLeeward ? settings.color :  heel < 0 ? Color.red : Color.green,
             fontSize: settings.fontSize,
             indicator: { TransomView(
                 color: settings.color,
@@ -113,6 +114,8 @@ struct HeelAngleView: View {
         var body: some View {
             HeelAngleView()
                 .environment(MotionManager())
+                .environment(LocationManager())
+                .environment(WeatherManager())
         }
     }
     return Preview()

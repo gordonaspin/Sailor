@@ -23,6 +23,7 @@ struct WindDirectionView: View {
                 formatSpecifier: "%03d",
                 showSign: false,
                 instrumentTag: "TRUE",
+                instrumentTagColor: settings.color,
                 fontSize: settings.fontSize,
                 indicator: { WindView(
                     color: settings.color,

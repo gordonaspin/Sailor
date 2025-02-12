@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SailingView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/5/25.
@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SailingView: View {
     @State private var views: [AnyView] = [
-        AnyView(AllInstrumentsLayoutView()),
+        AnyView(DefaultInstrumentsLayoutView()),
+        AnyView(WindInstrumentsLayoutView()),
         AnyView(SpeedHeadingHeelPitchInstrumentsLayoutView()),
         AnyView(SpeedHeadingInstrumentsLayoutView())
     ]

@@ -1,5 +1,5 @@
 //
-//  AllInstrumentsLayoutView.swift
+//  DefaultInstrumentsLayoutView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/18/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct AllInstrumentsLayoutView: View {
+struct DefaultInstrumentsLayoutView: View {
     private let instruments: [AnyView] = [
-        AnyView(WindSpeedView()),
-        AnyView(WindDirectionView()),
         AnyView(SpeedView()),
         AnyView(HeadingView()),
+        AnyView(WindSpeedView()),
+        AnyView(WindDirectionView()),
         AnyView(HeelAngleView()),
         AnyView(PitchAngleView())
     ]
@@ -25,7 +25,7 @@ struct AllInstrumentsLayoutView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            AllInstrumentsLayoutView()
+            DefaultInstrumentsLayoutView()
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())

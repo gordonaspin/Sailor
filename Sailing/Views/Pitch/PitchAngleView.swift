@@ -22,6 +22,7 @@ struct PitchAngleView: View {
             formatSpecifier: "%d",
             showSign: false,
             instrumentTag: pitch < 0 ? "AFT" : "FWD",
+            instrumentTagColor: settings.color,
             fontSize: settings.fontSize,
             indicator: { SideView(
                 color: settings.color,

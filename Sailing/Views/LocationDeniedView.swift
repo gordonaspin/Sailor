@@ -1,3 +1,9 @@
+//
+//  LocationDeniedView.swift
+//  Sailing
+//
+//  Created by Gordon Aspin on 1/18/25.
+//
 import SwiftUI
 
 struct LocationDeniedView: View {

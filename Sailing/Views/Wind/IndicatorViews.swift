@@ -1,5 +1,5 @@
 //
-//  ArrowView.swift
+//  IndicatorViews.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/22/25.

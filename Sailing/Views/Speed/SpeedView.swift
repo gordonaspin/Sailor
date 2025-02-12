@@ -22,6 +22,7 @@ struct SpeedView: View {
             formatSpecifier: "%.1f",
             showSign: false,
             instrumentTag: settings.speedUnits,
+            instrumentTagColor: settings.color,
             fontSize: settings.fontSize,
             indicator: {EmptyView()}
         )
