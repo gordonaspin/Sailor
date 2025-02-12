@@ -53,24 +53,25 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     private var formattedValue: String {
         let valueString: String
         if let doubleValue = instrumentValue as? Double {
-            valueString = String(format: formatSpecifier, doubleValue)
+            valueString = String(format: formatSpecifier, abs(doubleValue))
         } else if let intValue = instrumentValue as? Int {
-            valueString = String(format: formatSpecifier, intValue)
+            valueString = String(format: formatSpecifier, abs(intValue))
         } else if let floatValue = instrumentValue as? Float {
-            valueString = String(format: formatSpecifier, floatValue)
+            valueString = String(format: formatSpecifier, abs(floatValue))
         } else {
             valueString = "\(instrumentValue)"
         }
         
         if showSign {
             if let number = instrumentValue as? NSNumber {
-                return number.doubleValue >= 0 ? "+\(valueString)" : valueString
+                return number.doubleValue >= 0 ? "+\(valueString)" : "-\(valueString)"
             }
-        } else {
+        }
+        /*else {
             if let number = instrumentValue as? NSNumber, number.doubleValue < 0 {
                 return valueString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
             }
-        }
+        }*/
         return valueString
     }
     
