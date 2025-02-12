@@ -16,7 +16,7 @@ struct ApparentWindAngleSettingsView: View {
             Form {
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
-            .navigationTitle("Apparent Wind Dir")
+            .navigationTitle("Apparent Wind Angle")
             .navigationBarItems(
                 trailing: Button("Done") {
                     presentationMode.wrappedValue.dismiss()
