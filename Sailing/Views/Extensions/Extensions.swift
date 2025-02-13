@@ -40,6 +40,13 @@ extension Date {
     }
 }
 
+extension Bundle {
+    // Application name shown under the application icon.
+    var applicationName: String? {
+        object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
+            object(forInfoDictionaryKey: "CFBundleName") as? String
+    }
+}
 // swipe() extension on any view. Example:
 //    var body: some View {
 //    Text("Hello, World!")

@@ -21,7 +21,7 @@ struct LocationDeniedView: View {
                     """
                     1. Tab the button below and go to "Privacy and Security"
                     2. Tap on "Location Services"
-                    3. Locate the "Sailor" app and tap on it
+                    3. Locate the \(Bundle.main.applicationName ?? "") app and tap on it
                     4. Change the setting to "While Using the App"
                     """
                 )
