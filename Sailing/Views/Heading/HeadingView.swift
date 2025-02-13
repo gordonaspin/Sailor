@@ -13,7 +13,7 @@ struct HeadingView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-        let heading = convertedHeading
+        let heading = HeadingView.convertHeading(heading: settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         InstrumentView(
             instrumentName: "HDG",
             instrumentColor: settings.color,
@@ -42,20 +42,22 @@ struct HeadingView: View {
         }
     }
     
-    private var convertedHeading: Int {
-        print("settings.trueNorth", "\(settings.trueNorth)", "true:", "\(locationManager.trueHeading)", "magnetic:", "\(locationManager.magneticHeading)")
-        let heading: Int = Int(settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
+    public static func convertHeading(heading: Double) -> Int {
+        
+        var newHeading: Int = 0
         switch UIDevice.current.orientation {
             case .portrait:
-                return heading
+                newHeading = Int(heading)
             case .portraitUpsideDown:
-                return abs(heading + 180) % 360
+                newHeading = abs(Int(heading) + 180) % 360
             case .landscapeRight:
-                return (heading + 270) % 360
+                newHeading = (Int(heading) + 270) % 360
             case .landscapeLeft:
-                return (heading + 90) % 360
-            default: return heading
+                newHeading = (Int(heading) + 90) % 360
+            default: newHeading = Int(heading)
         }
+        print("heading:", "\(Int(heading))", "newHeading:", "\(newHeading)")
+        return newHeading
     }
 }
 
