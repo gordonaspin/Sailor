@@ -9,14 +9,11 @@ import SwiftUI
 
 struct SpeedHeadingInstrumentsLayoutView: View {
     private let instruments: [AnyView] = [
-        AnyView(SpeedView()),
-        AnyView(HeadingView()),
-        AnyView(Spacer()),
-        AnyView(Spacer()),
+        AnyView(BoatSpeedView()),
+        AnyView(BoatHeadingView()),
         AnyView(Spacer()),
         AnyView(Spacer())
         ]
-
     var body: some View {
         InstrumentsLayoutView(instruments: instruments)
     }

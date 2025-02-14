@@ -11,7 +11,7 @@ import MapKit
 
 struct MapView: View {
     @Environment(LocationManager.self) var locationManager
-    @StateObject private var settings = HeadingSettings.shared
+    @StateObject private var settings = BoatHeadingSettings.shared
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
     var body: some View {
@@ -33,7 +33,7 @@ struct MapView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingSettings.shared
+        @StateObject private var settings = BoatHeadingSettings.shared
         var body: some View {
             MapView()
                 .environment(LocationManager())

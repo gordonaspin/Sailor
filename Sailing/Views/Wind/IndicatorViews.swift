@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WindView: View {
+struct WindIndicator: View {
     var color: Color
     var angle: Int
     var speed: Double
@@ -16,7 +16,7 @@ struct WindView: View {
     
     var body: some View {
         VStack {
-            Wind(speed: speed)
+            BeaufortScaleShape(speed: speed)
                 .stroke(color, lineWidth: 1)
                 .fill(speed >= 1 ? color.opacity(0.5) : Color.clear)
                 .frame(width: width, height: height)
@@ -27,7 +27,31 @@ struct WindView: View {
     }
 }
 
-struct ArrowView: View {
+struct ApparentWindAngleIndicator: View {
+    var color: Color
+    var angle: Int
+    var width: CGFloat
+    var height: CGFloat
+    
+    var body: some View {
+        ZStack {
+            BoatPlanView()
+                .stroke(Color.gray, lineWidth: 1)
+                .fill(Color.gray.opacity(0.5))
+                .frame(width: width, height: height)
+                .padding()
+            Arrow()
+                .stroke(color, lineWidth: 1)
+                .fill(color.opacity(0.5))
+                .frame(width: width, height: height)
+                .rotationEffect(.degrees(Double(angle)))
+                .padding()
+        }
+        .padding()
+    }
+}
+
+struct ArrowIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat
@@ -46,7 +70,7 @@ struct ArrowView: View {
     }
 }
 
-struct TransomView: View {
+struct HeelIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat
@@ -54,7 +78,7 @@ struct TransomView: View {
     
     var body: some View {
         VStack {
-            Transom()
+            BoatTransomElevation()
                 .stroke(color, lineWidth: 1)
                 .fill(color.opacity(0.5))
                 .frame(width: width, height: height)
@@ -65,7 +89,7 @@ struct TransomView: View {
     }
 }
 
-struct SideView: View {
+struct PitchIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat
@@ -73,7 +97,7 @@ struct SideView: View {
     
     var body: some View {
         VStack {
-            Side()
+            BoatSideElevation()
                 .stroke(color, lineWidth: 1)
                 .fill(color.opacity(0.5))
                 .frame(width: width, height: height)
@@ -84,7 +108,7 @@ struct SideView: View {
     }
 }
 
-struct Wind: Shape {
+struct BeaufortScaleShape: Shape {
     var speed: Double
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -182,7 +206,37 @@ struct Arrow: Shape {
     }
 }
 
-struct Side: Shape {
+struct BoatPlanView: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.width
+        let height = rect.height
+        
+        //path.move(to: CGPoint(x: width / 2, y: 0)) // Boat Bow
+        path.move(to: CGPoint(x: width / 2, y: -5)) // Bow point
+                        
+        // Curved bow to the left
+        path.addQuadCurve(to: CGPoint(x: -2, y: height*0.6), control: CGPoint(x: -2, y: 5))
+        
+        // Bottom left corner of the boat
+        path.addLine(to: CGPoint(x: -2, y: height + 5)) // Transom left
+        
+        // Bottom right corner of the boat
+        path.addLine(to: CGPoint(x: width + 2, y: height + 5)) // Transom right
+
+        // Starboard side to start of bow
+        path.addLine(to: CGPoint(x: width + 2, y: height*0.6)) // Transom right
+
+        // Curved bow to the right
+        path.addQuadCurve(to: CGPoint(x: width/2, y: -5), control: CGPoint(x: width+2, y: 5))
+                        
+        path.closeSubpath()
+        
+        return path
+    }
+}
+
+struct BoatSideElevation: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let width = rect.width
@@ -209,7 +263,7 @@ struct Side: Shape {
     }
 }
 
-struct Transom: Shape {
+struct BoatTransomElevation: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let width = rect.width
@@ -250,10 +304,11 @@ struct Transom: Shape {
             let color: Color = .blue
             let angle: Int = 0
             let width: CGFloat = 10.0
-            ArrowView(color: color, angle: angle, width: width, height: width*2.5)
-            SideView(color: color, angle: angle, width: width, height: width*2.5)
-            TransomView(color: color, angle: angle, width: width, height: width*2.5)
-            WindView(color: color, angle: angle, speed: 025, width: width, height: width*2.5)
+            ArrowIndicator(color: color, angle: angle, width: width, height: width*2.5)
+            ApparentWindAngleIndicator(color: color, angle: angle, width: width, height: width*2.5)
+            PitchIndicator(color: color, angle: angle, width: width, height: width*2.5)
+            HeelIndicator(color: color, angle: angle, width: width, height: width*2.5)
+            WindIndicator(color: color, angle: angle, speed: 025, width: width, height: width*2.5)
         }
     }
     return Preview()

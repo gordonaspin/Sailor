@@ -23,7 +23,7 @@ struct WindSpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             instrumentTagColor: settings.color,
-            fontSize: settings.fontSize,
+            //fontSize: settings.fontSize,
             indicator: {EmptyView()}
         )
         .onTapGesture(count: 2) {
@@ -50,7 +50,7 @@ struct WindSpeedView: View {
         var body: some View {
             WindSpeedView()
                 .environment(WeatherManager())
-                .background(Color.black)
+                //.background(Color.black)
         }
     }
     return Preview()

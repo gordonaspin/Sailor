@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SpeedSettingsView: View {
+struct BoatSpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
     let shortUnits: [String]
@@ -31,7 +31,7 @@ struct SpeedSettingsView: View {
                     selectedColor: $colorIndex
                 )
             }
-            .navigationTitle("Speed")
+            .navigationTitle("Boat Speed")
             .navigationBarItems(trailing: Button("Done") {
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -42,9 +42,9 @@ struct SpeedSettingsView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = SpeedSetttings.shared
+        @StateObject private var settings = BoatSpeedSetttings.shared
         var body: some View {
-            SpeedSettingsView(
+            BoatSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
                 shortUnits: settings.units,
                 longUnits: settings.longUnits,

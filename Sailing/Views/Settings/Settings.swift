@@ -26,11 +26,12 @@ class Settings: ObservableObject {
         ("Gray", Color.gray),       // 7
         ("Black", Color.black)      // 9
     ]
-    var fontSize: CGFloat = 128
+    @AppStorage(wrappedValue: 0, "preference_viewIndex") var viewIndex: Int
+    //var fontSize: CGFloat = 128
 }
 
-class SpeedSetttings: Settings, ColorProtocol {
-    static var shared = SpeedSetttings()
+class BoatSpeedSetttings: Settings, ColorProtocol {
+    static var shared = BoatSpeedSetttings()
     let longUnits = ["Knots", "Miles Per Hour", "Meters Per Second"]
     let units = ["KTS", "MPH", "M/S"]
     let conversionFactors = [1.94384, 2.23694, 1.0] // from m/s
@@ -74,8 +75,8 @@ class SpeedSetttings: Settings, ColorProtocol {
     }
 }
 
-class HeadingSettings: Settings, ColorProtocol {
-    static var shared = HeadingSettings()
+class BoatHeadingSettings: Settings, ColorProtocol {
+    static var shared = BoatHeadingSettings()
     @AppStorage(wrappedValue: 5, "preference_headingColor") var colorIndex: Int
     @AppStorage(wrappedValue: false, "preference_trueNorth") var trueNorth: Bool
 

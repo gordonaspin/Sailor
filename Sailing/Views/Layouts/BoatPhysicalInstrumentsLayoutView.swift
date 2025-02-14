@@ -1,5 +1,5 @@
 //
-//  WindInstrumentsLayoutView.swift
+//  SpeedHeadingHeelPitchLayoutView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/18/25.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct WindInstrumentsLayoutView: View {
+struct BoatPhysicalInstrumentsLayoutView: View {
     private let instruments: [AnyView] = [
-        AnyView(WindSpeedView()),
-        AnyView(WindDirectionView()),
-        AnyView(ApparentWindSpeedView()),
-        AnyView(ApparentWindAngleView())
-    ]
+        AnyView(BoatSpeedView()),
+        AnyView(BoatHeadingView()),
+        AnyView(HeelAngleView()),
+        AnyView(PitchAngleView())
+        ]
     var body: some View {
         InstrumentsLayoutView(instruments: instruments)
     }
@@ -22,7 +22,7 @@ struct WindInstrumentsLayoutView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            WindInstrumentsLayoutView()
+            BoatPhysicalInstrumentsLayoutView()
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())

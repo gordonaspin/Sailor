@@ -16,38 +16,42 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     var showSign: Bool
     var instrumentTag: String
     var instrumentTagColor: Color
-    var fontSize: CGFloat
+    //var fontSize: CGFloat
     @ViewBuilder var indicator: () -> Content
     
     var body: some View {
-        HStack() {
-            Text(instrumentName)
-                .font(.body)
-                .bold()
-                .frame(width: 60, height: 100)
-                .rotationEffect(Angle(degrees: -90))
-                .foregroundColor(instrumentColor)
-            
-            ZStack(alignment: .leading) {
-                self.indicator()
-                    .frame(width: 10)
-
+        GeometryReader { geometry in
+            HStack(alignment: .center) {
+                ZStack(alignment: .trailing) {
+                    Text(instrumentName)
+                        .font(.body)
+                        .bold()
+                        .frame(width: 60, height: 100)
+                        .rotationEffect(Angle(degrees: -90))
+                        .foregroundColor(instrumentColor)
+                    
+                    self.indicator()
+                        .frame(width: 10)
+                }
+                
+                
                 Text(formattedValue)
-                    .font(.system(size: fontSize).monospacedDigit())
+                    .font(.system(size: geometry.size.height).monospacedDigit())
+                    .minimumScaleFactor(0.01)
                     .fontWidth(.compressed)
                     .bold()
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, -40)
-                    .padding(.bottom, -40)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, 0)
+                    .padding(.bottom, 0)
                     .foregroundColor(instrumentValueColor)
+                
+                Text(instrumentTag)
+                    .font(.body)
+                    .bold()
+                    .frame(width: 60)//, height: 100)
+                    .rotationEffect(Angle(degrees: -90))
+                    .foregroundColor(instrumentTagColor)
             }
-
-            Text(instrumentTag)
-                .rotationEffect(Angle(degrees: -90))
-                .font(.body)
-                .bold()
-                .frame(width: 60, height: 100)
-                .foregroundColor(instrumentTagColor)
         }
     }
     private var formattedValue: String {
@@ -67,11 +71,6 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 return number.doubleValue >= 0 ? "+\(valueString)" : "-\(valueString)"
             }
         }
-        /*else {
-            if let number = instrumentValue as? NSNumber, number.doubleValue < 0 {
-                return valueString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
-            }
-        }*/
         return valueString
     }
     
@@ -89,8 +88,8 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 showSign: false,
                 instrumentTag: "KTS",
                 instrumentTagColor: Color.blue,
-                fontSize: 128,
-                indicator: { ArrowView(
+                //fontSize: 128,
+                indicator: { ArrowIndicator(
                     color: Color.blue,
                     angle: 10,
                     width: 10,

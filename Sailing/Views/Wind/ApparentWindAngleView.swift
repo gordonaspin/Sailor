@@ -26,8 +26,8 @@ struct ApparentWindAngleView: View {
                 showSign: false,
                 instrumentTag: portOrStarboard,
                 instrumentTagColor: apparentWindAngle < 0 ? Color.red : Color.green,
-                fontSize: settings.fontSize,
-                indicator: { ArrowView(
+                //fontSize: settings.fontSize,
+                indicator: { ApparentWindAngleIndicator(
                     color: apparentWindAngle < 0 ? Color.red : Color.green,
                     angle: apparentWindAngle,
                     width: 10,
@@ -45,7 +45,7 @@ struct ApparentWindAngleView: View {
     
     private var calculateApparentWindAngle: Int {
         let BS: Double = locationManager.speed * 3.6 // m/s to km/h
-        let BH: Double = Double(HeadingView.convertHeading(heading: locationManager.trueHeading)) 
+        let BH: Double = Double(BoatHeadingView.convertHeading(heading: locationManager.trueHeading)) 
         let TWS: Double = weatherManager.windSpeed // km/h
         let TWD: Double = weatherManager.windDirection
         let thetaDegrees: Int = Int(TWD - BH)

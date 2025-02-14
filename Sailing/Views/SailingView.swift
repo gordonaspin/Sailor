@@ -10,10 +10,18 @@ import AVFoundation
 
 struct SailingView: View {
     @State private var views: [AnyView] = [
-        AnyView(DefaultInstrumentsLayoutView()),
+        AnyView(RacingInstrumentsLayoutView()),
         AnyView(WindInstrumentsLayoutView()),
-        AnyView(SpeedHeadingHeelPitchInstrumentsLayoutView()),
-        AnyView(SpeedHeadingInstrumentsLayoutView())
+        AnyView(BoatPhysicalInstrumentsLayoutView()),
+        AnyView(SpeedHeadingInstrumentsLayoutView()),
+        AnyView(AllInstrumentsLayoutView()),
+    ]
+    private let viewNames: [String] = [
+        "Racing Instruments",
+        "Wind Instruments",
+        "Boat Dynamics",
+        "Speed & Heading",
+        "All Instruments"
     ]
     @Environment(\.scenePhase) private var phase
     @Environment(LocationManager.self) var locationManager
@@ -21,11 +29,13 @@ struct SailingView: View {
     @Environment(WeatherManager.self) var weatherManager
     @Environment(\.colorScheme) var colorScheme
     @State private var isRaceTimerPresented: Bool = false
-    @State private var viewIndex: Int = 0
     @State private var offset: CGFloat = 0.0
     @State private var backgroundColor: Color = .clear
     @State private var scaleFactor: CGFloat = 1
+    @State private var viewName: String = ""
+    @State private var viewChangeDirection: Bool = false
     @StateObject private var heelAngleSettings = HeelAngleSettings.shared
+    @StateObject private var settings = Settings()
     @GestureState private var dragGestureActive: Bool = false
     @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     let synthesizer = AVSpeechSynthesizer()
@@ -71,8 +81,16 @@ struct SailingView: View {
                         }
                         .offset(x: 9, y: 8)
                     }
+                    .overlay(alignment: viewChangeDirection ? .trailing: .leading) {
+                        Text(viewName)
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .bold()
+                            .rotationEffect(Angle(degrees: viewChangeDirection ? 90 : -90))
+                            
+                    }
                 if !isRaceTimerPresented {
-                    views[viewIndex]
+                    views[settings.viewIndex]
                         .offset(x: offset)
                         .scaleEffect(scaleFactor)
                         .background(backgroundColor)
@@ -102,6 +120,16 @@ struct SailingView: View {
                             backgroundColor = Color.gray.opacity(0.5)
                             scaleFactor = 0.9
                         }
+                        var newViewIndex: Int
+                        if gesture.translation.width > 0 {
+                            newViewIndex = (settings.viewIndex - 1 + views.count) % views.count
+                            viewChangeDirection = false
+                        }
+                        else {
+                            newViewIndex = (settings.viewIndex + 1) % views.count
+                            viewChangeDirection = true
+                        }
+                        viewName = viewNames[newViewIndex]
                     }
                     .onEnded { gesture in
                         if gesture.translation.width < -geometry.size.width / 8 {
@@ -111,6 +139,7 @@ struct SailingView: View {
                             offset = -geometry.size.width
                             prevView()
                         }
+                        viewName = ""
                         offset = .zero
                         scaleFactor = 1.0
                         backgroundColor = Color.clear
@@ -159,7 +188,7 @@ struct SailingView: View {
                 isRaceTimerPresented.toggle()
             }
             else {
-                viewIndex = (viewIndex + 1) % views.count
+                settings.viewIndex = (settings.viewIndex + 1) % views.count
             }
         }
     }
@@ -169,7 +198,7 @@ struct SailingView: View {
                 isRaceTimerPresented.toggle()
             }
             else {
-                viewIndex = (viewIndex - 1 + views.count) % views.count
+                settings.viewIndex = (settings.viewIndex - 1 + views.count) % views.count
             }
         }
     }

@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct SpeedView: View {
+struct BoatSpeedView: View {
     @Environment(LocationManager.self) var locationManager
-    @StateObject private var settings = SpeedSetttings.shared
+    @StateObject private var settings = BoatSpeedSetttings.shared
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
         let speed = convertedSpeed
         InstrumentView(
-            instrumentName: "SPD",
+            instrumentName: "B.SPD",
             instrumentColor: settings.color,
             instrumentValue: speed,
             instrumentValueColor: settings.color,
@@ -23,14 +23,14 @@ struct SpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             instrumentTagColor: settings.color,
-            fontSize: settings.fontSize,
+            //fontSize: settings.fontSize,
             indicator: {EmptyView()}
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
         .sheet(isPresented: $isPickerPresented) {
-            SpeedSettingsView(
+            BoatSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
                 shortUnits: settings.units,
                 longUnits: settings.longUnits,
@@ -48,7 +48,7 @@ struct SpeedView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            SpeedView()
+            BoatSpeedView()
                 .environment(LocationManager())
                 .background(Color.black)
         }

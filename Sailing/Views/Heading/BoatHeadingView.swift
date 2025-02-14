@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct HeadingView: View {
+struct BoatHeadingView: View {
     @Environment(LocationManager.self) var locationManager
-    @StateObject private var settings = HeadingSettings.shared
+    @StateObject private var settings = BoatHeadingSettings.shared
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-        let heading = HeadingView.convertHeading(heading: settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
+        let heading = BoatHeadingView.convertHeading(heading: settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         InstrumentView(
-            instrumentName: "HDG",
+            instrumentName: "B.HDG",
             instrumentColor: settings.color,
             instrumentValue: heading,
             instrumentValueColor: settings.color,
@@ -23,8 +23,8 @@ struct HeadingView: View {
             showSign: false,
             instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
             instrumentTagColor: settings.color,
-            fontSize: settings.fontSize,
-            indicator: { ArrowView(
+            //fontSize: settings.fontSize,
+            indicator: { ArrowIndicator(
                 color: settings.color,
                 angle: heading,
                 width: 10,
@@ -35,7 +35,7 @@ struct HeadingView: View {
             isPickerPresented = true
         }
         .sheet(isPresented: $isPickerPresented) {
-            HeadingSettingsView(
+            BoatHeadingSettingsView(
                 trueNorth: $settings.trueNorth,
                 colorIndex: $settings.colorIndex
             )
@@ -63,9 +63,9 @@ struct HeadingView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingSettings.shared
+        @StateObject private var settings = BoatHeadingSettings.shared
         var body: some View {
-            HeadingView()
+            BoatHeadingView()
                 .environment(LocationManager())
         }
     }

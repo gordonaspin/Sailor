@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-struct DefaultInstrumentsLayoutView: View {
+struct RacingInstrumentsLayoutView: View {
     private let instruments: [AnyView] = [
-        AnyView(SpeedView()),
-        AnyView(HeadingView()),
+        AnyView(BoatSpeedView()),
+        AnyView(BoatHeadingView()),
         AnyView(WindSpeedView()),
         AnyView(WindDirectionView()),
+        AnyView(ApparentWindAngleView()),
         AnyView(HeelAngleView()),
-        AnyView(PitchAngleView())
     ]
-    
     var body: some View {
         InstrumentsLayoutView(instruments: instruments)
     }
@@ -25,7 +24,7 @@ struct DefaultInstrumentsLayoutView: View {
 #Preview {
     struct Preview: View {
         var body: some View {
-            DefaultInstrumentsLayoutView()
+            RacingInstrumentsLayoutView()
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())

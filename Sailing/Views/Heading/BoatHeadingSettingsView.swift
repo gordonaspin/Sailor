@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct HeadingSettingsView: View {
+struct BoatHeadingSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var trueNorth: Bool
     @Binding var colorIndex: Int
@@ -19,7 +19,7 @@ struct HeadingSettingsView: View {
                 Toggle("True North", isOn: $trueNorth)
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
-            .navigationTitle("Heading")
+            .navigationTitle("Boat Heading")
             .navigationBarItems(
                 trailing: Button("Done") {
                     presentationMode.wrappedValue.dismiss()
@@ -31,9 +31,9 @@ struct HeadingSettingsView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeadingSettings.shared
+        @StateObject private var settings = BoatHeadingSettings.shared
         var body: some View {
-            HeadingSettingsView(
+            BoatHeadingSettingsView(
                 trueNorth: $settings.trueNorth,
                 colorIndex: $settings.colorIndex
             )
