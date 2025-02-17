@@ -11,6 +11,7 @@ import SwiftUI
 struct WindSpeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var speedUnits: String
+    @Binding var temperatureCelcius: Bool
     let shortUnits: [String]
     let longUnits: [String]
     @Binding var colorIndex: Int
@@ -24,6 +25,10 @@ struct WindSpeedSettingsView: View {
                     }
                 }
                 .pickerStyle(InlinePickerStyle())
+                Section(header: Text("Temperature")) {
+                    Toggle("Temperature in Celcius", isOn: $temperatureCelcius)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 ColorPickerView(title: "Color", selectedColor: $colorIndex)
             }
             .navigationTitle("Wind Speed")
@@ -41,6 +46,7 @@ struct WindSpeedSettingsView: View {
         var body: some View {
             WindSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
+                temperatureCelcius: settings.$temperatureCelcius,
                 shortUnits: settings.units,
                 longUnits:  settings.longUnits,
                 colorIndex: $settings.colorIndex

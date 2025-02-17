@@ -18,6 +18,8 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     var windGustSpeed: Double = 0.0
     var windDirection: Double = 0.0
     var cloudCover: Double = 0.0
+    var temperatureF: Double = 0.0
+    var temperatureC: Double = 0.0
     var weatherSymbolName: String = ""
     var isAuthorized = false
 
@@ -83,9 +85,12 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             windDirection = Double(newWindDirection)
             weatherSymbolName = weather.currentWeather.symbolName
             cloudCover = weather.currentWeather.cloudCover
+            temperatureF = weather.currentWeather.temperature.converted(to: .fahrenheit).value
+            temperatureC = weather.currentWeather.temperature.converted(to: .celsius).value
             print("weather updated windSpeed:", "\(windSpeed)", "windGustSpeed:", "\(windGustSpeed)", "windDirection:", "\(windDirection)")
             print("weather cloudCover:", "\(cloudCover)")
             print("weather symbolname:", "\(weatherSymbolName)")
+            print("weather temperature:", "\(temperatureF)°F / \(temperatureC)°C)")
         }
         catch {
             print("failed to fetch weather:", error.localizedDescription)

@@ -19,28 +19,28 @@ struct BeaufortWindIndicator: View {
         ZStack {
             if speed < 1
                 {
-                BeaufortCalmWind(centerX: width/2, centerY: height/2)
+                BeaufortCalmWind()
                     .stroke(color, lineWidth: 1)
                     .frame(width: width, height: height)
-                BeaufortCloudCoverOutline(centerX: width/2, centerY: height/2)
+                BeaufortCloudCoverOutline()
                     .stroke(color, lineWidth: 1)
                     .frame(width: width, height: height)
-                BeaufortCloudCover(cloudCover: cloudCover, centerX: width/2, centerY: height/2)
+                BeaufortCloudCover(cloudCover: cloudCover)
                     .stroke(color, lineWidth: 1)
                     .fill(color.opacity(0.5))
                     .frame(width: width, height: height)
                     .padding()            }
             else {
                 ZStack {
-                    BeaufortWindArrow(knots: speed, centerX: width/2, centerY: height/2)
+                    BeaufortWindArrow(knots: speed)
                         .stroke(color, lineWidth: 1)
-                        .fill(color)
+                        .fill(color.opacity(0.5))
                         .frame(width: width, height: height)
                         .padding()
-                    BeaufortCloudCoverOutline(centerX: width/2, centerY: height/2)
+                    BeaufortCloudCoverOutline()
                         .stroke(color, lineWidth: 1)
                         .frame(width: width, height: height)
-                    BeaufortCloudCover(cloudCover: cloudCover, centerX: width/2, centerY: height/2)
+                    BeaufortCloudCover(cloudCover: cloudCover)
                         .stroke(color, lineWidth: 1)
                         .fill(color.opacity(0.5))
                         .frame(width: width, height: height)
@@ -139,13 +139,13 @@ struct PitchIndicator: View {
 
 struct BeaufortCloudCover: Shape {
     var cloudCover: Double
-    var centerX: Double
-    var centerY: Double
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let width: CGFloat = rect.width
+        let height: CGFloat = rect.height
         let radius: CGFloat = 6
-        let centerCloudCover: CGPoint = CGPoint(x: centerX, y: centerY)
+        let centerCloudCover: CGPoint = CGPoint(x: width / 2, y: height / 2)
         let eighths = Int((cloudCover * 8).rounded())
 
         switch eighths {
@@ -175,13 +175,13 @@ struct BeaufortCloudCover: Shape {
             path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(180), endAngle: .degrees(-90), clockwise: true)
             path.addLine(to: centerCloudCover)
         case 7:
-            path.move(to: CGPoint(x: centerX + 1, y: centerY))
+            path.move(to: CGPoint(x: centerCloudCover.x + 1, y: centerCloudCover.y))
             path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(80), endAngle: .degrees(-80), clockwise: true)
-            path.addLine(to: CGPoint(x: centerX + 1, y: centerY))
-            path.move(to: CGPoint(x: centerX - 1, y: centerY))
+            path.addLine(to: CGPoint(x: centerCloudCover.x + 1, y: centerCloudCover.y))
+            path.move(to: CGPoint(x: centerCloudCover.x - 1, y: centerCloudCover.y))
             path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(100), endAngle: .degrees(-100), clockwise: false)
         case 8:
-            path.move(to: CGPoint(x: centerX + radius, y: centerY))
+            path.move(to: CGPoint(x: centerCloudCover.x + radius, y: centerCloudCover.y))
             path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
         default: break
         }
@@ -191,12 +191,13 @@ struct BeaufortCloudCover: Shape {
 }
 
 struct BeaufortCalmWind: Shape {
-    var centerX: Double
-    var centerY: Double
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
+        let width: CGFloat = rect.width
+        let height: CGFloat = rect.height
+        let center: CGPoint = CGPoint(x: width / 2, y: height / 2)
         let calmRadius: CGFloat = 8
-        let center = CGPoint(x: centerX, y: centerY)
         path.addArc(center: center, radius: calmRadius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
         path.closeSubpath()
         return path
@@ -204,12 +205,13 @@ struct BeaufortCalmWind: Shape {
 }
 
 struct BeaufortCloudCoverOutline: Shape {
-    var centerX: Double
-    var centerY: Double
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
+        let width: CGFloat = rect.width
+        let height: CGFloat = rect.height
+        let center: CGPoint = CGPoint(x: width / 2, y: height / 2)
         let radius: CGFloat = 6
-        let center = CGPoint(x: centerX, y: centerY)
         path.addArc(center: center, radius: radius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
         path.closeSubpath()
         return path
@@ -217,18 +219,19 @@ struct BeaufortCloudCoverOutline: Shape {
 }
 struct BeaufortWindArrow: Shape {
     var knots: Double
-    var centerX: Double
-    var centerY: Double
+
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let width: CGFloat = rect.width
+        let height: CGFloat = rect.height
+        let center: CGPoint = CGPoint(x: width / 2, y: height / 2)
         let half: CGFloat = 4
         let full: CGFloat = 8
         let delta: CGFloat = 3
         let radius: CGFloat = 6
 
         path.move(to: CGPoint(x: width / 2, y: -radius-2)) // Arrow tip
-        path.addLine(to: CGPoint(x: width / 2, y: centerY-radius))
+        path.addLine(to: CGPoint(x: width / 2, y: center.y-radius))
         
         let basey: CGFloat = -radius-2
         let basex: CGFloat = width / 2.0
@@ -277,17 +280,17 @@ struct BeaufortWindArrow: Shape {
         }
         else {
             if knots >= 48 { // beaufort 10
-                path.move(to: CGPoint(x: basex, y: 0))
+                path.move(to: CGPoint(x: basex, y: basey))
                 path.addLine(to: CGPoint(x: basex + full, y: basey - delta))
-                path.addLine(to: CGPoint(x: basex , y: basey + delta))
+                path.addLine(to: CGPoint(x: basex , y: basey + 2*delta))
             }
             if knots >= 56 { // beaufort 11
-                path.move(to: CGPoint(x: basex, y: basey + 2*delta))
-                path.addLine(to: CGPoint(x: basex + half, y: basey + 2*delta - delta))
+                path.move(to: CGPoint(x: basex, y: basey + 3*delta))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + 3*delta - delta))
             }
             if knots >= 64 { // beaufort 12
-                path.move(to: CGPoint(x: basex + half, y: basey + 2*delta - delta))
-                path.addLine(to: CGPoint(x: basex + full, y: basey + 2*delta - 2*delta))
+                path.move(to: CGPoint(x: basex + half, y: basey + 3*delta - delta))
+                path.addLine(to: CGPoint(x: basex + full, y: basey + 3*delta - 2*delta))
             }
         }
         path.closeSubpath()
@@ -417,7 +420,7 @@ struct BoatTransomElevation: Shape {
             ApparentWindAngleIndicator(color: color, angle: angle, width: width, height: width*2.5)
             PitchIndicator(color: color, angle: angle, width: width, height: width*2.5)
             HeelIndicator(color: color, angle: angle, width: width, height: width*2.5)
-            BeaufortWindIndicator(color: color, direction: angle, speed: 0, cloudCover: 0.125*7, width: width, height: width*2.5)
+            BeaufortWindIndicator(color: color, direction: angle, speed: 65, cloudCover: 0.125*7, width: width, height: width*2.5)
         }
     }
     return Preview()

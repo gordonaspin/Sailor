@@ -15,13 +15,13 @@ on the map are various instruments:
 - Apparent wind angle
 
 Some instruments have a graphical indicator. Heading uses an arrow to indicate the boat heading relative to 
-true or magnetic north. Wind Direction has a Beaufort Scale indicator showing the wind strength and direction. 
+true or magnetic north. Wind Direction has a Beaufort Scale indicator showing the wind strength, direction and cloud cover. Wind Speed has a general weather indicator (per whatever AppleWeather says; cloudy, windy, etc.) and a wind gust measure.
 The Heel indicator depicts a boat viewed from the stern and it rotates per the angle of heel. Similarly, the 
 trim, or pitch indicator is a side view of a boat and it rotates depicting the pitch of the boat. Apparent 
 wind angle uses an arrow and depicts the current wind angle relative to the bow of the boat.
 
 The user can use a drag gesture left or right through a number of preset layouts with different instruments 
-overlaid on the map.
+overlaid on the map. As the drag gesture is used, there is an indication of which layout you are switching to.
 
 Wind speed and direction are from the Apple WeatherKit service. Boat speed and Heading are from CoreLocation. 
 Heel and pitch are derived from CoreMotion. Apparent wind speed and angle are derived from the current 

@@ -189,11 +189,13 @@ class WindSpeedSetttings: Settings, ColorProtocol {
     let conversionFactors = [0.539957, 0.621371, 1.0] // from km/h
     @AppStorage(wrappedValue: 7, "preference_windSpeedColor") var colorIndex: Int
     @AppStorage(wrappedValue: "KTS", "preference_windSpeedUnits") var speedUnits: String
+    @AppStorage(wrappedValue: false, "preference_temperatureCelcius") var temperatureCelcius: Bool
 
     override init() {
         super.init()
         print("WindSpeedSetttings color:", "\(colorIndex)", "\(color)")
         print("WindSpeedSetttings units:", "\(speedUnits)")
+        print("WindSpeedSetttings temperatureCelcius:", "\(temperatureCelcius)")
     }
     func nextUnits() {
         var unitIndex: Int = units.firstIndex(of: speedUnits)!

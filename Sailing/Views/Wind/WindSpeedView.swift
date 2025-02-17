@@ -26,7 +26,11 @@ struct WindSpeedView: View {
             indicator: {
                 VStack {
                     Image(systemName: weatherManager.weatherSymbolName).foregroundColor(settings.color)
-                    Text(String(format: "%d", Int(convertWindSpeed(speed: weatherManager.windGustSpeed))))
+                    Text(String(format: "%dº\(settings.temperatureCelcius ? "C" : "F")", settings.temperatureCelcius ? Int(weatherManager.temperatureC) : Int(weatherManager.temperatureF)))
+                        .font(.footnote)
+                        .frame(width: 50)
+                        .foregroundColor(settings.color)
+                    Text(String(format: "G%d", Int(convertWindSpeed(speed: weatherManager.windGustSpeed))))
                         .font(.footnote)
                         .frame(width: 50)
                         .foregroundColor(settings.color)
@@ -39,6 +43,7 @@ struct WindSpeedView: View {
         .sheet(isPresented: $isPickerPresented) {
             WindSpeedSettingsView(
                 speedUnits: settings.$speedUnits,
+                temperatureCelcius: settings.$temperatureCelcius,
                 shortUnits: settings.units,
                 longUnits:  settings.longUnits,
                 colorIndex: settings.$colorIndex
