@@ -26,7 +26,6 @@ struct ApparentWindAngleView: View {
                 showSign: false,
                 instrumentTag: portOrStarboard,
                 instrumentTagColor: apparentWindAngle < 0 ? Color.red : Color.green,
-                //fontSize: settings.fontSize,
                 indicator: { ApparentWindAngleIndicator(
                     color: apparentWindAngle < 0 ? Color.red : Color.green,
                     angle: apparentWindAngle,

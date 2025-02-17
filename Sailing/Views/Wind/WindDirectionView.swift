@@ -24,11 +24,11 @@ struct WindDirectionView: View {
                 showSign: false,
                 instrumentTag: "TRUE",
                 instrumentTagColor: settings.color,
-                //fontSize: settings.fontSize,
-                indicator: { WindIndicator(
+                indicator: { BeaufortWindIndicator(
                     color: settings.color,
-                    angle: windDirection + 180 % 360,
-                    speed: weatherManager.windSpeed * 0.621371,
+                    direction: windDirection,
+                    speed: weatherManager.windSpeed * 0.539957, // knots
+                    cloudCover: weatherManager.cloudCover,
                     width: 10,
                     height: 25)
                 }

@@ -13,7 +13,7 @@ struct WindSpeedView: View {
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
-        let windSpeed = convertedWindSpeed
+        let windSpeed = convertWindSpeed(speed: weatherManager.windSpeed)
         InstrumentView(
             instrumentName: "W.SPD",
             instrumentColor: settings.color,
@@ -23,8 +23,15 @@ struct WindSpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             instrumentTagColor: settings.color,
-            //fontSize: settings.fontSize,
-            indicator: {EmptyView()}
+            indicator: {
+                VStack {
+                    Image(systemName: weatherManager.weatherSymbolName).foregroundColor(settings.color)
+                    Text(String(format: "%d", Int(convertWindSpeed(speed: weatherManager.windGustSpeed))))
+                        .font(.footnote)
+                        .frame(width: 50)
+                        .foregroundColor(settings.color)
+                }
+            }
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true
@@ -39,9 +46,9 @@ struct WindSpeedView: View {
         }
     }
     
-    private var convertedWindSpeed: Double {
+    private func convertWindSpeed(speed: Double) ->Double {
         print("\(weatherManager.windSpeed)")
-        return settings.convertSpeed(speed: weatherManager.windSpeed)
+        return settings.convertSpeed(speed: speed)
     }
 }
 

@@ -23,7 +23,6 @@ struct PitchAngleView: View {
             showSign: false,
             instrumentTag: pitch < 0 ? "AFT" : "FWD",
             instrumentTagColor: settings.color,
-            //fontSize: settings.fontSize,
             indicator: { PitchIndicator(
                 color: settings.color,
                 angle: pitch,

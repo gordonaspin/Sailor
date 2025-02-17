@@ -16,7 +16,6 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     var showSign: Bool
     var instrumentTag: String
     var instrumentTagColor: Color
-    //var fontSize: CGFloat
     @ViewBuilder var indicator: () -> Content
     
     var body: some View {
@@ -24,7 +23,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
             HStack(alignment: .center) {
                 ZStack(alignment: .trailing) {
                     Text(instrumentName)
-                        .font(.body)
+                        .font(.system(size: 18))
                         .bold()
                         .frame(width: 60, height: 100)
                         .rotationEffect(Angle(degrees: -90))
@@ -32,6 +31,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                     
                     self.indicator()
                         .frame(width: 10)
+                        .offset(x: 10)
                 }
                 
                 
@@ -46,7 +46,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                     .foregroundColor(instrumentValueColor)
                 
                 Text(instrumentTag)
-                    .font(.body)
+                    .font(.system(size: 18))
                     .bold()
                     .frame(width: 60)//, height: 100)
                     .rotationEffect(Angle(degrees: -90))
@@ -88,12 +88,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 showSign: false,
                 instrumentTag: "KTS",
                 instrumentTagColor: Color.blue,
-                //fontSize: 128,
-                indicator: { ArrowIndicator(
-                    color: Color.blue,
-                    angle: 10,
-                    width: 10,
-                    height: 25)
+                indicator: {  BeaufortWindIndicator(color: Color.blue, direction: 310, speed: 45, cloudCover: 0.125*5, width: 10, height: 25)
                 }
             )
         }

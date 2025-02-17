@@ -24,7 +24,6 @@ struct ApparentWindSpeedView: View {
             showSign: false,
             instrumentTag: settings.speedUnits,
             instrumentTagColor: settings.color,
-            //fontSize: settings.fontSize,
             indicator: {EmptyView()}
         )
         .onTapGesture(count: 2) {

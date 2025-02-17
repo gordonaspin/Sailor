@@ -23,7 +23,6 @@ struct BoatHeadingView: View {
             showSign: false,
             instrumentTag: settings.trueNorth ? "TRUE" : "MAG",
             instrumentTagColor: settings.color,
-            //fontSize: settings.fontSize,
             indicator: { ArrowIndicator(
                 color: settings.color,
                 angle: heading,

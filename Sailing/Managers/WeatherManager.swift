@@ -15,7 +15,10 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
     private let weatherManager = WeatherService()
     private let locationManager = CLLocationManager()
     var windSpeed: Double = 0.0
+    var windGustSpeed: Double = 0.0
     var windDirection: Double = 0.0
+    var cloudCover: Double = 0.0
+    var weatherSymbolName: String = ""
     var isAuthorized = false
 
     override init() {
@@ -73,10 +76,16 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
             let weather = try await weatherManager.weather(for: location)
             let newWindSpeed = round((weather.currentWeather.wind.speed.value > 0 ? weather.currentWeather.wind.speed.value : 0.0) * 10) / 10
             windSpeed = newWindSpeed
+            let newGustSpeed = round(((weather.currentWeather.wind.gust?.value ?? 0.0 > 0 ? weather.currentWeather.wind.gust?.value : 0.0) ?? 0.0) * 10) / 10
+            windGustSpeed = newGustSpeed
             
             let newWindDirection: Int = Int(round(weather.currentWeather.wind.direction.value)) % 360
             windDirection = Double(newWindDirection)
-            print("weather updated windSpeed:", "\(windSpeed)", "windDirection:", "\(windDirection)")
+            weatherSymbolName = weather.currentWeather.symbolName
+            cloudCover = weather.currentWeather.cloudCover
+            print("weather updated windSpeed:", "\(windSpeed)", "windGustSpeed:", "\(windGustSpeed)", "windDirection:", "\(windDirection)")
+            print("weather cloudCover:", "\(cloudCover)")
+            print("weather symbolname:", "\(weatherSymbolName)")
         }
         catch {
             print("failed to fetch weather:", error.localizedDescription)

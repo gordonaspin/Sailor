@@ -7,21 +7,50 @@
 
 import SwiftUI
 
-struct WindIndicator: View {
+struct BeaufortWindIndicator: View {
     var color: Color
-    var angle: Int
+    var direction: Int
     var speed: Double
+    var cloudCover: Double
     var width: CGFloat
     var height: CGFloat
     
     var body: some View {
-        VStack {
-            BeaufortScaleShape(speed: speed)
-                .stroke(color, lineWidth: 1)
-                .fill(speed >= 1 ? color.opacity(0.5) : Color.clear)
-                .frame(width: width, height: height)
-                .rotationEffect(.degrees(Double(angle)))
-                .padding()
+        ZStack {
+            if speed < 1
+                {
+                BeaufortCalmWind(centerX: width/2, centerY: height/2)
+                    .stroke(color, lineWidth: 1)
+                    .frame(width: width, height: height)
+                BeaufortCloudCoverOutline(centerX: width/2, centerY: height/2)
+                    .stroke(color, lineWidth: 1)
+                    .frame(width: width, height: height)
+                BeaufortCloudCover(cloudCover: cloudCover, centerX: width/2, centerY: height/2)
+                    .stroke(color, lineWidth: 1)
+                    .fill(color.opacity(0.5))
+                    .frame(width: width, height: height)
+                    .padding()            }
+            else {
+                ZStack {
+                    BeaufortWindArrow(knots: speed, centerX: width/2, centerY: height/2)
+                        .stroke(color, lineWidth: 1)
+                        .fill(color)
+                        .frame(width: width, height: height)
+                        .padding()
+                    BeaufortCloudCoverOutline(centerX: width/2, centerY: height/2)
+                        .stroke(color, lineWidth: 1)
+                        .frame(width: width, height: height)
+                    BeaufortCloudCover(cloudCover: cloudCover, centerX: width/2, centerY: height/2)
+                        .stroke(color, lineWidth: 1)
+                        .fill(color.opacity(0.5))
+                        .frame(width: width, height: height)
+                        .padding()
+                        .rotationEffect(.degrees(Double(-direction)))
+
+                }
+                .rotationEffect(.degrees(Double(direction)))
+                .offset(x:0 , y: 6*cos(Double.pi/180 * Double(direction)))
+            }
         }
         .padding()
     }
@@ -108,77 +137,157 @@ struct PitchIndicator: View {
     }
 }
 
-struct BeaufortScaleShape: Shape {
-    var speed: Double
+struct BeaufortCloudCover: Shape {
+    var cloudCover: Double
+    var centerX: Double
+    var centerY: Double
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let width = rect.width
-        let height = rect.height
-        let half = 5
-        let full = 10
-        let delta = 3
+        let width: CGFloat = rect.width
+        let radius: CGFloat = 6
+        let centerCloudCover: CGPoint = CGPoint(x: centerX, y: centerY)
+        let eighths = Int((cloudCover * 8).rounded())
+
+        switch eighths {
+        case 0: break
+        case 1:
+            path.move(to: centerCloudCover)
+            path.addLine(to: CGPoint(x: width / 2, y: centerCloudCover.y - radius))
+            path.addLine(to: CGPoint(x: width / 2, y: centerCloudCover.y + radius))
+        case 2:
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(0), endAngle: .degrees(-90), clockwise: true)
+            path.addLine(to: centerCloudCover)
+        case 3:
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(0), endAngle: .degrees(-90), clockwise: true)
+            path.addLine(to: centerCloudCover)
+            path.move(to: centerCloudCover)
+            path.addLine(to: CGPoint(x: width+1, y: centerCloudCover.y))
+            path.move(to: centerCloudCover)
+            path.addLine(to: CGPoint(x: width / 2, y: centerCloudCover.y + radius))
+        case 4:
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(90), endAngle: .degrees(-90), clockwise: true)
+        case 5:
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(90), endAngle: .degrees(-90), clockwise: true)
+            path.addLine(to: CGPoint(x: width / 2, y: centerCloudCover.y + radius))
+            path.move(to: centerCloudCover)
+            path.addLine(to: CGPoint(x: -1, y: centerCloudCover.y))
+        case 6:
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(180), endAngle: .degrees(-90), clockwise: true)
+            path.addLine(to: centerCloudCover)
+        case 7:
+            path.move(to: CGPoint(x: centerX + 1, y: centerY))
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(80), endAngle: .degrees(-80), clockwise: true)
+            path.addLine(to: CGPoint(x: centerX + 1, y: centerY))
+            path.move(to: CGPoint(x: centerX - 1, y: centerY))
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(100), endAngle: .degrees(-100), clockwise: false)
+        case 8:
+            path.move(to: CGPoint(x: centerX + radius, y: centerY))
+            path.addArc(center: centerCloudCover, radius: radius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
+        default: break
+        }
+        path.closeSubpath()
+        return path
+    }
+}
+
+struct BeaufortCalmWind: Shape {
+    var centerX: Double
+    var centerY: Double
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let calmRadius: CGFloat = 8
+        let center = CGPoint(x: centerX, y: centerY)
+        path.addArc(center: center, radius: calmRadius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
+        path.closeSubpath()
+        return path
+    }
+}
+
+struct BeaufortCloudCoverOutline: Shape {
+    var centerX: Double
+    var centerY: Double
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let radius: CGFloat = 6
+        let center = CGPoint(x: centerX, y: centerY)
+        path.addArc(center: center, radius: radius, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
+        path.closeSubpath()
+        return path
+    }
+}
+struct BeaufortWindArrow: Shape {
+    var knots: Double
+    var centerX: Double
+    var centerY: Double
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width: CGFloat = rect.width
+        let half: CGFloat = 4
+        let full: CGFloat = 8
+        let delta: CGFloat = 3
+        let radius: CGFloat = 6
+
+        path.move(to: CGPoint(x: width / 2, y: -radius-2)) // Arrow tip
+        path.addLine(to: CGPoint(x: width / 2, y: centerY-radius))
         
-        if speed < 1 {
-            path.move(to: CGPoint(x: 2 + width / 2, y: height / 2))
-            path.addArc(center: CGPoint(x: width / 2, y: height / 2), radius: 2, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
-            path.move(to: CGPoint(x: CGFloat(full) + width / 2, y: height / 2))
-            path.addArc(center: CGPoint(x: width / 2, y: height / 2), radius: CGFloat(full), startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)        }
-        else {
-            path.move(to: CGPoint(x: width / 2, y: 0)) // Arrow tip
-            path.addLine(to: CGPoint(x: width / 2, y: height - 2))
-            path.move(to: CGPoint(x: 2 + width / 2, y: height))
-            path.addArc(center: CGPoint(x: width / 2, y: height), radius: 2, startAngle: .degrees(0), endAngle: .degrees(360), clockwise: true)
-        }
-        if speed < 55 {
-            if speed >= 1 { // beaufort 1
-                path.move(to: CGPoint(x: width / 2, y: 0))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: 0))
+        let basey: CGFloat = -radius-2
+        let basex: CGFloat = width / 2.0
+        if knots < 48 {
+            // first fletching
+            if knots >= 1 { // beaufort 1
+                path.move(to: CGPoint(x: basex, y: basey))
+                path.addLine(to: CGPoint(x: basex + half, y: basey - delta))
             }
-            if speed >= 4 { // beaufort 2
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: 0))
+            if knots >= 4 { // beaufort 2
+                path.move(to: CGPoint(x: basex + half, y: basey - delta))
+                path.addLine(to: CGPoint(x: basex + full, y: basey - 2*delta))
             }
-            if speed >= 8 { // beaufort 3
-                path.move(to: CGPoint(x: Int(width) / 2, y: delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: delta ))
+            // second fletching
+            if knots >= 7 { // beaufort 3
+                path.move(to: CGPoint(x: basex, y: basey + delta))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + delta - delta))
             }
-            if speed >= 13 { // beaufort 4
-                path.move(to: CGPoint(x: Int(width) / 2, y: delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: delta ))
+            if knots >= 11 { // beaufort 4
+                path.move(to: CGPoint(x: basex + half, y: basey + delta - delta))
+                path.addLine(to: CGPoint(x: basex + full, y: basey + delta - 2*delta))
             }
-            if speed >= 19 { // beaufort 5
-                path.move(to: CGPoint(x: Int(width) / 2, y: 2*delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: 2*delta ))
+            // third fletching
+            if knots >= 17 { // beaufort 5
+                path.move(to: CGPoint(x: basex, y: basey + 2*delta ))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + 2*delta - delta ))
             }
-            if speed >= 25 { // beaufort 6
-                path.move(to: CGPoint(x: Int(width) / 2, y: 2*delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: 2*delta ))
+            if knots >= 22 { // beaufort 6
+                path.move(to: CGPoint(x: basex + half, y: basey + 2*delta - delta ))
+                path.addLine(to: CGPoint(x: basex + full, y: basey + 2*delta - 2*delta ))
             }
-            if speed >= 32 { // beaufort 7
-                path.move(to: CGPoint(x: Int(width) / 2, y: 3*delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: 3*delta ))
+            // fourth fletching
+            if knots >= 28 { // beaufort 7
+                path.move(to: CGPoint(x: basex, y: basey + 3*delta ))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + 3*delta - delta ))
             }
-            if speed >= 39 { // beaufort 8
-                path.move(to: CGPoint(x: Int(width) / 2, y: 3*delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: 3*delta ))
+            if knots >= 34 { // beaufort 8
+                path.move(to: CGPoint(x: basex + half, y: basey + 3*delta - delta))
+                path.addLine(to: CGPoint(x: basex + full, y: basey + 4*delta - 3*delta ))
             }
-            if speed >= 47 { // beaufort 9
-                path.move(to: CGPoint(x: Int(width) / 2, y: 4*delta ))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: 4*delta ))
+            // fifth fletching
+            if knots >= 41 { // beaufort 9
+                path.move(to: CGPoint(x: basex, y: basey + 4*delta ))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + 4*delta - delta))
             }
         }
         else {
-            if speed >= 55 { // beaufort 10
-                path.move(to: CGPoint(x: width / 2, y: 0))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: 2*delta))
-                path.addLine(to: CGPoint(x: Int(width) / 2 , y: 2*delta))
+            if knots >= 48 { // beaufort 10
+                path.move(to: CGPoint(x: basex, y: 0))
+                path.addLine(to: CGPoint(x: basex + full, y: basey - delta))
+                path.addLine(to: CGPoint(x: basex , y: basey + delta))
             }
-            if speed >= 64 { // beaufort 11
-                path.move(to: CGPoint(x: Int(width) / 2, y: 3*delta))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + half, y: 3*delta))
+            if knots >= 56 { // beaufort 11
+                path.move(to: CGPoint(x: basex, y: basey + 2*delta))
+                path.addLine(to: CGPoint(x: basex + half, y: basey + 2*delta - delta))
             }
-            if speed >= 75 { // beaufort 12
-                path.move(to: CGPoint(x: Int(width) / 2, y: 3*delta))
-                path.addLine(to: CGPoint(x: Int(width) / 2 + full, y: 3*delta))
+            if knots >= 64 { // beaufort 12
+                path.move(to: CGPoint(x: basex + half, y: basey + 2*delta - delta))
+                path.addLine(to: CGPoint(x: basex + full, y: basey + 2*delta - 2*delta))
             }
         }
         path.closeSubpath()
@@ -214,7 +323,7 @@ struct BoatPlanView: Shape {
         
         //path.move(to: CGPoint(x: width / 2, y: 0)) // Boat Bow
         path.move(to: CGPoint(x: width / 2, y: -5)) // Bow point
-                        
+        
         // Curved bow to the left
         path.addQuadCurve(to: CGPoint(x: -2, y: height*0.6), control: CGPoint(x: -2, y: 5))
         
@@ -223,13 +332,13 @@ struct BoatPlanView: Shape {
         
         // Bottom right corner of the boat
         path.addLine(to: CGPoint(x: width + 2, y: height + 5)) // Transom right
-
+        
         // Starboard side to start of bow
         path.addLine(to: CGPoint(x: width + 2, y: height*0.6)) // Transom right
-
+        
         // Curved bow to the right
         path.addQuadCurve(to: CGPoint(x: width/2, y: -5), control: CGPoint(x: width+2, y: 5))
-                        
+        
         path.closeSubpath()
         
         return path
@@ -271,7 +380,7 @@ struct BoatTransomElevation: Shape {
         
         let topWidth = rect.width
         let bottomWidth = rect.width * 0.2
-
+        
         // hull shape
         let topLeft = CGPoint(x: (rect.width - topWidth) / 2, y: height * 0.9)
         let topRight = CGPoint(x: rect.width - (rect.width - topWidth) / 2, y: height * 0.9)
@@ -302,13 +411,13 @@ struct BoatTransomElevation: Shape {
     struct Preview: View {
         var body: some View {
             let color: Color = .blue
-            let angle: Int = 0
+            let angle: Int = 330
             let width: CGFloat = 10.0
             ArrowIndicator(color: color, angle: angle, width: width, height: width*2.5)
             ApparentWindAngleIndicator(color: color, angle: angle, width: width, height: width*2.5)
             PitchIndicator(color: color, angle: angle, width: width, height: width*2.5)
             HeelIndicator(color: color, angle: angle, width: width, height: width*2.5)
-            WindIndicator(color: color, angle: angle, speed: 025, width: width, height: width*2.5)
+            BeaufortWindIndicator(color: color, direction: angle, speed: 0, cloudCover: 0.125*7, width: width, height: width*2.5)
         }
     }
     return Preview()

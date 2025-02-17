@@ -34,7 +34,6 @@ struct HeelAngleView: View {
                     heelAngle: heel) :
                 heel < 0 ? "PORT" : "STBD",
             instrumentTagColor: settings.heelAngleWindwardLeeward ? settings.color :  heel < 0 ? Color.red : Color.green,
-            //fontSize: settings.fontSize,
             indicator: { HeelIndicator(
                 color: settings.color,
                 angle: heel,

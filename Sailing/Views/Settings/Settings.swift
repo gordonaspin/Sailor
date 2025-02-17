@@ -27,7 +27,6 @@ class Settings: ObservableObject {
         ("Black", Color.black)      // 9
     ]
     @AppStorage(wrappedValue: 0, "preference_viewIndex") var viewIndex: Int
-    //var fontSize: CGFloat = 128
 }
 
 class BoatSpeedSetttings: Settings, ColorProtocol {
