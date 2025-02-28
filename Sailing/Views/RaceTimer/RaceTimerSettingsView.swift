@@ -17,14 +17,11 @@ struct RaceTimerSettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Picker("Start Race Timer at",
-                       selection: $timerStartValue,
-                       content: {
-                    ForEach(raceTimerValues, id: \.self) { number in
-                        Text("\(number) minute\(number > 1 ? "s\(number == 5 ? " (RRS 26)" : "")": "")").tag(number*60)
+                Section(header: Text("Start Race Timer at")) {
+                    Stepper(value: $timerStartValue, in: raceTimerValues[0]...raceTimerValues[raceTimerValues.count-1], step:60) {
+                        Text("\(timerStartValue/60) minute\(timerStartValue/60 > 1 ? "s\(timerStartValue/60 == 5 ? " (RRS 26)" : "")": "")")
                     }
-                })
-                .pickerStyle(.inline)
+                }
                 Section(header: Text("Timer Alerts")) {
                     Toggle("Speak Timer Alerts", isOn: $speakTimerAlerts)
                     Toggle("Audible Timer Alerts", isOn: $audibleTimerAlerts)

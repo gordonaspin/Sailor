@@ -420,7 +420,7 @@ struct BoatTransomElevation: Shape {
             ApparentWindAngleIndicator(color: color, angle: angle, width: width, height: width*2.5)
             PitchIndicator(color: color, angle: angle, width: width, height: width*2.5)
             HeelIndicator(color: color, angle: angle, width: width, height: width*2.5)
-            BeaufortWindIndicator(color: color, direction: angle, speed: 65, cloudCover: 0.125*7, width: width, height: width*2.5)
+            BeaufortWindIndicator(color: color, direction: angle, speed: 7.8, cloudCover: 0.125*7, width: width, height: width*2.5)
         }
     }
     return Preview()

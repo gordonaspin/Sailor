@@ -45,7 +45,7 @@ class CountDown: ObservableObject {
     let oneMinute: Int = 60
     let increment: Int = 1
     let synthesizer = AVSpeechSynthesizer()
-    let events = [5*60, 4*60, 3*60, 2*60, 60, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+    let events = [5*60, 4*60, 3*60, 2*60, 60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
     let url = URL(fileURLWithPath: "/System/Library/Audio/UISounds/sms-received5.caf")
     static private var settings = RaceTimerSettings.shared
     static var shared = CountDown()

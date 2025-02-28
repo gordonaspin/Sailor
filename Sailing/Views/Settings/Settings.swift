@@ -96,8 +96,9 @@ class BoatHeadingSettings: Settings, ColorProtocol {
 }
 
 class HeelAngleSettings: Settings, ColorProtocol {
-    let optimumHeelAngles = [10, 15, 20]
-    
+    let optimumHeelAngles = [5, 7, 10, 12, 15, 17, 20, 22, 25]
+    let optimumHeelAngleTolerances = [1, 2, 3, 4, 5]
+
     static var shared = HeelAngleSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
     @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int
@@ -105,6 +106,7 @@ class HeelAngleSettings: Settings, ColorProtocol {
     @AppStorage(wrappedValue: "The boat is too flat", "preference_underHeelAlarm") var underHeelAlarm: String
     @AppStorage(wrappedValue: "Too much heel", "preferences_overHeelAlarm") var overHeelAlarm: String
     @AppStorage(wrappedValue: 15, "preference_optimumHeelAngle") var optimumHeelAngle: Int
+    @AppStorage(wrappedValue: 2, "preference_optimumHeelAngleTolerance") var optimumHeelAngleTolerance: Int
     @AppStorage(wrappedValue: true, "preference_heelAngleWindwardLeeward") var heelAngleWindwardLeeward: Bool
 
     var currentColorIndex: Int = 1
@@ -118,6 +120,7 @@ class HeelAngleSettings: Settings, ColorProtocol {
         print("HeelAngleViewSetting underHeelAlarm:", "\(underHeelAlarm)")
         print("HeelAngleViewSetting overHeelAlarm:", "\(overHeelAlarm)")
         print("HeelAngleViewSetting optimumHeelAngle:", "\(optimumHeelAngle)")
+        print("HeelAngleViewSetting optimumHeelAngleTolerance:", "\(optimumHeelAngleTolerance)")
         print("HeelAngleViewSetting heelAngleWindwardLeeward:", "\(heelAngleWindwardLeeward)")
     }
     func setOptimumHeelColor() {
@@ -231,7 +234,7 @@ class WindSpeedSetttings: Settings, ColorProtocol {
 
 class RaceTimerSettings: Settings {
     static var shared = RaceTimerSettings()
-    let raceTimerValues = [1, 2, 3, 4, 5, 10]
+    let raceTimerValues = [1, 15]
     @AppStorage(wrappedValue: 300, "preference_raceTimer") var raceTimer: Int
     @AppStorage(wrappedValue: true, "preference_speakTimerAlerts") var speakTimerAlerts: Bool
     @AppStorage(wrappedValue: true, "preference_audibleTimerAlerts") var audibleTimerAlerts: Bool

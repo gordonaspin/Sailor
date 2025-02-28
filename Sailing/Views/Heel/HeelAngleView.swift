@@ -49,11 +49,13 @@ struct HeelAngleView: View {
                 colorIndex: $settings.colorIndex,
                 optimumHeelColorIndex: $settings.optimumHeelColorIndex,
                 optimumHeelAngle: $settings.optimumHeelAngle,
+                optimumHeelAngleTolerance: $settings.optimumHeelAngleTolerance,
                 speakHeelAlarms: $settings.speakHeelAlarms,
                 underHeelAlarm: $settings.underHeelAlarm,
                 overHeelAlarm: $settings.overHeelAlarm,
                 heelAngleWindwardLeeward: $settings.heelAngleWindwardLeeward,
-                optimumHeelAngles: settings.optimumHeelAngles
+                optimumHeelAngles: settings.optimumHeelAngles,
+                optimumHeelAngleTolerances: settings.optimumHeelAngleTolerances
             )
         }
     }
@@ -69,7 +71,7 @@ struct HeelAngleView: View {
             case .landscapeRight:        tilt = Int(90 - yawAngle)
             default: tilt = Int(rollAngle)
         }
-        if (abs(tilt) >= (settings.optimumHeelAngle - 5) && abs(tilt) <= (settings.optimumHeelAngle + 5)) {
+        if (abs(tilt) >= (settings.optimumHeelAngle - settings.optimumHeelAngleTolerance) && abs(tilt) <= (settings.optimumHeelAngle + settings.optimumHeelAngleTolerance)) {
             settings.setOptimumHeelColor()
         }
         else {

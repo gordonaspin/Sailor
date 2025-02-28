@@ -12,11 +12,13 @@ struct HeelAngleSettingsView: View {
     @Binding var colorIndex: Int
     @Binding var optimumHeelColorIndex: Int
     @Binding var optimumHeelAngle: Int
+    @Binding var optimumHeelAngleTolerance: Int
     @Binding var speakHeelAlarms: Bool
     @Binding var underHeelAlarm: String
     @Binding var overHeelAlarm: String
     @Binding var heelAngleWindwardLeeward: Bool
     var optimumHeelAngles: [Int]
+    var optimumHeelAngleTolerances: [Int]
     
     var body: some View {
         NavigationStack {
@@ -24,15 +26,16 @@ struct HeelAngleSettingsView: View {
                 Section(header: Text("Heel Angle Display")) {
                     Toggle("Display Windward / Leeward", isOn: $heelAngleWindwardLeeward)
                 }
-                Picker("Optimum Heel Angle",
-                       selection: $optimumHeelAngle,
-                       content: {
-                    ForEach(optimumHeelAngles, id: \.self) { number in
-                        Text("\(number) degrees").tag(number)
+                Section(header: Text("Optimum Heel Angle")) {
+                    Stepper(value: $optimumHeelAngle, in: 0...25) {
+                        Text("\(optimumHeelAngle) degrees")
                     }
-                })
-                .pickerStyle(.inline)
-                
+                }
+                Section(header: Text("Optimum Heel Angle Tolerance")) {
+                    Stepper(value: $optimumHeelAngleTolerance, in: 1...5) {
+                        Text("+/- \(optimumHeelAngleTolerance) degree\(optimumHeelAngleTolerance > 1 ? "s" : "")")
+                    }
+                }
                 Section(header: Text("Heel Angle Alarms")) {
                     Toggle("Speak Heel Alarms", isOn: $speakHeelAlarms)
                     LabeledContent {
@@ -70,11 +73,13 @@ struct HeelAngleSettingsView: View {
                 colorIndex: $settings.colorIndex,
                 optimumHeelColorIndex: $settings.optimumHeelColorIndex,
                 optimumHeelAngle: $settings.optimumHeelAngle,
+                optimumHeelAngleTolerance: $settings.optimumHeelAngleTolerance,
                 speakHeelAlarms: $settings.speakHeelAlarms,
                 underHeelAlarm: $settings.underHeelAlarm,
                 overHeelAlarm: $settings.overHeelAlarm,
                 heelAngleWindwardLeeward: $settings.heelAngleWindwardLeeward,
-                optimumHeelAngles: settings.optimumHeelAngles
+                optimumHeelAngles: settings.optimumHeelAngles,
+                optimumHeelAngleTolerances: settings.optimumHeelAngleTolerances
             )
             
         }
