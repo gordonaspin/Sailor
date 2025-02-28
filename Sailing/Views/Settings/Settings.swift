@@ -96,8 +96,8 @@ class BoatHeadingSettings: Settings, ColorProtocol {
 }
 
 class HeelAngleSettings: Settings, ColorProtocol {
-    let optimumHeelAngles = [5, 7, 10, 12, 15, 17, 20, 22, 25]
-    let optimumHeelAngleTolerances = [1, 2, 3, 4, 5]
+    let optimumHeelAngles = [0, 25]
+    let optimumHeelAngleTolerances = [1, 5]
 
     static var shared = HeelAngleSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
@@ -234,7 +234,7 @@ class WindSpeedSetttings: Settings, ColorProtocol {
 
 class RaceTimerSettings: Settings {
     static var shared = RaceTimerSettings()
-    let raceTimerValues = [1, 15]
+    let raceTimerValues = [1*60, 15*60]
     @AppStorage(wrappedValue: 300, "preference_raceTimer") var raceTimer: Int
     @AppStorage(wrappedValue: true, "preference_speakTimerAlerts") var speakTimerAlerts: Bool
     @AppStorage(wrappedValue: true, "preference_audibleTimerAlerts") var audibleTimerAlerts: Bool

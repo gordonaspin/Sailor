@@ -7,24 +7,20 @@
 
 import SwiftUI
 import UserNotifications
-//import AudioToolbox
 import AVFoundation
 
 @Observable
 class StopWatch: ObservableObject {
-    static var shared = StopWatch(countDown: nil)
-    var countDown: CountDown?
+    let countDown: CountDown = CountDown()
     var counter: Int = 0
     var timer: Timer? = nil
-    init(countDown: CountDown? = nil) {
-        self.countDown = countDown
-    }
+
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.counter += 1
             print("stopwatch tick", "\(self.counter)")
-            if self.countDown != nil && self.countDown!.isRunning {
-                self.countDown?.notify()
+            if self.countDown.isRunning {
+                self.countDown.notify()
             }
             else {
                 self.stop()
@@ -48,7 +44,6 @@ class CountDown: ObservableObject {
     let events = [5*60, 4*60, 3*60, 2*60, 60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
     let url = URL(fileURLWithPath: "/System/Library/Audio/UISounds/sms-received5.caf")
     static private var settings = RaceTimerSettings.shared
-    static var shared = CountDown()
     static var startValue: Int = settings.raceTimer
     var value: Int
     var isRunning: Bool
@@ -109,7 +104,6 @@ class CountDown: ObservableObject {
 struct RaceTimerView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(StopWatch.self) var stopWatch
-    @Environment(CountDown.self) var countDown
     @StateObject private var settings = RaceTimerSettings.shared
     @State private var isPickerPresented: Bool = false
     @State var arcFraction: CGFloat = 0
@@ -127,10 +121,9 @@ struct RaceTimerView: View {
                         }
                         .frame(width: geometry.size.width, height: geometry.size.height / 3)
                         Spacer()
-                        CountDownView(color: $timerColor, counter: countDown)
-                            //.frame(width: .infinity)
+                        CountDownView(countDown: stopWatch.countDown, color: $timerColor)
                         Spacer()
-                        TimerButtonView(counter: countDown, arcFraction: $arcFraction)
+                        TimerButtonView(countDown: stopWatch.countDown, arcFraction: $arcFraction)
                             .frame(width: geometry.size.width)
                         Spacer()
                     }
@@ -145,9 +138,9 @@ struct RaceTimerView: View {
                         Spacer()
                         VStack {
                             Spacer()
-                            CountDownView(color: $timerColor, counter: countDown)
+                            CountDownView(countDown: stopWatch.countDown, color: $timerColor)
                             Spacer()
-                            TimerButtonView(counter: countDown, arcFraction: $arcFraction)
+                            TimerButtonView(countDown: stopWatch.countDown, arcFraction: $arcFraction)
                             Spacer()
                         }
                         Spacer()
@@ -155,20 +148,20 @@ struct RaceTimerView: View {
                 }
             }
         }
-        .onChange(of: countDown.isRunning) {
-            print("onchange countdown running:", "\(countDown.isRunning)")
-            if countDown.isRunning {
+        .onChange(of: stopWatch.countDown.isRunning) {
+            print("onchange countdown running:", "\(stopWatch.countDown.isRunning)")
+            if stopWatch.countDown.isRunning {
                 stopWatch.start()
             }
             else {
                 stopWatch.stop()
             }
         }
-        .onChange(of: countDown.value) {
-            print("countDown counter changed:", "\(countDown.value)")
-            if countDown.value > 0 {
+        .onChange(of: stopWatch.countDown.value) {
+            print("countDown counter changed:", "\(stopWatch.countDown.value)")
+            if stopWatch.countDown.value > 0 {
                 withAnimation(.default) {
-                    arcFraction = CGFloat(countDown.value) / CGFloat(CountDown.startValue)
+                    arcFraction = CGFloat(stopWatch.countDown.value) / CGFloat(CountDown.startValue)
                 }
             } else {
                 withAnimation(.default) {
@@ -180,16 +173,16 @@ struct RaceTimerView: View {
         .onAppear(perform: {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
             }
-            print("RaceTimerView onAppear: countdown.isRunning:", "\(countDown.isRunning)")
-            if !countDown.isRunning {
-                countDown.reset()
+            print("RaceTimerView onAppear: countdown.isRunning:", "\(stopWatch.countDown.isRunning)")
+            if !stopWatch.countDown.isRunning {
+                stopWatch.countDown.reset()
             }
         })
         .onTapGesture(count: 2) {
             isPickerPresented = true
         }
         .onChange(of: settings.raceTimer) {
-            countDown.value = settings.raceTimer
+            stopWatch.countDown.value = settings.raceTimer
             CountDown.startValue = settings.raceTimer
         }
         .sheet(isPresented: $isPickerPresented) {
@@ -202,7 +195,7 @@ struct RaceTimerView: View {
         }
     }
     private func dissmissMe() {
-        countDown.reset()
+        stopWatch.countDown.reset()
         isPresented.toggle()
     }
 
@@ -213,8 +206,7 @@ struct RaceTimerView: View {
         @State var isPresented: Bool = true
         var body: some View {
             RaceTimerView(isPresented: $isPresented)
-                .environment(StopWatch(countDown: CountDown()))
-                .environment(CountDown())
+                .environment(StopWatch())
         }
     }
     return Preview()

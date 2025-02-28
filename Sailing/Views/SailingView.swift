@@ -211,8 +211,7 @@ struct SailingView: View {
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())
-                .environment(StopWatch(countDown: CountDown.shared))
-                .environment(CountDown())
+                .environment(StopWatch())
         }
     }
     return Preview()

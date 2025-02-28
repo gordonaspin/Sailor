@@ -217,9 +217,7 @@ related settings of a view. The default settings are in code, backed by the use 
  through @AppStorage. This allows changes to settings from the IOS Settings application and by Views within 
  the application and these settings are stored automatically and restored when the application is restarted.
 ```swift
-class HeelAngleSettings: Settings, ColorProtocol {
-    let optimumHeelAngles = [10, 15, 20]
-    
+class HeelAngleSettings: Settings, ColorProtocol {    
     static var shared = HeelAngleSettings()
     @AppStorage(wrappedValue: 1, "preference_heelColor") var colorIndex: Int
     @AppStorage(wrappedValue: 2, "preference_optimumHeelColor") var optimumHeelColorIndex: Int

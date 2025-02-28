@@ -13,8 +13,7 @@ struct SailingApp: App {
     @State private var locationManager = LocationManager()
     @State private var motionManager = MotionManager()
     @State private var weatherManager = WeatherManager()
-    @State private var stopWatch = StopWatch(countDown: CountDown.shared)
-    @State private var countDown = CountDown.shared
+    @State private var stopWatch = StopWatch()
 
     init() {
         print("SaliorApp init")
@@ -38,7 +37,6 @@ struct SailingApp: App {
         .environment(motionManager)
         .environment(weatherManager)
         .environment(stopWatch)
-        .environment(countDown)
 
     }
 }
@@ -52,8 +50,7 @@ struct SailingApp: App {
                     .environment(LocationManager())
                     .environment(MotionManager())
                     .environment(WeatherManager())
-                    .environment(StopWatch(countDown: CountDown.shared))
-                    .environment(CountDown.shared)
+                    .environment(StopWatch())
             }
             else {
                 LocationDeniedView()

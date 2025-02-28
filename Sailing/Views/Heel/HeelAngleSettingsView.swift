@@ -27,12 +27,12 @@ struct HeelAngleSettingsView: View {
                     Toggle("Display Windward / Leeward", isOn: $heelAngleWindwardLeeward)
                 }
                 Section(header: Text("Optimum Heel Angle")) {
-                    Stepper(value: $optimumHeelAngle, in: 0...25) {
+                    Stepper(value: $optimumHeelAngle, in: optimumHeelAngles[0]...optimumHeelAngles[optimumHeelAngles.count - 1]) {
                         Text("\(optimumHeelAngle) degrees")
                     }
                 }
                 Section(header: Text("Optimum Heel Angle Tolerance")) {
-                    Stepper(value: $optimumHeelAngleTolerance, in: 1...5) {
+                    Stepper(value: $optimumHeelAngleTolerance, in: optimumHeelAngleTolerances[0]...optimumHeelAngleTolerances[optimumHeelAngleTolerances.count - 1]) {
                         Text("+/- \(optimumHeelAngleTolerance) degree\(optimumHeelAngleTolerance > 1 ? "s" : "")")
                     }
                 }

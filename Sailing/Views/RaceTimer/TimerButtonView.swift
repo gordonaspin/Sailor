@@ -9,20 +9,20 @@ import SwiftUI
 
 
 struct TimerButtonView : View {
-    @ObservedObject var counter: CountDown
+    var countDown: CountDown
     @Binding var arcFraction: CGFloat
     let color: Color = .blue
     
     var body: some View {
         HStack(spacing: 50) {
             Button {
-                counter.isRunning.toggle()
-                print("button toggled isRunning:", "\(counter.isRunning)")
+                countDown.isRunning.toggle()
+                print("button toggled isRunning:", "\(countDown.isRunning)")
             } label: {
                 HStack(spacing: 15) {
-                    Image(systemName: counter.isRunning ? "pause.fill" : "play.fill")
+                    Image(systemName: countDown.isRunning ? "pause.fill" : "play.fill")
                         .foregroundColor(.white)
-                    Text(counter.isRunning ? "Pause" : "Start")
+                    Text(countDown.isRunning ? "Pause" : "Start")
                         .foregroundColor(.white)
                 }
             }
@@ -32,7 +32,7 @@ struct TimerButtonView : View {
             .clipShape(Capsule())
             .shadow(radius: 6)
             Button {
-                counter.restart()
+                countDown.restart()
                 withAnimation {
                     arcFraction = CGFloat(CountDown.startValue)
                 }
@@ -40,7 +40,7 @@ struct TimerButtonView : View {
                 HStack(spacing: 15) {
                     Image(systemName: "arrow.clockwise")
                         .foregroundColor(color)
-                    Text(counter.isRunning ? "Restart" : " Reset ")
+                    Text(countDown.isRunning ? "Restart" : " Reset ")
                         .foregroundColor(color)
                 }
             }
@@ -56,12 +56,11 @@ struct TimerButtonView : View {
 }
 #Preview {
     struct Preview: View {
-        @State var counter: CountDown = .init()
+        @State var countDown = CountDown()
         @State var arcFraction: CGFloat = 100.0
         var body: some View {
-            TimerButtonView(counter: counter, arcFraction: $arcFraction)
-                .environment(StopWatch(countDown: CountDown()))
-                .environment(CountDown())
+            TimerButtonView(countDown: countDown, arcFraction: $arcFraction)
+                .environment(StopWatch())
         }
     }
     return Preview()

@@ -14,26 +14,24 @@ struct CountDownView: View {
     let fourMinutes = 4*60
     let oneMinute = 60
     let fontSize: CGFloat = 180
+    @StateObject var countDown: CountDown
     @Binding var color: Color
-    var counter: CountDown
     
     var body: some View {
         HStack() {
             Group {
-                let mt = String("\(counter.value / oneMinute / 10)")
-                let mu = String("\(counter.value / oneMinute % 10)")
-                let st = String("\((counter.value % oneMinute) / 10)")
-                let su = String("\((counter.value % oneMinute) % 10)")
-                if counter.value >= tenMinutes {
+                let mt = String("\(countDown.value / oneMinute / 10)")
+                let mu = String("\(countDown.value / oneMinute % 10)")
+                let st = String("\((countDown.value % oneMinute) / 10)")
+                let su = String("\((countDown.value % oneMinute) % 10)")
+                if countDown.value >= tenMinutes {
                     Text(mt)
                 }
-                if (counter.value >= oneMinute) {
+                if (countDown.value >= oneMinute) {
                     Text(mu)
-                        .onDisappear() {
-                        }
                     Text(":")
                 }
-                if (counter.value > 9) {
+                if (countDown.value > 9) {
                     Text(st)
                 }
                 Text(su)
@@ -42,11 +40,11 @@ struct CountDownView: View {
             .fontWidth(.compressed)
             .bold()
             .foregroundColor(color)
-            .onChange(of: counter.value) {
-                if counter.value > fourMinutes {
+            .onChange(of: countDown.value) {
+                if countDown.value > fourMinutes {
                     color = Color.green
                 }
-                else if counter.value > oneMinute {
+                else if countDown.value > oneMinute {
                     color = Color.orange
                 }
                 else {
@@ -57,5 +55,5 @@ struct CountDownView: View {
     }
 }
 #Preview {
-    CountDownView(color: .constant(.red), counter: .shared)
+    CountDownView(countDown: CountDown(), color: .constant(.red))
 }
