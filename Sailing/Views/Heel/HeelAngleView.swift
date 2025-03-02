@@ -9,9 +9,9 @@ import SwiftUI
 import AVFoundation
 
 struct HeelAngleView: View {
-    @Environment(MotionManager.self) var motionManager
-    @Environment(LocationManager.self) var locationManager
-    @Environment(WeatherManager.self) var weatherManager
+    @Environment(MotionManager.self) private var motionManager
+    @Environment(LocationManager.self) private var locationManager
+    @Environment(WeatherManager.self) private var weatherManager
     @StateObject private var settings = HeelAngleSettings.shared
     @State private var isPickerPresented: Bool = false
 

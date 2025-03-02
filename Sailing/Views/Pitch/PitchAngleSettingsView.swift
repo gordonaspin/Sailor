@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PitchAngleSettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @Binding var colorIndex: Int
     
     var body: some View {

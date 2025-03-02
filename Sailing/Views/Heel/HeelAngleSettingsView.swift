@@ -67,7 +67,7 @@ struct HeelAngleSettingsView: View {
 
 #Preview {
     struct Preview: View {
-        @StateObject private var settings = HeelAngleSettings()
+        @StateObject private var settings = HeelAngleSettings.shared
         var body: some View {
             HeelAngleSettingsView(
                 colorIndex: $settings.colorIndex,

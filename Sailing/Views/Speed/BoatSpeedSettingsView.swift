@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BoatSpeedSettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @Binding var speedUnits: String
     let shortUnits: [String]
     let longUnits: [String]

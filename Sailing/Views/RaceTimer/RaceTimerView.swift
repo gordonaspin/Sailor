@@ -12,8 +12,8 @@ import AVFoundation
 @Observable
 class StopWatch: ObservableObject {
     let countDown: CountDown = CountDown()
-    var counter: Int = 0
-    var timer: Timer? = nil
+    private var counter: Int = 0
+    private var timer: Timer? = nil
 
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
@@ -38,16 +38,16 @@ class StopWatch: ObservableObject {
 
 @Observable
 class CountDown: ObservableObject {
-    let oneMinute: Int = 60
-    let increment: Int = 1
-    let synthesizer = AVSpeechSynthesizer()
-    let events = [5*60, 4*60, 3*60, 2*60, 60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
-    let url = URL(fileURLWithPath: "/System/Library/Audio/UISounds/sms-received5.caf")
+    private let oneMinute: Int = 60
+    private let increment: Int = 1
+    private let synthesizer = AVSpeechSynthesizer()
+    private let events = [5*60, 4*60, 3*60, 2*60, 60, 45, 30, 15, 10, 5, 4, 3, 2, 1, 0]
+    private let url = URL(fileURLWithPath: "/System/Library/Audio/UISounds/sms-received5.caf")
     static private var settings = RaceTimerSettings.shared
     static var startValue: Int = settings.raceTimer
     var value: Int
     var isRunning: Bool
-    var systemSoundID : SystemSoundID = 1013 // doesnt matter; edit path instead
+    private var systemSoundID : SystemSoundID = 1013 // doesnt matter; edit path instead
 
     init() {
         value = CountDown.startValue

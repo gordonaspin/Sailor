@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BoatSpeedView: View {
-    @Environment(LocationManager.self) var locationManager
+    @Environment(LocationManager.self) private var locationManager
     @StateObject private var settings = BoatSpeedSetttings.shared
     @State private var isPickerPresented: Bool = false
 

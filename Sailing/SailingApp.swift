@@ -37,7 +37,6 @@ struct SailingApp: App {
         .environment(motionManager)
         .environment(weatherManager)
         .environment(stopWatch)
-
     }
 }
 

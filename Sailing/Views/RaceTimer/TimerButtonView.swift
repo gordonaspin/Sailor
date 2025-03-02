@@ -9,9 +9,9 @@ import SwiftUI
 
 
 struct TimerButtonView : View {
-    var countDown: CountDown
+    let countDown: CountDown
     @Binding var arcFraction: CGFloat
-    let color: Color = .blue
+    private let color: Color = .blue
     
     var body: some View {
         HStack(spacing: 50) {

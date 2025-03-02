@@ -10,10 +10,10 @@ import UserNotifications
 import AudioToolbox
 
 struct CountDownView: View {
-    let tenMinutes = 10*60
-    let fourMinutes = 4*60
-    let oneMinute = 60
-    let fontSize: CGFloat = 180
+    private let tenMinutes = 10*60
+    private let fourMinutes = 4*60
+    private let oneMinute = 60
+    private let fontSize: CGFloat = 180
     @StateObject var countDown: CountDown
     @Binding var color: Color
     

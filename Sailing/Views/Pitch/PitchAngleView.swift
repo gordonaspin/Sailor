@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PitchAngleView: View {
-    @Environment(MotionManager.self) var motionManager
+    @Environment(MotionManager.self) private var motionManager
     @StateObject private var settings = PitchAngleSettings.shared
     @State private var isPickerPresented: Bool = false
 

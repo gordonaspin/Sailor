@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RaceTimerSettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     @Binding var timerStartValue: Int
     var raceTimerValues: [Int]
     @Binding var speakTimerAlerts: Bool
@@ -27,7 +27,6 @@ struct RaceTimerSettingsView: View {
                     Toggle("Audible Timer Alerts", isOn: $audibleTimerAlerts)
                 }
             }
-
             .navigationTitle("Race Timer")
             .navigationBarItems(trailing: Button("Done") {
                 presentationMode.wrappedValue.dismiss()
@@ -45,7 +44,6 @@ struct RaceTimerSettingsView: View {
                 raceTimerValues: settings.raceTimerValues,
                 speakTimerAlerts: settings.$speakTimerAlerts,
                 audibleTimerAlerts: settings.$audibleTimerAlerts
-                
             )
         }
     }

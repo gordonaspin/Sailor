@@ -24,10 +24,10 @@ struct SailingView: View {
         "All Instruments"
     ]
     @Environment(\.scenePhase) private var phase
-    @Environment(LocationManager.self) var locationManager
-    @Environment(MotionManager.self) var motionManager
-    @Environment(WeatherManager.self) var weatherManager
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(LocationManager.self) private var locationManager
+    @Environment(MotionManager.self) private var motionManager
+    @Environment(WeatherManager.self) private var weatherManager
+    @Environment(\.colorScheme) private var colorScheme
     @State private var isRaceTimerPresented: Bool = false
     @State private var offset: CGFloat = 0.0
     @State private var backgroundColor: Color = .clear
@@ -37,8 +37,8 @@ struct SailingView: View {
     @StateObject private var heelAngleSettings = HeelAngleSettings.shared
     @StateObject private var settings = Settings()
     @GestureState private var dragGestureActive: Bool = false
-    @State var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    let synthesizer = AVSpeechSynthesizer()
+    @State private var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    private let synthesizer = AVSpeechSynthesizer()
     
     var body: some View {
         GeometryReader { geometry in
