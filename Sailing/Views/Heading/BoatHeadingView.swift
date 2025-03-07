@@ -26,8 +26,8 @@ struct BoatHeadingView: View {
             indicator: { ArrowIndicator(
                 color: settings.color,
                 angle: heading,
-                width: 10,
-                height: 25)
+                width: 20,
+                height: 35)
             }
         )
         .onTapGesture(count: 2) {

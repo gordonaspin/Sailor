@@ -25,10 +25,8 @@ struct PitchAngleView: View {
             instrumentTagColor: settings.color,
             indicator: { PitchIndicator(
                 color: settings.color,
-                angle: pitch,
-                width: 10,
-                height: 25
-            )}
+                angle: pitch)
+            }
         )
         .onTapGesture(count: 2) {
                 isPickerPresented = true

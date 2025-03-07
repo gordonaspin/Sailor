@@ -28,9 +28,7 @@ struct ApparentWindAngleView: View {
                 instrumentTagColor: apparentWindAngle < 0 ? Color.red : Color.green,
                 indicator: { ApparentWindAngleIndicator(
                     color: apparentWindAngle < 0 ? Color.red : Color.green,
-                    angle: apparentWindAngle,
-                    width: 10,
-                    height: 25)
+                    angle: apparentWindAngle)
                 }
             )
             .onTapGesture(count: 2) {

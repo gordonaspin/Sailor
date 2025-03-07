@@ -153,7 +153,7 @@ struct SailingView: View {
                 timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
                 locationManager.startTracking()
                 motionManager.startTracking()
-                weatherManager.startTracking()
+                //weatherManager.startTracking()
             case .inactive:
                 print("inactive")
                 timer.upstream.connect().cancel()

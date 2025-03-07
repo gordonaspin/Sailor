@@ -31,7 +31,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                     
                     self.indicator()
                         .frame(width: 10)
-                        .offset(x: 10)
+                        .offset(x: 20)
                 }
                 
                 

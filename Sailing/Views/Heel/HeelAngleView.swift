@@ -36,10 +36,8 @@ struct HeelAngleView: View {
             instrumentTagColor: settings.heelAngleWindwardLeeward ? settings.color :  heel < 0 ? Color.red : Color.green,
             indicator: { HeelIndicator(
                 color: settings.color,
-                angle: heel,
-                width: 10,
-                height: 25
-            )}
+                angle: heel)
+            }
         )
         .onTapGesture(count: 2) {
             isPickerPresented = true

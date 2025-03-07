@@ -28,9 +28,9 @@ struct WindDirectionView: View {
                     color: settings.color,
                     direction: windDirection,
                     speed: weatherManager.windSpeed * 0.539957, // knots
-                    cloudCover: weatherManager.cloudCover,
-                    width: 10,
-                    height: 25)
+                    cloudCover: weatherManager.cloudCover)//,
+                    //width: 10,
+                    //height: 25)
                 }
             )
             .onTapGesture(count: 2) {

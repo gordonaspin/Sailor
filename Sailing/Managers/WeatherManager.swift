@@ -27,6 +27,8 @@ class WeatherManager: NSObject, CLLocationManagerDelegate {
         super.init()
         print("weather manager initialized")
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 100
         startLocationServices()
         _ = Timer.scheduledTimer(withTimeInterval: fiveMinutes, repeats: true) { _ in
             self.startTracking()
