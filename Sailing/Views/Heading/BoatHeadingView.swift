@@ -15,7 +15,7 @@ struct BoatHeadingView: View {
     var body: some View {
         let heading = BoatHeadingView.convertHeading(heading: settings.trueNorth ? locationManager.trueHeading : locationManager.magneticHeading)
         InstrumentView(
-            instrumentName: "B.HDG",
+            instrumentName: "HDG",
             instrumentColor: settings.color,
             instrumentValue: heading,
             instrumentValueColor: settings.color,

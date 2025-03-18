@@ -16,7 +16,7 @@ struct WindDirectionView: View {
         ZStack {
             let windDirection = convertedWindDirection
             InstrumentView(
-                instrumentName: "W.DIR",
+                instrumentName: "WDIR",
                 instrumentColor: settings.color,
                 instrumentValue: windDirection,
                 instrumentValueColor: settings.color,

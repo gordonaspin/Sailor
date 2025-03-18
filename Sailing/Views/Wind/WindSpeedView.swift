@@ -15,7 +15,7 @@ struct WindSpeedView: View {
     var body: some View {
         let windSpeed = convertWindSpeed(speed: weatherManager.windSpeed)
         InstrumentView(
-            instrumentName: "W.SPD",
+            instrumentName: "WSPD",
             instrumentColor: settings.color,
             instrumentValue: windSpeed,
             instrumentValueColor: settings.color,

@@ -13,6 +13,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     var speed: Double = 0.0
     var trueHeading: Double = 0
     var magneticHeading: Double = 0
+    var horizontalAccuracy: Double = 0.0
     var heading: CLHeading?
     var userLocation: CLLocation?
     var isAuthorized = false
@@ -22,7 +23,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         print("location manager initialized")
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.distanceFilter = 1//kCLDistanceFilterNone
         startLocationServices()
     }
     
@@ -67,6 +68,11 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             if (newSpeed != speed) {
                 speed = newSpeed
                 print("speed updated", "\(speed)")
+            }
+            let newHorizontalAccuracy: Double = location.horizontalAccuracy > 0 ? location.horizontalAccuracy : 0.0
+            if newHorizontalAccuracy != horizontalAccuracy {
+                horizontalAccuracy = newHorizontalAccuracy
+                print("horizontal location accuracy:", "\(location.horizontalAccuracy)")
             }
         }
     }
