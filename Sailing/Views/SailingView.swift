@@ -10,18 +10,21 @@ import AVFoundation
 
 struct SailingView: View {
     @State private var views: [AnyView] = [
+        //AnyView(ListInstrumentsLayoutView()),
         AnyView(RacingInstrumentsLayoutView()),
         AnyView(WindInstrumentsLayoutView()),
         AnyView(BoatPhysicalInstrumentsLayoutView()),
         AnyView(SpeedHeadingInstrumentsLayoutView()),
         AnyView(AllInstrumentsLayoutView()),
+        AnyView(FlagView())
     ]
     private let viewNames: [String] = [
         "Racing Instruments",
         "Wind Instruments",
         "Boat Dynamics",
         "Speed & Heading",
-        "All Instruments"
+        "All Instruments",
+        "Flags"
     ]
     @Environment(\.scenePhase) private var phase
     @Environment(LocationManager.self) private var locationManager
