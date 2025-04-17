@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 100 100">
+<style type="text/css">
+	.ltblue{fill:#8ED8F8;}
+	.blue{fill:#0072BC;}
+	.ltgray{fill:#F2F2F2;}
+	.red{fill:#CE181E;}
+	.yellow{fill:#FFCB05;}
+	.st6{font-family:'MyriadPro-Regular';}
+	.st7{font-size:30px;}
+	.st8{font-size:26px;}
+</style>
+<!-- R -->:
+<g>
+	<rect x="0" y="0" class="red" width="100" height="100"/>
+	<rect x="0" y="35" class="yellow" width="100" height="30"/>
+	<rect x="35" y="0" class="yellow" width="30" height="100"/>
+</g>
+</svg>
