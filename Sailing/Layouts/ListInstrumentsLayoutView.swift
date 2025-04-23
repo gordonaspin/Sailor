@@ -1,5 +1,5 @@
 //
-//  DefaultInstrumentsLayoutView.swift
+//  ListInstrumentsLayoutView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/18/25.

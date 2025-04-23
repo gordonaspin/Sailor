@@ -1,5 +1,5 @@
 //
-//  SpeedSettingsView.swift
+//  BoatSpeedSettingsView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/9/25.

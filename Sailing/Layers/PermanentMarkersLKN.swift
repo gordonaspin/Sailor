@@ -1,5 +1,5 @@
 //
-//  PermanentMarkerLayer.swift
+//  PermanentMarkersLKN.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 4/19/25.
