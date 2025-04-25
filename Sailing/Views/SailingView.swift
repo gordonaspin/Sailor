@@ -8,146 +8,72 @@
 import SwiftUI
 import AVFoundation
 
+struct Instrument: Identifiable {
+    let id = UUID()
+    var instrument: AnyView
+    var isEnabled: Bool
+    var instrumentType: String
+}
+
 struct SailingView: View {
-    @State private var views: [AnyView] = [
-        //AnyView(ListInstrumentsLayoutView()),
-        AnyView(RacingInstrumentsLayoutView()),
-        AnyView(WindInstrumentsLayoutView()),
-        AnyView(BoatPhysicalInstrumentsLayoutView()),
-        AnyView(SpeedHeadingInstrumentsLayoutView()),
-        AnyView(AllInstrumentsLayoutView()),
-        AnyView(FlagView())
-    ]
-    private let viewNames: [String] = [
-        "Racing Instruments",
-        "Wind Instruments",
-        "Boat Dynamics",
-        "Speed & Heading",
-        "All Instruments",
-        "Flags"
-    ]
+    @State private var instruments: [Instrument] = []
     @Environment(\.scenePhase) private var phase
     @Environment(LocationManager.self) private var locationManager
     @Environment(MotionManager.self) private var motionManager
     @Environment(WeatherManager.self) private var weatherManager
     @Environment(\.colorScheme) private var colorScheme
-    @State private var isRaceTimerPresented: Bool = false
-    @State private var offset: CGFloat = 0.0
-    @State private var backgroundColor: Color = .clear
-    @State private var scaleFactor: CGFloat = 1
-    @State private var viewName: String = ""
-    @State private var viewChangeDirection: Bool = false
     @StateObject private var heelAngleSettings = HeelAngleSettings.shared
     @StateObject private var settings = Settings()
-    @GestureState private var dragGestureActive: Bool = false
+    @StateObject private var instrumentSettings = InstrumentSettings()
+    
     @State private var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     private let synthesizer = AVSpeechSynthesizer()
-    
+    @State var tabSelection: Int = 0
+    private let fgColor: Color = Color(cgColor: CGColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 128))
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                MapView()
-                    .overlay(alignment: .bottomTrailing) {
-                        Button {
-                            isRaceTimerPresented.toggle()
-                        } label: {
-                            Image(systemName: "timer.circle")
-                                .foregroundColor(.blue)
-                                .background(colorScheme == .dark ? Color.black.opacity(0.6) : Color.white)
-                                .clipShape(Circle()) // Makes the background round
-                                .frame(width: 40, height: 40)
-                                .font(.system(size: 40))
-                                .offset(
-                                    x: (geometry.size.height > geometry.size.width) ? -7 : -5,
-                                    y: (geometry.size.height > geometry.size.width) ? +5 : 15)
-                                
-                        }
+            TabView (selection: $tabSelection) {
+                Tab("Map", systemImage: "map.circle", value: 0) {
+                    ZStack {
+                        MapView()
+                            .overlay(alignment: .bottomLeading) {
+                                // Legal requirements (Apple logo and source link)
+                                HStack(spacing: 0) {
+                                    Image(systemName: "apple.logo") // Use the Apple Weather logo asset
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 12, height: 12)
+                                        .foregroundColor(fgColor)
+                                    Text("Weather")
+                                        .font(.system(size:14))
+                                        .foregroundColor(fgColor)
+                                        .padding(.bottom, -3)
+                                    Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
+                                        Text("Legal")
+                                            .underline()})
+                                            .font(.system(size:9))
+                                            .foregroundColor(fgColor)
+                                            .padding(.leading, 5)
+                                            .padding(.bottom, -3)
+                                }
+                                .offset(x: 9.5, y: 0)
+                            }
+                        InstrumentsLayoutView(instruments: $instruments)
                     }
-                    .overlay(alignment: .bottomLeading) {
-                        // Legal requirements (Apple logo and source link)
-                        HStack(spacing: 0) {
-                            Image(systemName: "apple.logo") // Use the Apple Weather logo asset
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 13, height: 13)
-                            Text("Weather")
-                                .font(.system(size:16))
-                                .bold()
-                                .padding(.bottom, -3)
-                            Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
-                                Text("Legal")
-                                .underline()})
-                            .font(.system(size:9))
-                                .foregroundColor(.gray)
-                                .padding(.leading, 5)
-                                .padding(.bottom, -3)
-                        }
-                        .offset(x: 9, y: 8)
-                    }
-                    .overlay(alignment: viewChangeDirection ? .trailing: .leading) {
-                        Text(viewName)
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .bold()
-                            .rotationEffect(Angle(degrees: viewChangeDirection ? 90 : -90))
-                            
-                    }
-                if !isRaceTimerPresented {
-                    views[settings.viewIndex]
-                        .offset(x: offset)
-                        .scaleEffect(scaleFactor)
-                        .background(backgroundColor)
                 }
-                else {
-                    RaceTimerView(isPresented: $isRaceTimerPresented)
-                        .offset(x: offset)
-                        .scaleEffect(scaleFactor)
-                        .background(colorScheme == .dark ? Color.black : Color.white)
+                Tab("Timer", systemImage: "timer.circle", value: 1) {
+                    RaceTimerView(tabSelection: $tabSelection)
+                }
+                Tab("Flags", systemImage: "flag.2.crossed.circle", value: 2) {
+                    FlagView()
+                }
+                Tab("Settings", systemImage: "gear", value: 3) {
+                    EditInstrumentsLayoutView(instruments: $instruments)
                 }
             }
-            .animation(.spring(), value: offset)
-            .onChange(of: dragGestureActive) {
-                if dragGestureActive == false {
-                    offset = .zero
-                    scaleFactor = 1.0
-                }
-            }
-            .gesture(
-                DragGesture()
-                    .updating($dragGestureActive) { value, state, transaction in
-                        state = true
-                    }
-                    .onChanged { gesture in
-                        offset = gesture.translation.width
-                        if abs(gesture.translation.width) > geometry.size.width / 8 {
-                            backgroundColor = Color.gray.opacity(0.5)
-                            scaleFactor = 0.9
-                        }
-                        var newViewIndex: Int
-                        if gesture.translation.width > 0 {
-                            newViewIndex = (settings.viewIndex - 1 + views.count) % views.count
-                            viewChangeDirection = false
-                        }
-                        else {
-                            newViewIndex = (settings.viewIndex + 1) % views.count
-                            viewChangeDirection = true
-                        }
-                        viewName = viewNames[newViewIndex]
-                    }
-                    .onEnded { gesture in
-                        if gesture.translation.width < -geometry.size.width / 8 {
-                            offset = geometry.size.width
-                            nextView()
-                        } else if gesture.translation.width > geometry.size.width / 8 {
-                            offset = -geometry.size.width
-                            prevView()
-                        }
-                        viewName = ""
-                        offset = .zero
-                        scaleFactor = 1.0
-                        backgroundColor = Color.clear
-                    }
-            )
+        }
+        .onAppear {
+            instruments = loadInstruments()
         }
         .onChange(of: phase) {
             switch phase {
@@ -185,25 +111,51 @@ struct SailingView: View {
             }
         }
     }
-    private func nextView() {
-        withAnimation {
-            if isRaceTimerPresented {
-                isRaceTimerPresented.toggle()
-            }
-            else {
-                settings.viewIndex = (settings.viewIndex + 1) % views.count
+    func loadInstruments() -> [Instrument] {
+        
+        var instruments: [Instrument] = []
+        for i in stride(from: 0, to: instrumentSettings.instrumentStr.count, by: 2) {
+            if i + 1 < instrumentSettings.instrumentStr.count {
+                let twoChars = String(instrumentSettings.instrumentStr[instrumentSettings.instrumentStr.index(instrumentSettings.instrumentStr.startIndex, offsetBy: i)...instrumentSettings.instrumentStr.index(instrumentSettings.instrumentStr.startIndex, offsetBy: i+1)])
+                switch twoChars {
+                case "0T":
+                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: true, instrumentType: "0"))
+                case "0F":
+                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: false, instrumentType: "0"))
+                case "1T":
+                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: true, instrumentType: "1"))
+                case "1F":
+                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: false, instrumentType: "1"))
+                case "2T":
+                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: true, instrumentType: "2"))
+                case "2F":
+                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: false, instrumentType: "2"))
+                case "3T":
+                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: true, instrumentType: "3"))
+                case "3F":
+                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: false, instrumentType: "3"))
+                case "4T":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: true, instrumentType: "4"))
+                case "4F":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: false, instrumentType: "4"))
+                case "5T":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: true, instrumentType: "5"))
+                case "5F":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: false, instrumentType: "5"))
+                case "6T":
+                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: true, instrumentType: "6"))
+                case "6F":
+                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: false, instrumentType: "6"))
+                case "7T":
+                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: true, instrumentType: "7"))
+                case "7F":
+                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: false, instrumentType: "7"))
+                default:
+                    continue
+                }
             }
         }
-    }
-    private func prevView() {
-        withAnimation {
-            if isRaceTimerPresented {
-                isRaceTimerPresented.toggle()
-            }
-            else {
-                settings.viewIndex = (settings.viewIndex - 1 + views.count) % views.count
-            }
-        }
+        return instruments
     }
 }
 

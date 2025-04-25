@@ -308,3 +308,12 @@ class ApparentWindSpeedSetttings: Settings, ColorProtocol {
         colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
+
+class InstrumentSettings: Settings {
+    @AppStorage(wrappedValue: "0T1T2T3T4T5T6T7T", "preferences_Instruments") var instrumentStr: String
+    
+    override init() {
+        super.init()
+        print("Instruments:", "\(instrumentStr)")
+    }
+}

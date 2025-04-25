@@ -108,8 +108,8 @@ struct RaceTimerView: View {
     @State private var isPickerPresented: Bool = false
     @State var arcFraction: CGFloat = 0
     @State var timerColor = Color.green
-    @Binding var isPresented: Bool
-    
+    @Binding var tabSelection: Int
+
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -196,16 +196,15 @@ struct RaceTimerView: View {
     }
     private func dissmissMe() {
         stopWatch.countDown.reset()
-        isPresented.toggle()
+        tabSelection = 0
     }
-
 }
 
 #Preview {
     struct Preview: View {
-        @State var isPresented: Bool = true
+        @State var selection: Int = 2
         var body: some View {
-            RaceTimerView(isPresented: $isPresented)
+            RaceTimerView(tabSelection: $selection)
                 .environment(StopWatch())
         }
     }
