@@ -3,7 +3,7 @@ aid while sailing my MC Scow dingy. I have the phone mounted vertically so I can
 knotmeter, and heel and pitch monitor.
 
 ### Main Screen
-The initial user interface displays a map, a compass icon, map scale and user location with heading. Overlaid 
+The initial tabbed user interface displays a map, a compass icon, map scale and user location with heading. Overlaid 
 on the map are various instruments:
 - Wind Speed
 - Wind Direction
@@ -20,28 +20,26 @@ The Heel indicator depicts a boat viewed from the stern and it rotates per the a
 trim, or pitch indicator is a side view of a boat and it rotates depicting the pitch of the boat. Apparent 
 wind angle uses an arrow and depicts the current wind angle relative to the bow of the boat.
 
-The user can use a drag gesture left or right through a number of preset layouts with different instruments 
-overlaid on the map. As the drag gesture is used, there is an indication of which layout you are switching to.
-
 Wind speed and direction are from the Apple WeatherKit service. Boat speed and Heading are from CoreLocation. 
 Heel and pitch are derived from CoreMotion. Apparent wind speed and angle are derived from the current 
 forecast weather, boat speed and heading.
 
-| Main Screen Dark | Main Screen Dark 2| Main Screen Light |
-| ---------------- | ---------------- | ----------------- |
-| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark2.png)| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) |
+There are 3 other tabs, one to display the race timer, one for marine flag reference and one to enable/disable each of the instruments on view and to rearrange their order of display.
 
-A tap on the stopwatch icon in the lower right will bring up the stopwatch. The stopwatch can be started, 
+| Main Screen Dark | Main Screen Light | Flags |
+| ---------------- | ----------------- | ----- |
+| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorFlags.png) |
+
+The Timer icon on the tab bar will bring up the stopwatch. The stopwatch can be started, 
 paused and reset using the buttons. Announcements are made at various times as to how much time is left 
-before the start of the race. The stopwatch can be dismissed with a left or right drag gesture and will 
-return to the instrument view. The stopwatch will continue to run in the background.
+before the start of the race. The stopwatch will continue to run in the background.
+The Settings tabs shows the instrument list, with toggles to enable/disable. Instruments can be dragged to change their order.
 
-| StopWatch Dark | StopWatch Light |
-| -------------- | --------------- |
-| ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchDark.png) | ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/StopWatchLight.png) |
+| StopWatch Dark | Settings |
+| -------------- | -------- |
+| ![image info](./Sailing/Assets.xcassets/README/StopWatch.imageset/SailorTimer.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorEdit.png)) |
 
-A double tap gesture on any of the instruments will bring up the settings screen for that instrument. This 
-also goes for the stopwwatch.
+A double tap gesture on any of the instruments will bring up the settings screen for that instrument. This also goes for the stopwwatch.
 | Speed settings | Heading Settings |
 | -------------- | ---------------- |
 | ![image info](./Sailing/Assets.xcassets/README/SailorSpeed.imageset/SailorSpeed.png) | ![image info](./Sailing/Assets.xcassets/README/SailorHeading.imageset/SailorHeading.png) |
