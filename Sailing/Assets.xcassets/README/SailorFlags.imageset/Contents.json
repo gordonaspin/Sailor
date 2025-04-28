@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "SailorMainDark.png",
+      "filename" : "SailorFlags.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SailorMainLight.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "SailorEdit.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
