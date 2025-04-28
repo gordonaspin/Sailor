@@ -28,7 +28,7 @@ There are 3 other tabs, one to display the race timer, one for marine flag refer
 
 | Main Screen Dark | Main Screen Light | Flags |
 | ---------------- | ----------------- | ----- |
-| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorFlags.png) |
+| ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainDark.png) | ![image info](./Sailing/Assets.xcassets/README/SailorMain.imageset/SailorMainLight.png) | ![image info](./Sailing/Assets.xcassets/README/SailorFlags.imageset/SailorFlags.png) |
 
 The Timer icon on the tab bar will bring up the stopwatch. The stopwatch can be started, 
 paused and reset using the buttons. Announcements are made at various times as to how much time is left 
