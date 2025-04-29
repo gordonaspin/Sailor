@@ -23,7 +23,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
             HStack(alignment: .center) {
                 ZStack(alignment: .trailing) {
                     Text(instrumentName)
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .bold()
                         .frame(width: 60, height: 100)
                         .rotationEffect(Angle(degrees: -90))
@@ -46,7 +46,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                     .foregroundColor(instrumentValueColor)
                 
                 Text(instrumentTag)
-                    .font(.system(size: 18))
+                    .font(.system(size: 16))
                     .bold()
                     .frame(width: 60)//, height: 100)
                     .rotationEffect(Angle(degrees: -90))
@@ -80,7 +80,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     struct Preview: View {
         var body: some View {
             InstrumentView(
-                instrumentName: "W.DIR",
+                instrumentName: "WDIR",
                 instrumentColor: Color.blue,
                 instrumentValue: 10,
                 instrumentValueColor: Color.blue,
@@ -91,6 +91,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                 indicator: {  BeaufortWindIndicator(color: Color.blue, direction: 310, speed: 45, cloudCover: 0.125*5, width: 10, height: 25)
                 }
             )
+            .frame(width: .infinity, height: 100)
         }
     }
     return Preview()

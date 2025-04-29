@@ -9,37 +9,79 @@ import SwiftUI
 
 struct FlagView: View {
     let flags = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    let pennants = Array("0123456789")
-
+    let pennants = Array("1234567890")
+    let flagColumns = [
+        GridItem(.flexible()), GridItem(.flexible()),
+        GridItem(.flexible()), GridItem(.flexible()),
+    ]
+    let pennantColumns = [
+        GridItem(.flexible()), GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     var body: some View {
         ScrollView {
-            ForEach(flags, id: \.self) { flag in
-                HStack {
-                    Text(String(flag) + " ")
-                        .foregroundColor(.black)
-                        .font(.system(size: 48))
-                    Image(String(flag))
+            Spacer()
+            Text("Flags")
+            LazyVGrid(columns: flagColumns, spacing: 10) {
+                ForEach(flags, id: \.self) { flag in
+                    HStack {
+                        Spacer()
+                        Text(String(flag))
+                            .foregroundColor(.gray)
+                            .font(.system(.headline))
+                            .padding(4)
+                            .frame(width: 32, height: 32)
+                        Image(String(flag))
+                            .resizable()
+                            .scaledToFit()
+                            .padding(4)
+                    }
+                    .border(Color.gray, width: 1)
+                    .background(.white)
                 }
+            }
+            .padding(10) // Padding around the entire grid
+            Spacer()
+            Text("Pennants")
+            LazyVGrid(columns: pennantColumns, spacing: 10) {
+                ForEach(pennants, id: \.self) { flag in
+                    HStack {
+                        Spacer()
+                        Text(String(flag))
+                            .foregroundColor(.gray)
+                            .font(.system(.headline))
+                            .padding(4)
+                            .frame(width: 32, height: 32)
+                        Image(String(flag))
+                            .resizable()
+                            .scaledToFit()
+                            .padding(4)
+                    }
+                    .border(Color.gray, width: 1)
+                    .background(.white)
+                }
+                HStack() {
+                }
+                //HStack() {
+                //}
+                HStack {
+                    Spacer()
+                    Text(String("AP"))
+                        .foregroundColor(.gray)
+                        .font(.system(.headline))
+                        .padding(4)
+                        .frame(width: 32, height: 32)
+                    Image(String("AP"))
+                        .resizable()
+                        .scaledToFit()
+                        .padding(4)
+                }
+                .border(Color.gray, width: 1)
                 .background(.white)
             }
-            HStack {
-                Text(String("AP"))
-                    .foregroundColor(.black)
-                    .font(.system(size: 48))
-                Image(String("AP"))
-            }
-            .background(.white)
-            ForEach(pennants, id: \.self) { pennant in
-                HStack {
-                    Text(String(pennant) + " ")
-                        .foregroundColor(.black)
-                        .font(.system(size: 48))
-                    Image(String(pennant))
-                }
-                .background(.white)
-            }
+            .padding(10) // Padding around the entire grid
+            Spacer()
         }
-        .background(.white)
     }
 }
 

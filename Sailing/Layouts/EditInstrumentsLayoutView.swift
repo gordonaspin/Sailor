@@ -17,11 +17,16 @@ struct EditInstrumentsLayoutView: View {
                 List {
                     ForEach($instruments) { $item in
                         ZStack {
+                            // Background with shadow
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(cgColor: CGColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)))
+                                .shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
+
                             item.instrument
-                                .background(Color.clear)
                                 .frame(width: geometry.size.width, height: geometry.size.height/CGFloat(instruments.count))
                             Toggle(isOn: $item.isEnabled) {
                             }
+                            .wiggling()
                             .onChange(of: item.isEnabled) {
                                 updateInstruments()
                             }
@@ -30,11 +35,12 @@ struct EditInstrumentsLayoutView: View {
                     }
                     .onMove(perform: move)
                     .listRowInsets(.init())
-                    .listRowSeparator(.hidden)
+                    .listRowSeparator(.automatic)
                     .listRowBackground(Color.secondary)
                 }
+
                 .listStyle(.plain)
-                .background(Color.secondary)
+                //.background(Color.secondary)
                 .padding(0)
             }
             else {

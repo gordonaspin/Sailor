@@ -13,7 +13,7 @@ struct BeaufortWindIndicator: View {
     var speed: Double
     var cloudCover: Double
     var width: CGFloat = 20
-    var height: CGFloat = 50
+    var height: CGFloat = 40
     
     var body: some View {
         ZStack {
@@ -61,7 +61,7 @@ struct ApparentWindAngleIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat = 20
-    var height: CGFloat = 50
+    var height: CGFloat = 40
     
     var body: some View {
         ZStack {
@@ -105,7 +105,7 @@ struct HeelIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat = 20
-    var height: CGFloat = 50
+    var height: CGFloat = 40
     
     var body: some View {
         VStack {
@@ -124,7 +124,7 @@ struct PitchIndicator: View {
     var color: Color
     var angle: Int
     var width: CGFloat = 20
-    var height: CGFloat = 50
+    var height: CGFloat = 40
     
     var body: some View {
         VStack {
@@ -430,7 +430,7 @@ struct BoatTransomElevation: Shape {
         var body: some View {
             let color: Color = .blue
             let angle: Int = 135
-            let width: CGFloat = 40.0
+            let width: CGFloat = 40
             ArrowIndicator(color: color, angle: angle, width: width, height: width*2.5)
             ApparentWindAngleIndicator(color: color, angle: angle, width: width, height: width*2.5)
             PitchIndicator(color: color, angle: angle, width: width, height: width*2.5)
