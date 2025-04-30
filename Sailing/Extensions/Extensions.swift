@@ -27,6 +27,12 @@ public func print(_ items: Any..., separator: String = " ", terminator: String =
     #endif
 }
 
+extension String {
+    subscript(idx: Int) -> String {
+        String(self[index(startIndex, offsetBy: idx)])
+    }
+}
+
 extension Date {
 
     var toTimestamp: String {

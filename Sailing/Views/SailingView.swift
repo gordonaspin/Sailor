@@ -117,39 +117,25 @@ struct SailingView: View {
         for i in stride(from: 0, to: instrumentSettings.instrumentStr.count, by: 2) {
             if i + 1 < instrumentSettings.instrumentStr.count {
                 let twoChars = String(instrumentSettings.instrumentStr[instrumentSettings.instrumentStr.index(instrumentSettings.instrumentStr.startIndex, offsetBy: i)...instrumentSettings.instrumentStr.index(instrumentSettings.instrumentStr.startIndex, offsetBy: i+1)])
-                switch twoChars {
-                case "0T":
-                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: true, instrumentType: "0"))
-                case "0F":
-                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: false, instrumentType: "0"))
-                case "1T":
-                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: true, instrumentType: "1"))
-                case "1F":
-                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: false, instrumentType: "1"))
-                case "2T":
-                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: true, instrumentType: "2"))
-                case "2F":
-                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: false, instrumentType: "2"))
-                case "3T":
-                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: true, instrumentType: "3"))
-                case "3F":
-                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: false, instrumentType: "3"))
-                case "4T":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: true, instrumentType: "4"))
-                case "4F":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: false, instrumentType: "4"))
-                case "5T":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: true, instrumentType: "5"))
-                case "5F":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: false, instrumentType: "5"))
-                case "6T":
-                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: true, instrumentType: "6"))
-                case "6F":
-                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: false, instrumentType: "6"))
-                case "7T":
-                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: true, instrumentType: "7"))
-                case "7F":
-                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: false, instrumentType: "7"))
+                let typeStr = twoChars[0]
+                let enabled = twoChars[1] == "T" ? true : false
+                switch typeStr {
+                case "0":
+                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                case "1":
+                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: enabled, instrumentType: typeStr))
+                case "2":
+                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                case "3":
+                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: enabled, instrumentType: typeStr))
+                case "4":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                case "5":
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: enabled, instrumentType: typeStr))
+                case "6":
+                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: enabled, instrumentType: typeStr))
+                case "7":
+                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: enabled, instrumentType: typeStr))
                 default:
                     continue
                 }
