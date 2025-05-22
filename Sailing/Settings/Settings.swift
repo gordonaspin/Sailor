@@ -9,8 +9,6 @@ import SwiftUI
 
 protocol ColorProtocol {
     var color: Color { get }
-    func nextColor()
-    func prevColor()
 }
 
 // Settings Base Class
@@ -26,7 +24,6 @@ class Settings: ObservableObject {
         ("Gray", Color.gray),       // 7
         ("Black", Color.black)      // 9
     ]
-    @AppStorage(wrappedValue: 0, "preference_viewIndex") var viewIndex: Int
 }
 
 class BoatSpeedSetttings: Settings, ColorProtocol {
@@ -42,19 +39,6 @@ class BoatSpeedSetttings: Settings, ColorProtocol {
         print("SpeedViewSetting color:", "\(colorIndex)", "\(color)")
         print("SpeedViewSetting units:", "\(speedUnits)")
     }
-    func nextUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex + 1) % units.count
-        speedUnits = units[unitIndex]
-    }
-    func prevUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex - 1 + units.count) % units.count
-        speedUnits = units[unitIndex]
-    }
-    func setUnits(units: String) {
-        speedUnits = units
-    }
     func convertSpeed(speed: Double) -> Double {
         if let i = units.firstIndex(of: speedUnits) {
             return speed * conversionFactors[i]
@@ -65,12 +49,6 @@ class BoatSpeedSetttings: Settings, ColorProtocol {
     }
     var color: Color {
         return colors[colorIndex].color
-    }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
 
@@ -86,12 +64,6 @@ class BoatHeadingSettings: Settings, ColorProtocol {
     }
     var color: Color {
         return colors[colorIndex].color
-    }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
 
@@ -131,14 +103,6 @@ class HeelAngleSettings: Settings, ColorProtocol {
             currentColorIndex = colorIndex
         }
     }
-    func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-        currentColorIndex = colorIndex
-    }
-    func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
-        currentColorIndex = colorIndex
-    }
     var titleColor: Color {
         return colors[colorIndex].color
     }
@@ -158,12 +122,6 @@ class PitchAngleSettings: Settings, ColorProtocol {
     var color: Color {
         return colors[colorIndex].color
     }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
-    }
 }
 
 class WindDirectionSettings: Settings, ColorProtocol {
@@ -176,12 +134,6 @@ class WindDirectionSettings: Settings, ColorProtocol {
     }
     var color: Color {
         return colors[colorIndex].color
-    }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
 
@@ -200,16 +152,6 @@ class WindSpeedSetttings: Settings, ColorProtocol {
         print("WindSpeedSetttings units:", "\(speedUnits)")
         print("WindSpeedSetttings temperatureCelcius:", "\(temperatureCelcius)")
     }
-    func nextUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex + 1) % units.count
-        speedUnits = units[unitIndex]
-    }
-    func prevUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex - 1 + units.count) % units.count
-        speedUnits = units[unitIndex]
-    }
     func setUnits(units: String) {
         speedUnits = units
     }
@@ -223,12 +165,6 @@ class WindSpeedSetttings: Settings, ColorProtocol {
     }
     var color: Color {
         return colors[colorIndex].color
-    }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
 
@@ -256,12 +192,6 @@ class ApparentWindAngleSettings: Settings, ColorProtocol {
     var color: Color {
         return colors[colorIndex].color
     }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
-    }
 }
 
 class ApparentWindSpeedSetttings: Settings, ColorProtocol {
@@ -277,16 +207,6 @@ class ApparentWindSpeedSetttings: Settings, ColorProtocol {
         print("ApparentWindSpeedSetting color:", "\(colorIndex)", "\(color)")
         print("ApparentWindSpeedSetting units:", "\(speedUnits)")
     }
-    func nextUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex + 1) % units.count
-        speedUnits = units[unitIndex]
-    }
-    func prevUnits() {
-        var unitIndex: Int = units.firstIndex(of: speedUnits)!
-        unitIndex = (unitIndex - 1 + units.count) % units.count
-        speedUnits = units[unitIndex]
-    }
     func setUnits(units: String) {
         speedUnits = units
     }
@@ -300,12 +220,6 @@ class ApparentWindSpeedSetttings: Settings, ColorProtocol {
     }
     var color: Color {
         return colors[colorIndex].color
-    }
-    public func nextColor() {
-        colorIndex = (colorIndex + 1) % colors.count
-    }
-    public func prevColor() {
-        colorIndex = (colorIndex - 1 + colors.count) % colors.count
     }
 }
 

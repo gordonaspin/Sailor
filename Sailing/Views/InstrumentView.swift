@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct InstrumentView<T: Numeric, Content: View>: View {
+struct InstrumentView<InstrumentValue: Numeric, Content: View>: View {
     var instrumentName: String
     var instrumentColor: Color
-    var instrumentValue: T
+    var instrumentValue: InstrumentValue
     var instrumentValueColor: Color
     var formatSpecifier: String
     var showSign: Bool
@@ -20,7 +20,7 @@ struct InstrumentView<T: Numeric, Content: View>: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .center) {
+            HStack() {
                 ZStack(alignment: .trailing) {
                     Text(instrumentName)
                         .font(.system(size: 16))
@@ -28,13 +28,10 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                         .frame(width: 60, height: 100)
                         .rotationEffect(Angle(degrees: -90))
                         .foregroundColor(instrumentColor)
-                    
                     self.indicator()
                         .frame(width: 10)
                         .offset(x: 20)
                 }
-                
-                
                 Text(formattedValue)
                     .font(.system(size: geometry.size.height).monospacedDigit())
                     .minimumScaleFactor(0.01)
@@ -44,7 +41,6 @@ struct InstrumentView<T: Numeric, Content: View>: View {
                     .padding(.top, 0)
                     .padding(.bottom, 0)
                     .foregroundColor(instrumentValueColor)
-                
                 Text(instrumentTag)
                     .font(.system(size: 16))
                     .bold()

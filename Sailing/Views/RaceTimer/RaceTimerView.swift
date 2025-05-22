@@ -196,7 +196,7 @@ struct RaceTimerView: View {
     }
     private func dissmissMe() {
         stopWatch.countDown.reset()
-        tabSelection = 0
+        tabSelection = tabs.race.rawValue
     }
 }
 

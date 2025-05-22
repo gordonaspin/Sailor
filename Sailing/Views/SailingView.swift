@@ -15,6 +15,14 @@ struct Instrument: Identifiable {
     var instrumentType: String
 }
 
+enum tabs : Int {
+    case map = 0
+    case race
+    case timer
+    case flags
+    case settings
+}
+
 struct SailingView: View {
     @State private var instruments: [Instrument] = []
     @Environment(\.scenePhase) private var phase
@@ -31,45 +39,47 @@ struct SailingView: View {
     @State var tabSelection: Int = 0
     private let fgColor: Color = Color(cgColor: CGColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 128))
     var body: some View {
-        GeometryReader { geometry in
-            TabView (selection: $tabSelection) {
-                Tab("Map", systemImage: "map.circle", value: 0) {
-                    ZStack {
-                        MapView()
-                            .overlay(alignment: .bottomLeading) {
-                                // Legal requirements (Apple logo and source link)
-                                HStack(spacing: 0) {
-                                    Image(systemName: "apple.logo") // Use the Apple Weather logo asset
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 12, height: 12)
-                                        .foregroundColor(fgColor)
-                                    Text("Weather")
-                                        .font(.system(size:14))
-                                        .foregroundColor(fgColor)
-                                        .padding(.bottom, -3)
-                                    Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
-                                        Text("Legal")
-                                            .underline()})
-                                            .font(.system(size:9))
-                                            .foregroundColor(fgColor)
-                                            .padding(.leading, 5)
-                                            .padding(.bottom, -3)
-                                }
-                                .offset(x: 9.5, y: 0)
+        TabView (selection: $tabSelection) {
+            Tab("Map", systemImage: "map.circle", value: tabs.map.rawValue) {
+                ZStack {
+                    MapView()
+                        .overlay(alignment: .bottomLeading) {
+                            // Legal requirements (Apple logo and source link)
+                            HStack(spacing: 0) {
+                                Image(systemName: "apple.logo") // Use the Apple Weather logo asset
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 12, height: 12)
+                                    .foregroundColor(fgColor)
+                                Text("Weather")
+                                    .font(.system(size:14))
+                                    .foregroundColor(fgColor)
+                                    .padding(.bottom, -3)
+                                Link(destination: URL(string: "https://weatherkit.apple.com/legal-attribution.html")!, label: {
+                                    Text("Legal")
+                                    .underline()})
+                                .font(.system(size:9))
+                                .foregroundColor(fgColor)
+                                .padding(.leading, 5)
+                                .padding(.bottom, -3)
                             }
-                        InstrumentsLayoutView(instruments: $instruments)
-                    }
+                            .offset(x: 9.5, y: 0)
+                        }
+                    //InstrumentsLayoutView(instruments: $instruments)
                 }
-                Tab("Timer", systemImage: "timer.circle", value: 1) {
-                    RaceTimerView(tabSelection: $tabSelection)
-                }
-                Tab("Flags", systemImage: "flag.2.crossed.circle", value: 2) {
-                    FlagView()
-                }
-                Tab("Settings", systemImage: "gear", value: 3) {
-                    EditInstrumentsLayoutView(instruments: $instruments)
-                }
+            }
+            Tab("Race", systemImage: "sailboat.circle", value: tabs.race.rawValue) {
+                InstrumentsLayoutView(instruments: $instruments)
+                    .background(Color.black)
+            }
+            Tab("Timer", systemImage: "timer.circle", value: tabs.timer.rawValue) {
+                RaceTimerView(tabSelection: $tabSelection)
+            }
+            Tab("Flags", systemImage: "flag.2.crossed.circle", value: tabs.flags.rawValue) {
+                FlagView()
+            }
+            Tab("Settings", systemImage: "gear", value: tabs.settings.rawValue) {
+                EditInstrumentsLayoutView(instruments: $instruments)
             }
         }
         .onAppear {
