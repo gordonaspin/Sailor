@@ -65,23 +65,30 @@ struct BoatSpeedView: View {
         if locationManager.horizontalAccuracy < 0 {
             str = "---"
         }
-        else if locationManager.horizontalAccuracy < 1000 {
-            if settings.speedUnits == "KTS" || settings.speedUnits == "MPH" {
-                str = String(format: "%d'", Int(locationManager.horizontalAccuracy * 3.28084))
-            }
-            else {
-                str = String(format: "%dm", Int(locationManager.horizontalAccuracy))
-            }
-        }
         else {
-            if settings.speedUnits == "KTS"  {
-                str = String(format: "%dnm", Int(locationManager.horizontalAccuracy * 0.000539957))
+            if settings.speedUnits == "KTS" {
+                if locationManager.horizontalAccuracy < 1852 / 4 { // < 0.25nm, convert meters to feet
+                    str = String(format: "%d'", Int(locationManager.horizontalAccuracy * 3.28084))
+                }
+                else {
+                    str = String(format: "%.1fnm", locationManager.horizontalAccuracy * 0.000539957)
+                }
             }
-            if settings.speedUnits == "MPH" {
-                str = String(format: "%dmi'", Int(locationManager.horizontalAccuracy * 0.000621371))
+            else if settings.speedUnits == "MPH" {
+                if locationManager.horizontalAccuracy < 1609 / 4 { // < 0.24mi, convert meters to feet
+                    str = String(format: "%d'", Int(locationManager.horizontalAccuracy * 3.28084))
+                }
+                else {
+                    str = String(format: "%.1fmi", locationManager.horizontalAccuracy * 0.000621371)
+                }
             }
-            else {
-                str = String(format: "%dkm", Int(locationManager.horizontalAccuracy / 1000))
+            else {  // kmh
+                if locationManager.horizontalAccuracy < 250 { // < 0.25km
+                    str = String(format: "%dm", Int(locationManager.horizontalAccuracy))
+                }
+                else {
+                    str = String(format: "%.1fkm", locationManager.horizontalAccuracy / 1000)
+                }
             }
         }
         print(str)

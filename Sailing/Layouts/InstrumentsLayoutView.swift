@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InstrumentsLayoutView: View {
     @Binding var instruments: [Instrument]
-
+    
     var viewsEnabledCount: Int {
         print("viewsEnabledCount: \(instruments.filter(\.isEnabled).count)")
         return max(4, instruments.filter(\.isEnabled).count)
@@ -25,7 +25,7 @@ struct InstrumentsLayoutView: View {
     var enabledInstrumentsByRow: [[Instrument]] {
         var result: [[Instrument]] = []
         var temp: [Instrument] = []
-
+        
         for view in instruments.filter(\.isEnabled) {
             temp.append(view)
             if temp.count == 2 {
@@ -37,7 +37,7 @@ struct InstrumentsLayoutView: View {
         if !temp.isEmpty {
             result.append(temp)
         }
-
+        
         return result
     }
     var body: some View {
@@ -50,7 +50,7 @@ struct InstrumentsLayoutView: View {
                                 .frame(width: geometry.size.width, height: geometry.size.height/CGFloat(2*heightDivisor(viewsEnabledCount)))
                         }
                     }
-               }
+                }
             }
             else {
                 VStack(alignment: .leading, spacing: 0) {
@@ -64,7 +64,7 @@ struct InstrumentsLayoutView: View {
                                 enabledInstrumentsByRow[rowIndex][1].instrument
                                     .frame(width: geometry.size.width/2, height: geometry.size.height/CGFloat(heightDivisor(viewsEnabledCount)))
                             }
-
+                            
                         }
                     }
                 }
