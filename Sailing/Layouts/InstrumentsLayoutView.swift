@@ -12,7 +12,7 @@ struct InstrumentsLayoutView: View {
     
     var viewsEnabledCount: Int {
         print("viewsEnabledCount: \(instruments.filter(\.isEnabled).count)")
-        return max(4, instruments.filter(\.isEnabled).count)
+        return max(3, instruments.filter(\.isEnabled).count)
     }
     func heightDivisor(_ number: Int) -> Int {
         if number % 2 == 0 {
@@ -47,7 +47,7 @@ struct InstrumentsLayoutView: View {
                     ForEach(0..<instruments.count, id: \..self) { i in
                         if instruments[i].isEnabled {
                             instruments[i].instrument
-                                .frame(width: geometry.size.width, height: geometry.size.height/CGFloat(2*heightDivisor(viewsEnabledCount)))
+                                .frame(width: geometry.size.width, height: geometry.size.height/CGFloat(viewsEnabledCount))
                         }
                     }
                 }

@@ -12,8 +12,8 @@ struct BeaufortWindIndicator: View {
     var direction: Int
     var speed: Double
     var cloudCover: Double
-    var width: CGFloat = 20
-    var height: CGFloat = 40
+    var width: CGFloat
+    var height: CGFloat
     
     var body: some View {
         ZStack {

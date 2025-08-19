@@ -27,7 +27,7 @@ struct BoatHeadingView: View {
                 color: settings.color,
                 angle: heading,
                 width: 20,
-                height: 35)
+                height: 20)
             }
         )
         .onTapGesture(count: 2) {

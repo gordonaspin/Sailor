@@ -30,7 +30,7 @@ struct InstrumentView<InstrumentValue: Numeric, Content: View>: View {
                         .foregroundColor(instrumentColor)
                     self.indicator()
                         .frame(width: 10)
-                        .offset(x: 20)
+                        .offset(x: 10)
                 }
                 Text(formattedValue)
                     .font(.system(size: geometry.size.height).monospacedDigit())
