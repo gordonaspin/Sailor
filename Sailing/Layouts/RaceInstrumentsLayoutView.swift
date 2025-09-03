@@ -1,5 +1,5 @@
 //
-//  InstrumentsLayoutView.swift
+//  RaceInstrumentsLayoutView.swift
 //  Sailing
 //
 //  Created by Gordon Aspin on 1/27/25.
@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-struct InstrumentsLayoutView: View {
+struct RaceInstrumentsLayoutView: View {
     @Binding var instruments: [Instrument]
-    
+
     var viewsEnabledCount: Int {
-        print("viewsEnabledCount: \(instruments.filter(\.isEnabled).count)")
         return max(3, instruments.filter(\.isEnabled).count)
     }
     func heightDivisor(_ number: Int) -> Int {
@@ -76,17 +75,17 @@ struct InstrumentsLayoutView: View {
 #Preview {
     struct Preview: View {
         @State private var instruments: [Instrument] = [
-            Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: true, instrumentType: "0"),
-            Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: true, instrumentType: "1"),
-            Instrument(instrument: AnyView(WindSpeedView()), isEnabled: true, instrumentType: "2"),
-            Instrument(instrument: AnyView(WindDirectionView()), isEnabled: true, instrumentType: "3"),
-            Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: true, instrumentType: "4"),
-            Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: true, instrumentType: "5"),
-            Instrument(instrument: AnyView(HeelAngleView()), isEnabled: true, instrumentType: "6"),
-            Instrument(instrument: AnyView(PitchAngleView()), isEnabled: true, instrumentType: "7")
+            Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: true, instrumentType: "0", instrumentName: "Boat Speed"),
+            Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: true, instrumentType: "1", instrumentName: "Boat Heading"),
+            Instrument(instrument: AnyView(WindSpeedView()), isEnabled: true, instrumentType: "2", instrumentName: "Wind Speed"),
+            Instrument(instrument: AnyView(WindDirectionView()), isEnabled: true, instrumentType: "3", instrumentName: "Wind Direction"),
+            Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: true, instrumentType: "4", instrumentName: "Apparent Wind Speed"),
+            Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: true, instrumentType: "5", instrumentName: "Apparent Wind Angle"),
+            Instrument(instrument: AnyView(HeelAngleView()), isEnabled: true, instrumentType: "6", instrumentName: "Heel Angle"),
+            Instrument(instrument: AnyView(PitchAngleView()), isEnabled: true, instrumentType: "7", instrumentName: "Pitch Angle")
         ]
         var body: some View {
-            InstrumentsLayoutView(instruments: $instruments)
+            RaceInstrumentsLayoutView(instruments: $instruments)
                 .environment(LocationManager())
                 .environment(MotionManager())
                 .environment(WeatherManager())

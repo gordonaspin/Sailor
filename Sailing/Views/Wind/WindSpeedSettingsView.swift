@@ -49,7 +49,7 @@ struct WindSpeedSettingsView: View {
                 temperatureCelcius: settings.$temperatureCelcius,
                 shortUnits: settings.units,
                 longUnits:  settings.longUnits,
-                colorIndex: $settings.colorIndex
+                colorIndex: settings.$colorIndex
             )
         }
     }

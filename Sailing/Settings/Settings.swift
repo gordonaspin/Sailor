@@ -228,6 +228,18 @@ class InstrumentSettings: Settings {
     
     override init() {
         super.init()
-        print("Instruments:", "\(instrumentStr)")
+        print("InstrumentsSetting instrumentStr:", "\(instrumentStr)")
+    }
+}
+
+class MapSettings: Settings {
+    @AppStorage(wrappedValue: true, "preferences_showChannelMarkers") var showChannelMarkers: Bool
+    @AppStorage(wrappedValue: true, "preferences_showPermanentMarks") var showPermanentMarks: Bool
+    @AppStorage(wrappedValue: true, "preferences_showPointsOfInterest") var showPointsOfInterest: Bool
+    override init() {
+        super.init()
+        print("MapSettings showChannelMarkers:", "\(showChannelMarkers)")
+        print("MapSettings showPermanentMarks:", "\(showPermanentMarks)")
+        print("MapSettings showPointsOfInterest:", "\(showPointsOfInterest)")
     }
 }

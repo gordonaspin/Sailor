@@ -13,6 +13,7 @@ struct Instrument: Identifiable {
     var instrument: AnyView
     var isEnabled: Bool
     var instrumentType: String
+    var instrumentName: String
 }
 
 enum tabs : Int {
@@ -33,7 +34,8 @@ struct SailingView: View {
     @StateObject private var heelAngleSettings = HeelAngleSettings.shared
     @StateObject private var settings = Settings()
     @StateObject private var instrumentSettings = InstrumentSettings()
-    
+    @StateObject private var mapSettings = MapSettings()
+
     @State private var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     private let synthesizer = AVSpeechSynthesizer()
     @State var tabSelection: Int = 0
@@ -42,7 +44,7 @@ struct SailingView: View {
         TabView (selection: $tabSelection) {
             Tab("Map", systemImage: "map.circle", value: tabs.map.rawValue) {
                 ZStack {
-                    MapView()
+                    MapView(showChannelMarkers: $mapSettings.showChannelMarkers, showPermanentMarks: $mapSettings.showPermanentMarks, showPointsOfInterest: $mapSettings.showPointsOfInterest)
                         .overlay(alignment: .bottomLeading) {
                             // Legal requirements (Apple logo and source link)
                             HStack(spacing: 0) {
@@ -65,11 +67,10 @@ struct SailingView: View {
                             }
                             .offset(x: 9.5, y: 0)
                         }
-                    //InstrumentsLayoutView(instruments: $instruments)
                 }
             }
             Tab("Race", systemImage: "sailboat.circle", value: tabs.race.rawValue) {
-                InstrumentsLayoutView(instruments: $instruments)
+                RaceInstrumentsLayoutView(instruments: $instruments)
                     .background(Color.black)
             }
             Tab("Timer", systemImage: "timer.circle", value: tabs.timer.rawValue) {
@@ -79,7 +80,7 @@ struct SailingView: View {
                 FlagView()
             }
             Tab("Settings", systemImage: "gear", value: tabs.settings.rawValue) {
-                EditInstrumentsLayoutView(instruments: $instruments)
+                InstrumentMapSettingsView(instruments: $instruments, showChannelMarkers: $mapSettings.showChannelMarkers, showPermanentMarks: $mapSettings.showPermanentMarks, showPointsOfInterest: $mapSettings.showPointsOfInterest)
             }
         }
         .onAppear {
@@ -131,21 +132,21 @@ struct SailingView: View {
                 let enabled = twoChars[1] == "T" ? true : false
                 switch typeStr {
                 case "0":
-                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(BoatSpeedView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Boat Speed"))
                 case "1":
-                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(BoatHeadingView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Boat Heading"))
                 case "2":
-                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(WindSpeedView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Wind Speed"))
                 case "3":
-                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(WindDirectionView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Wind Direction"))
                 case "4":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindSpeedView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Apparent Wind Speed"))
                 case "5":
-                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(ApparentWindAngleView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Apparent Wind Angle"))
                 case "6":
-                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(HeelAngleView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Heel Angle"))
                 case "7":
-                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: enabled, instrumentType: typeStr))
+                    instruments.append(Instrument(instrument: AnyView(PitchAngleView()), isEnabled: enabled, instrumentType: typeStr, instrumentName: "Pitch Angle"))
                 default:
                     continue
                 }
